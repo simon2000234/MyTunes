@@ -58,4 +58,41 @@ public class SongDAO
         return null;
     }
 
+    public void deleteSong(Song song)
+    {
+        String sql = "DELETE FROM Song WHERE title=" + song.getSongID();
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            statement.execute(sql);
+            
+        } catch (SQLException ex)
+        {
+            //nothing
+        }
+    }
+    
+    public void updateSong(Song song)
+    {
+        String sql = "UPDATE Song SET title = ?, artist = ?, time = ?, category = ? WHERE id = " + song.getSongID();
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            st.setString(1, song.getTitle());
+            st.setString(2, song.getArtist());
+            st.setInt(3, song.getTime());
+            st.setString(4, song.getCategory());
+            
+            st.executeUpdate();
+            st.close();
+            
+        } catch (SQLException ex)
+        {
+            //nothing
+        }
+    }
+
 }
