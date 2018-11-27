@@ -13,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import mytunes.be.Playlist;
+import mytunes.be.Song;
 
 /**
  * FXML Controller class
@@ -27,11 +29,11 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private TextField filtertxt;
     @FXML
-    private ListView<?> plview;
+    private ListView<Playlist> plview;
     @FXML
-    private ListView<?> sopview;
+    private ListView<Song> sopview;
     @FXML
-    private ListView<?> songsview;
+    private ListView<Song> songsview;
 
     /**
      * Initializes the controller class.
