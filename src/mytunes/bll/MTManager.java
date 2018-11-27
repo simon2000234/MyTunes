@@ -52,8 +52,7 @@ public class MTManager
 
     /**
      * s stand for song
-     * this method update a song that olso why we give the
-     * method a song.Obect as param
+     * this method update a song
      * @param s
      */
     private void updateSong(Song s)
