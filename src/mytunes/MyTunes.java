@@ -35,10 +35,9 @@ public class MyTunes extends Application
      */
     public static void main(String[] args)
     {
-        //launch(args);
+        launch(args);
         
-        Song song = new Song(2, "fasd", "asdas", 2, "asdasd");
-        song.playSong();
+     
     }
     
 }

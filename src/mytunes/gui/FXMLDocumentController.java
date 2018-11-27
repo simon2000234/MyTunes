@@ -7,7 +7,12 @@ package mytunes.gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -17,13 +22,86 @@ import javafx.fxml.Initializable;
 public class FXMLDocumentController implements Initializable
 {
 
+    @FXML
+    private Label headlinelbl;
+    @FXML
+    private TextField filtertxt;
+    @FXML
+    private ListView<?> plview;
+    @FXML
+    private ListView<?> sopview;
+    @FXML
+    private ListView<?> songsview;
+
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
     }    
+
+    @FXML
+    private void filtersearch(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handleplaylistedit(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handleplaylistnew(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handleaddtoplaylist(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handleplaylistdelete(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handlesopmoveup(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handlesopmovedown(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handlesopdelete(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handleclose(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handlesongsdelete(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handlesongsedit(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handlesongsnew(ActionEvent event)
+    {
+    }
     
 }
