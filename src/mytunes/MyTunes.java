@@ -5,6 +5,9 @@
  */
 package mytunes;
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,7 +46,7 @@ public class MyTunes extends Application
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, TagException
+    public static void main(String[] args) throws IOException, TagException, UnsupportedTagException, InvalidDataException
     {
         //launch(args);
         File sourceFile = new File("Data/Blue_Dot_Sessions_-_04_-_Cupcake_Marshall.mp3");
