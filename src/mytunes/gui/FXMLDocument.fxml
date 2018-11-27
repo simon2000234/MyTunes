@@ -6,28 +6,28 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="843.0" prefWidth="1241.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="mytunes.gui.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="843.0" prefWidth="1241.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.FXMLDocumentController">
    <children>
       <Label layoutX="955.0" layoutY="72.0" text="filter" />
-      <Label layoutX="493.0" layoutY="59.0" text="(none)... is playing" />
+      <Label fx:id="headlinelbl" layoutX="493.0" layoutY="59.0" text="(none)... is playing" />
       <Label layoutX="673.0" layoutY="154.0" text="Songs" />
-      <Label layoutX="350.0" layoutY="155.0" text="Songs on player" />
+      <Label layoutX="350.0" layoutY="155.0" text="Songs on playlist" />
       <Label layoutX="44.0" layoutY="155.0" text="Playlists" />
-      <TextField layoutX="986.0" layoutY="68.0" />
-      <Button layoutX="1154.0" layoutY="68.0" mnemonicParsing="false" text="search" />
-      <ListView layoutX="44.0" layoutY="179.0" prefHeight="546.0" prefWidth="285.0" />
-      <ListView layoutX="350.0" layoutY="179.0" prefHeight="546.0" prefWidth="222.0" />
-      <ListView layoutX="673.0" layoutY="179.0" prefHeight="546.0" prefWidth="510.0" />
-      <Button layoutX="105.0" layoutY="767.0" mnemonicParsing="false" text="edit...." />
-      <Button layoutX="52.0" layoutY="766.0" mnemonicParsing="false" text="new" />
-      <Button layoutX="612.0" layoutY="188.0" mnemonicParsing="false" text="add" />
-      <Button layoutX="177.0" layoutY="767.0" mnemonicParsing="false" text="Delete" />
-      <Button layoutX="367.0" layoutY="767.0" mnemonicParsing="false" text="move up" />
-      <Button layoutX="435.0" layoutY="767.0" mnemonicParsing="false" text="move down" />
-      <Button layoutX="517.0" layoutY="767.0" mnemonicParsing="false" text="delete" />
-      <Button layoutX="1109.0" layoutY="767.0" mnemonicParsing="false" text="close" />
-      <Button layoutX="836.0" layoutY="766.0" mnemonicParsing="false" text="delete" />
-      <Button layoutX="757.0" layoutY="767.0" mnemonicParsing="false" text="edit" />
-      <Button layoutX="680.0" layoutY="766.0" mnemonicParsing="false" text="new..." />
+      <TextField fx:id="filtertxt" layoutX="986.0" layoutY="68.0" />
+      <Button layoutX="1154.0" layoutY="68.0" mnemonicParsing="false" onAction="#filtersearch" text="search" />
+      <ListView fx:id="plview" layoutX="44.0" layoutY="179.0" prefHeight="546.0" prefWidth="285.0" />
+      <ListView fx:id="sopview" layoutX="350.0" layoutY="179.0" prefHeight="546.0" prefWidth="222.0" />
+      <ListView fx:id="songsview" layoutX="673.0" layoutY="179.0" prefHeight="546.0" prefWidth="510.0" />
+      <Button layoutX="105.0" layoutY="767.0" mnemonicParsing="false" onAction="#handleplaylistedit" text="edit...." />
+      <Button layoutX="52.0" layoutY="766.0" mnemonicParsing="false" onAction="#handleplaylistnew" text="new" />
+      <Button layoutX="612.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleaddtoplaylist" text="add" />
+      <Button layoutX="177.0" layoutY="767.0" mnemonicParsing="false" onAction="#handleplaylistdelete" text="Delete" />
+      <Button layoutX="367.0" layoutY="767.0" mnemonicParsing="false" onAction="#handlesopmoveup" text="move up" />
+      <Button layoutX="435.0" layoutY="767.0" mnemonicParsing="false" onAction="#handlesopmovedown" text="move down" />
+      <Button layoutX="517.0" layoutY="767.0" mnemonicParsing="false" onAction="#handlesopdelete" text="delete" />
+      <Button layoutX="1109.0" layoutY="767.0" mnemonicParsing="false" onAction="#handleclose" text="close" />
+      <Button layoutX="836.0" layoutY="766.0" mnemonicParsing="false" onAction="#handlesongsdelete" text="delete" />
+      <Button layoutX="757.0" layoutY="767.0" mnemonicParsing="false" onAction="#handlesongsedit" text="edit" />
+      <Button layoutX="680.0" layoutY="766.0" mnemonicParsing="false" onAction="#handlesongsnew" text="new..." />
    </children>
 </AnchorPane>
