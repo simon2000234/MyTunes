@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import mytunes.be.Song;
 
 /**
@@ -66,13 +67,13 @@ public class SongDAO
         {
             Statement statement = con.createStatement();
             statement.execute(sql);
-            
+
         } catch (SQLException ex)
         {
             //nothing
         }
     }
-    
+
     public void updateSong(Song song)
     {
         String sql = "UPDATE Song SET title = ?, artist = ?, time = ?, category = ? WHERE id = " + song.getSongID();
@@ -80,19 +81,43 @@ public class SongDAO
         try (Connection con = dbConnect.getConnection())
         {
             PreparedStatement st = con.prepareStatement(sql);
-            
+
             st.setString(1, song.getTitle());
             st.setString(2, song.getArtist());
             st.setInt(3, song.getTime());
             st.setString(4, song.getCategory());
-            
+
             st.executeUpdate();
             st.close();
-            
+
         } catch (SQLException ex)
         {
             //nothing
         }
+    }
+
+    public ArrayList<Song> getAllSongs() throws SQLException
+    {
+        ArrayList<Song> allSongs = new ArrayList<>();
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Song");
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getNString("title");
+                String artist = rs.getNString("artist");
+                int time = rs.getInt("time");
+                String category = rs.getNString("category");
+                allSongs.add(new Song(id, title, artist, time, category));
+            }
+        } catch (SQLException ex)
+        {
+            //nothing
+        }
+        return allSongs;
     }
 
 }

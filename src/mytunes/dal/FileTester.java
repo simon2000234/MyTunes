@@ -7,6 +7,7 @@ package mytunes.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.sql.SQLException;
 import mytunes.be.Song;
 
 /**
@@ -15,12 +16,16 @@ import mytunes.be.Song;
  */
 public class FileTester
 {
-    public static void main(String[] args) throws IOException, SQLServerException
+    public static void main(String[] args) throws IOException, SQLServerException, SQLException
     {
         SongDAO songDAO = new SongDAO();
 //        songDAO.createSong("TestSong", "TestArtist", 150, "TestType");
 //        songDAO.deleteSong(new Song(2, "", "", 3, ""));
 //        songDAO.updateSong(new Song(3,"TESTUPDATE","ARTISTUPDATE",999,"UPDATED"));
+//        for (Song song : songDAO.getAllSongs())
+//        {
+//            System.out.println(""+song.toString());
+//        }
         
     }
     
