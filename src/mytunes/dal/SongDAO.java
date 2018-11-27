@@ -5,6 +5,11 @@
  */
 package mytunes.dal;
 
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import mytunes.be.Song;
+
 /**
  *
  * @author Melchertsen
@@ -12,4 +17,16 @@ package mytunes.dal;
 public class SongDAO
 {
 
+    public Song createSong(String title, String artist, int time, String category)
+    {
+        String sql = "INSERT INTO Song(title, artist, time, category) VALUES(?,?,?,?);";
+        
+//        try(Connection con = WaitingForConnectionClass!)
+//        {
+//            PreparedStatement st = con.prepareStatement(sql, Statement)
+//        }
+//      
+        return null;
+    }
+        
 }
