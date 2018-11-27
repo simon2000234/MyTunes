@@ -120,4 +120,31 @@ public class SongDAO
         return allSongs;
     }
 
+    public Song getSong(int songID) throws SQLException
+    {
+        Song theSong = new Song(0, "", "", 0, "");
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Song WHERE id=" + songID);
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getNString("title");
+                String artist = rs.getNString("artist");
+                int time = rs.getInt("time");
+                String category = rs.getNString("category");
+                theSong = new Song(id,title,artist,time,category);
+                System.out.println(""+theSong.toString());
+            }
+            
+        } catch (SQLException ex)
+        {
+            //nothing
+        }
+        return theSong;
+
+    }
+
 }
