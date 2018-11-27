@@ -6,6 +6,9 @@
 package mytunes.bll;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mytunes.be.Song;
@@ -58,6 +61,20 @@ public class MTManager
     private void updateSong(Song s)
     {
         SongDAO.updateSong(s);
+    }
+    
+    
+    /**
+     * 
+     * @param s
+     * @return ArrayList<Song> allsong
+     * @throws SQLException 
+     */
+    private ArrayList<Song> getAllSong () throws SQLException
+    {
+        ArrayList<Song> allSong = new ArrayList<>();
+       return allSong= SongDAO.getAllSongs();
+        
     }
 
 }
