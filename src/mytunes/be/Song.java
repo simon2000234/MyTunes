@@ -5,6 +5,10 @@
  */
 package mytunes.be;
 
+import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 /**
  *
  * @author Melchertsen
@@ -26,7 +30,7 @@ public class Song
         this.artist = artist;
         this.time = time;
         this.category = category;
-        this.fileLoc = "data/"+title+".mp3";
+        this.fileLoc = "Data/" + title + ".mp3";
 
     }
 
@@ -89,6 +93,14 @@ public class Song
     public String toString()
     {
         return "Name: " + title + "\t" + "Artist: " + artist + " [TEMPORARYtoString]";
+    }
+
+    public void playSong()
+    {
+        String bip = this.fileLoc;
+        Media hit = new Media(new File(bip).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(hit);
+        mediaPlayer.play();
     }
 
 }
