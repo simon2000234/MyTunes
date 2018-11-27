@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mytunes.be.Song;
 
 /**
  *
@@ -34,7 +35,10 @@ public class MyTunes extends Application
      */
     public static void main(String[] args)
     {
-        launch(args);
+        //launch(args);
+        
+        Song song = new Song(2, "fasd", "asdas", 2, "asdasd");
+        song.playSong();
     }
     
 }
