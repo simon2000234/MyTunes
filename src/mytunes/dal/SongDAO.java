@@ -60,7 +60,7 @@ public class SongDAO
 
     public void deleteSong(Song song)
     {
-        String sql = "DELETE FROM Song WHERE title=" + song.getSongID();
+        String sql = "DELETE FROM Song WHERE id=" + song.getSongID();
 
         try (Connection con = dbConnect.getConnection())
         {
