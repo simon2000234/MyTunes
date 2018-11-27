@@ -25,8 +25,8 @@ public class MTManager
     private SongDAO SongDAO = new SongDAO();
 
     /**
-     * creating the given song in the database
-     * s stand for song
+     * creating the given song in the database s stand for song
+     *
      * @param song
      */
     private Song CreateSong(Song s)
@@ -44,8 +44,8 @@ public class MTManager
     }
 
     /**
-     * delete a given songe from the database
-     * s stand for song
+     * delete a given songe from the database s stand for song
+     *
      * @param song
      */
     private void DeleteSong(Song s)
@@ -54,27 +54,38 @@ public class MTManager
     }
 
     /**
-     * s stand for song
-     * this method update a song
+     * s stand for song this method update a song
+     *
      * @param s
      */
     private void updateSong(Song s)
     {
         SongDAO.updateSong(s);
     }
-    
-    
+
     /**
-     * 
-     * @param s
+     * get all songs form the database
+     * @param s stand for song
      * @return ArrayList<Song> allsong
-     * @throws SQLException 
+     * @throws SQLException
      */
-    private ArrayList<Song> getAllSong () throws SQLException
+    private ArrayList<Song> getAllSong() throws SQLException
     {
         ArrayList<Song> allSong = new ArrayList<>();
-       return allSong= SongDAO.getAllSongs();
-        
+        return allSong = SongDAO.getAllSongs();
+
+    }
+/**
+ * getting the song with the given id 
+ * @param id
+ * @return Song 
+ * @throws SQLException 
+ */
+    private Song getSong(int id) throws SQLException
+    {
+        Song song;
+        song = SongDAO.getSong(id);
+        return song;
     }
 
 }
