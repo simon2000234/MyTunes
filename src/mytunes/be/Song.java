@@ -13,8 +13,7 @@ import javafx.scene.media.MediaPlayer;
  *
  * @author Melchertsen
  */
-public class Song
-{
+public class Song {
 
     private int songID;
     private String title;
@@ -23,8 +22,7 @@ public class Song
     private String category;
     private String fileLoc;
 
-    public Song(int songID, String title, String artist, int time, String category)
-    {
+    public Song(int songID, String title, String artist, int time, String category) {
         this.songID = songID;
         this.title = title;
         this.artist = artist;
@@ -34,69 +32,73 @@ public class Song
 
     }
 
-    public int getSongID()
-    {
+    public int getSongID() {
         return songID;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getArtist()
-    {
+    public String getArtist() {
         return artist;
     }
 
-    public void setArtist(String artist)
-    {
+    public void setArtist(String artist) {
         this.artist = artist;
     }
 
-    public int getTime()
-    {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(int time)
-    {
+    public void setTime(int time) {
         this.time = time;
     }
 
-    public String getCategory()
-    {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category)
-    {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    public String getFileLoc()
-    {
+    public String getFileLoc() {
         return fileLoc;
     }
 
-    public void setFileLoc(String fileLoc)
-    {
+    public void setFileLoc(String fileLoc) {
         this.fileLoc = fileLoc;
     }
 
-    @Override
-    public String toString()
-    {
-        return "Name: " + title + "\t" + "Artist: " + artist + " [TEMPORARYtoString]";
+    public String displayTime() {
+        int tempTime = 0;
+        int tempMinutes = 0;
+        tempTime = time;
+        while (tempTime >= 60) {
+                tempTime = tempTime - 60;
+                tempMinutes++;
+ 
+        }
+        String displayTime = tempMinutes+":"+tempTime;
+        return displayTime;
+
     }
 
-    public void playSong()
-    {
+    @Override
+    public String toString() {
+        return "Song Title: " + title + "\n"
+                + "Artist: " + artist + "\n"
+                + "Song Duration: " + displayTime() + "\n"
+                + "Genre: " + category;
+    }
+
+    public void playSong() {
         String bip = this.fileLoc;
         Media hit = new Media(new File(bip).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(hit);
