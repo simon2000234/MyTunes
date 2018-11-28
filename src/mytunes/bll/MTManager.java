@@ -36,12 +36,12 @@ public class MTManager
      *
      * @param song
      */
-    public Song CreateSong(Song s)
+    public Song CreateSong(String title, String artist, int time, String category, String filePath)
     {
         try
         {
             Song song;
-            song = SongDAO.createSong(s.getTitle(), s.getArtist(), s.getTime(), s.getCategory(),s.getFilePath());
+            song = SongDAO.createSong(title, artist, time, category,filePath);
             return song;
         } catch (SQLServerException ex)
         {
