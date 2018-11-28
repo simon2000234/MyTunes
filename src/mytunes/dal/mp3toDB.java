@@ -6,7 +6,11 @@
 package mytunes.dal;
 
 import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,9 +30,11 @@ public class mp3toDB {
         dbConnect = new DBConnectionProvider();
     }
 
-    public Song mp3songToDBTable(Mp3File mp3file) {
+    public Song mp3songToDBTable(File file) throws IOException, UnsupportedTagException, InvalidDataException {
 
-        String sql = "INSERT INTO Song(title, artist, time, category) VALUES(?,?,?,?);";
+        String sql = "INSERT INTO Song(title, artist, time, category, filePath) VALUES(?,?,?,?,?);";
+        Mp3File mp3file = new Mp3File(file);
+
         ID3v2 id3v2Tag = mp3file.getId3v2Tag();
         
         try (Connection con = dbConnect.getConnection()) {
@@ -38,6 +44,7 @@ public class mp3toDB {
             st.setString(2, id3v2Tag.getArtist());
             st.setInt(3, Math.toIntExact(mp3file.getLengthInSeconds()));
             st.setString(4, id3v2Tag.getGenreDescription());
+            st.setString(5, "Data/"+file.getName());
 
             int rowsAffected = st.executeUpdate();
 
@@ -46,7 +53,7 @@ public class mp3toDB {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            Song song = new Song(3, id3v2Tag.getTitle(), id3v2Tag.getArtist(), Math.toIntExact(mp3file.getLengthInSeconds()), id3v2Tag.getGenreDescription());
+            Song song = new Song(id, id3v2Tag.getTitle(), id3v2Tag.getArtist(), Math.toIntExact(mp3file.getLengthInSeconds()), id3v2Tag.getGenreDescription(),"Data/"+file.getName());
             System.out.println("" + song.toString());
             return song;
 

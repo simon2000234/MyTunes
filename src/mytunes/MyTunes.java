@@ -48,20 +48,7 @@ public class MyTunes extends Application
      */
     public static void main(String[] args) throws IOException, TagException, UnsupportedTagException, InvalidDataException
     {
-        //launch(args);
-        File sourceFile = new File("Data/Blue_Dot_Sessions_-_04_-_Cupcake_Marshall.mp3");
-        MP3File mp3file = new MP3File(sourceFile);
-        if (mp3file.hasID3v2Tag())
-        {
-            AbstractID3v2 tag = mp3file.getID3v2Tag();
-            int albumTitle = tag.getSize();
-            System.out.println(albumTitle);
-            return;
-        }
-        else 
-        {
-            System.out.println("fuck");
-        }
+        launch(args);
     }
 
     public static void readID3() throws FileNotFoundException, IOException
