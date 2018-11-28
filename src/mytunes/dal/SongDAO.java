@@ -28,9 +28,9 @@ public class SongDAO
         dbConnect = new DBConnectionProvider();
     }
 
-    public Song createSong(String title, String artist, int time, String category) throws SQLServerException
+    public Song createSong(String title, String artist, int time, String category, String filePath) throws SQLServerException
     {
-        String sql = "INSERT INTO Song(title, artist, time, category) VALUES(?,?,?,?);";
+        String sql = "INSERT INTO Song(title, artist, time, category, filePath) VALUES(?,?,?,?,?);";
 
         try (Connection con = dbConnect.getConnection())
         {
@@ -49,7 +49,7 @@ public class SongDAO
             {
                 id = rs.getInt(1);
             }
-            Song song = new Song(id, title, artist, time, category);
+            Song song = new Song(id, title, artist, time, category,filePath);
             return song;
 
         } catch (SQLException ex)
@@ -76,7 +76,7 @@ public class SongDAO
 
     public void updateSong(Song song)
     {
-        String sql = "UPDATE Song SET title = ?, artist = ?, time = ?, category = ? WHERE id = " + song.getSongID();
+        String sql = "UPDATE Song SET title = ?, artist = ?, time = ?, category = ?, filePath = ? WHERE id = " + song.getSongID();
 
         try (Connection con = dbConnect.getConnection())
         {
@@ -86,6 +86,7 @@ public class SongDAO
             st.setString(2, song.getArtist());
             st.setInt(3, song.getTime());
             st.setString(4, song.getCategory());
+            st.setString(5, song.getFilePath());
 
             st.executeUpdate();
             st.close();
@@ -111,7 +112,8 @@ public class SongDAO
                 String artist = rs.getNString("artist");
                 int time = rs.getInt("time");
                 String category = rs.getNString("category");
-                allSongs.add(new Song(id, title, artist, time, category));
+                String filePath = rs.getNString("filePath");
+                allSongs.add(new Song(id, title, artist, time, category, filePath));
             }
         } catch (SQLException ex)
         {
@@ -122,7 +124,7 @@ public class SongDAO
 
     public Song getSong(int songID) throws SQLException
     {
-        Song theSong = new Song(0, "", "", 0, "");
+        Song theSong = new Song(0, "", "", 0, "", "");
 
         try (Connection con = dbConnect.getConnection())
         {
@@ -135,7 +137,8 @@ public class SongDAO
                 String artist = rs.getNString("artist");
                 int time = rs.getInt("time");
                 String category = rs.getNString("category");
-                theSong = new Song(id,title,artist,time,category);
+                String filePath = rs.getNString("filePath");
+                theSong = new Song(id,title,artist,time,category,filePath);
                 System.out.println(""+theSong.toString());
             }
             

@@ -5,6 +5,7 @@
  */
 package mytunes.be;
 
+import com.mpatric.mp3agic.Mp3File;
 import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -20,15 +21,15 @@ public class Song {
     private String artist;
     private int time;
     private String category;
-    private String fileLoc;
+    private String filePath;
 
-    public Song(int songID, String title, String artist, int time, String category) {
+    public Song(int songID, String title, String artist, int time, String category, String filePath) {
         this.songID = songID;
         this.title = title;
         this.artist = artist;
         this.time = time;
         this.category = category;
-        this.fileLoc = "Data/" + title + ".mp3";
+        this.filePath = filePath;
 
     }
 
@@ -68,12 +69,12 @@ public class Song {
         this.category = category;
     }
 
-    public String getFileLoc() {
-        return fileLoc;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setFileLoc(String fileLoc) {
-        this.fileLoc = fileLoc;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public String displayTime() {
@@ -99,7 +100,7 @@ public class Song {
     }
 
     public void playSong() {
-        String bip = this.fileLoc;
+        String bip = this.filePath;
         Media hit = new Media(new File(bip).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(hit);
         mediaPlayer.play();

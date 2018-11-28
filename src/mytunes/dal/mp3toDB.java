@@ -32,8 +32,9 @@ public class mp3toDB {
 
     public Song mp3songToDBTable(File file) throws IOException, UnsupportedTagException, InvalidDataException {
 
-        Mp3File mp3file = new Mp3File(file.getAbsoluteFile());
         String sql = "INSERT INTO Song(title, artist, time, category, filePath) VALUES(?,?,?,?,?);";
+        Mp3File mp3file = new Mp3File(file);
+
         ID3v2 id3v2Tag = mp3file.getId3v2Tag();
         
         try (Connection con = dbConnect.getConnection()) {
@@ -44,7 +45,7 @@ public class mp3toDB {
             st.setInt(3, Math.toIntExact(mp3file.getLengthInSeconds()));
             st.setString(4, id3v2Tag.getGenreDescription());
             st.setString(5, "Data/"+file.getName());
-            
+
             int rowsAffected = st.executeUpdate();
 
             ResultSet rs = st.getGeneratedKeys();
@@ -52,7 +53,7 @@ public class mp3toDB {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            Song song = new Song(3, id3v2Tag.getTitle(), id3v2Tag.getArtist(), Math.toIntExact(mp3file.getLengthInSeconds()), id3v2Tag.getGenreDescription());
+            Song song = new Song(id, id3v2Tag.getTitle(), id3v2Tag.getArtist(), Math.toIntExact(mp3file.getLengthInSeconds()), id3v2Tag.getGenreDescription(),"Data/"+file.getName());
             System.out.println("" + song.toString());
             return song;
 

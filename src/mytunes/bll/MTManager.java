@@ -34,7 +34,7 @@ public class MTManager
         try
         {
             Song song;
-            song = SongDAO.createSong(s.getTitle(), s.getArtist(), s.getTime(), s.getCategory());
+            song = SongDAO.createSong(s.getTitle(), s.getArtist(), s.getTime(), s.getCategory(),s.getFilePath());
             return song;
         } catch (SQLServerException ex)
         {

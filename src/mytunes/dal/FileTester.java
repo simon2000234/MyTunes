@@ -36,6 +36,7 @@ public class FileTester
 //        }
 //        songDAO.getSong(3);
 
+
 //        mp3todb.mp3songToDBTable(new Mp3File("Data/BenJamin_Banger_-_01_-_Bobby_Drake.mp3"));
 //        Mp3File mp3file = new Mp3File("Data/BenJamin_Banger_-_01_-_Bobby_Drake.mp3");
 //        System.out.println("Length: " + mp3file.getLengthInSeconds());
@@ -67,6 +68,7 @@ public class FileTester
 //            }
 //        }
 //
+
     }
 
 }
