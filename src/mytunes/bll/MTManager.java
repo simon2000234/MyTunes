@@ -90,7 +90,11 @@ public class MTManager
         song = SongDAO.getSong(id);
         return song;
     }
-    
+     /**
+      * playning the given song 
+      * s stand for song
+      * @param s 
+      */
     public void PlaySong(Song s)
     {
         String bip = s.getFilePath();
