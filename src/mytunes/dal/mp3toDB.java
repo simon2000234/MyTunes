@@ -34,6 +34,7 @@ public class mp3toDB {
 
         String sql = "INSERT INTO Song(title, artist, time, category, filePath) VALUES(?,?,?,?,?);";
         Mp3File mp3file = new Mp3File(file);
+
         ID3v2 id3v2Tag = mp3file.getId3v2Tag();
         
         try (Connection con = dbConnect.getConnection()) {
