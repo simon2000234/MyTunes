@@ -123,10 +123,17 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlePlaySong(ActionEvent event) throws SQLException
     {
-        model.StopSong();
-        model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
-        model.PlaySong();
-
+        if (model.getCurPlaySong().isEmpty() ||
+                model.getCurPlaySong() != songsview.getSelectionModel().getSelectedItem().getFilePath() )
+        {
+            model.StopSong();
+            model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+            model.PlaySong();
+        }
+        else
+        {
+            model.PausePlaySong();
+        }
     }
 
 }
