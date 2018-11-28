@@ -26,7 +26,8 @@ import mytunes.be.Song;
  */
 public class FXMLDocumentController implements Initializable
 {
-    
+
+    private MyTunesModel model;
     @FXML
     private Label headlinelbl;
     @FXML
@@ -40,6 +41,7 @@ public class FXMLDocumentController implements Initializable
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -48,14 +50,14 @@ public class FXMLDocumentController implements Initializable
     {
         try
         {
-            MyTunesModel myTunesModel = new MyTunesModel();
-            songsview.setItems(myTunesModel.getSongs());
+            this.model = new MyTunesModel();
         } 
         catch (SQLException ex)
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+        songsview.setItems(model.getSongs());
+    }
 
     @FXML
     private void filtersearch(ActionEvent event)
@@ -65,6 +67,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistedit(ActionEvent event)
     {
+
     }
 
     @FXML
@@ -116,5 +119,14 @@ public class FXMLDocumentController implements Initializable
     private void handlesongsnew(ActionEvent event)
     {
     }
-    
+
+    @FXML
+    private void handlePlaySong(ActionEvent event) throws SQLException
+    {
+        model.StopSong();
+        model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+        model.PlaySong();
+
+    }
+
 }

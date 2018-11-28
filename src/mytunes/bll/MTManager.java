@@ -6,11 +6,14 @@
 package mytunes.bll;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import mytunes.be.Song;
 import mytunes.dal.SongDAO;
 
@@ -20,7 +23,7 @@ import mytunes.dal.SongDAO;
  */
 public class MTManager
 {
-
+    private MediaPlayer mediaPlayer;
     private Song song;
     private SongDAO SongDAO = new SongDAO();
 
@@ -86,6 +89,22 @@ public class MTManager
         Song song;
         song = SongDAO.getSong(id);
         return song;
+    }
+    
+    public void PlaySong(Song s)
+    {
+        String bip = s.getFilePath();
+        Media hit = new Media(new File(bip).toURI().toString());
+        mediaPlayer = new MediaPlayer(hit);
+        mediaPlayer.play();
+    }
+    
+    public void StopSong()
+    {
+        if (mediaPlayer != null)
+        {
+            mediaPlayer.stop();
+        }
     }
 
 }

@@ -19,6 +19,17 @@ public class MyTunesModel
 {
     private MTManager mtm;
     private ObservableList<Song> songs;
+    private Song selectedSong;
+
+    public Song getSelectedSong()
+    {
+        return selectedSong;
+    }
+
+    public void setSelectedSong(Song selectedSong)
+    {
+        this.selectedSong = selectedSong;
+    }
 
     public MyTunesModel() throws SQLException
     {
@@ -32,4 +43,13 @@ public class MyTunesModel
         return songs;
     }
     
+    public void PlaySong()
+    {
+        mtm.PlaySong(selectedSong);
+    }
+    
+    public void StopSong()
+    {
+        mtm.StopSong();
+    }
 }

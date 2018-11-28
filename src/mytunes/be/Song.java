@@ -98,12 +98,4 @@ public class Song {
                 + " Song Duration: " + displayTime()
                 + " Genre: " + category;
     }
-
-    public void playSong() {
-        String bip = this.filePath;
-        Media hit = new Media(new File(bip).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.play();
-    }
-
 }

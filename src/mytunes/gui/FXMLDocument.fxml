@@ -29,5 +29,6 @@
       <Button layoutX="834.0" layoutY="640.0" mnemonicParsing="false" onAction="#handlesongsdelete" text="delete" />
       <Button layoutX="755.0" layoutY="641.0" mnemonicParsing="false" onAction="#handlesongsedit" text="edit" />
       <Button layoutX="678.0" layoutY="640.0" mnemonicParsing="false" onAction="#handlesongsnew" text="new..." />
+      <Button layoutX="603.0" layoutY="187.0" mnemonicParsing="false" onAction="#handlePlaySong" text="Play" />
    </children>
 </AnchorPane>
