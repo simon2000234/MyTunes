@@ -44,8 +44,8 @@ public class MTManager
     }
 
     /**
-     * delete a given songe from the database s stand for song
-     *
+     * delete a given songe from the database 
+     * s stand for song
      * @param song
      */
     private void DeleteSong(Song s)
@@ -54,8 +54,8 @@ public class MTManager
     }
 
     /**
-     * s stand for song this method update a song
-     *
+     * s stand for song
+     * this method update a song
      * @param s
      */
     private void updateSong(Song s)
