@@ -6,11 +6,14 @@
 package mytunes.bll;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import mytunes.be.Song;
 import mytunes.dal.SongDAO;
 
@@ -20,7 +23,7 @@ import mytunes.dal.SongDAO;
  */
 public class MTManager
 {
-
+    private MediaPlayer mediaPlayer;
     private Song song;
     private SongDAO SongDAO = new SongDAO();
 
@@ -29,7 +32,7 @@ public class MTManager
      *
      * @param song
      */
-    private Song CreateSong(Song s)
+    public Song CreateSong(Song s)
     {
         try
         {
@@ -44,21 +47,21 @@ public class MTManager
     }
 
     /**
-     * delete a given songe from the database s stand for song
-     *
+     * delete a given songe from the database 
+     * s stand for song
      * @param song
      */
-    private void DeleteSong(Song s)
+    public void DeleteSong(Song s)
     {
         SongDAO.deleteSong(s);
     }
 
     /**
-     * s stand for song this method update a song
-     *
+     * s stand for song
+     * this method update a song
      * @param s
      */
-    private void updateSong(Song s)
+    public void updateSong(Song s)
     {
         SongDAO.updateSong(s);
     }
@@ -69,7 +72,7 @@ public class MTManager
      * @return ArrayList<Song> allsong
      * @throws SQLException
      */
-    private ArrayList<Song> getAllSong() throws SQLException
+    public ArrayList<Song> getAllSong() throws SQLException
     {
         ArrayList<Song> allSong = new ArrayList<>();
         return allSong = SongDAO.getAllSongs();
@@ -81,11 +84,27 @@ public class MTManager
  * @return Song 
  * @throws SQLException 
  */
-    private Song getSong(int id) throws SQLException
+    public Song getSong(int id) throws SQLException
     {
         Song song;
         song = SongDAO.getSong(id);
         return song;
+    }
+    
+    public void PlaySong(Song s)
+    {
+        String bip = s.getFilePath();
+        Media hit = new Media(new File(bip).toURI().toString());
+        mediaPlayer = new MediaPlayer(hit);
+        mediaPlayer.play();
+    }
+    
+    public void StopSong()
+    {
+        if (mediaPlayer != null)
+        {
+            mediaPlayer.stop();
+        }
     }
 
 }
