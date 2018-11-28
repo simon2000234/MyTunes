@@ -29,7 +29,7 @@ public class MTManager
      *
      * @param song
      */
-    private Song CreateSong(Song s)
+    public Song CreateSong(Song s)
     {
         try
         {
@@ -48,7 +48,7 @@ public class MTManager
      * s stand for song
      * @param song
      */
-    private void DeleteSong(Song s)
+    public void DeleteSong(Song s)
     {
         SongDAO.deleteSong(s);
     }
@@ -58,7 +58,7 @@ public class MTManager
      * this method update a song
      * @param s
      */
-    private void updateSong(Song s)
+    public void updateSong(Song s)
     {
         SongDAO.updateSong(s);
     }
@@ -69,7 +69,7 @@ public class MTManager
      * @return ArrayList<Song> allsong
      * @throws SQLException
      */
-    private ArrayList<Song> getAllSong() throws SQLException
+    public ArrayList<Song> getAllSong() throws SQLException
     {
         ArrayList<Song> allSong = new ArrayList<>();
         return allSong = SongDAO.getAllSongs();
@@ -81,7 +81,7 @@ public class MTManager
  * @return Song 
  * @throws SQLException 
  */
-    private Song getSong(int id) throws SQLException
+    public Song getSong(int id) throws SQLException
     {
         Song song;
         song = SongDAO.getSong(id);

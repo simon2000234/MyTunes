@@ -6,7 +6,10 @@
 package mytunes.gui;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,7 +26,7 @@ import mytunes.be.Song;
  */
 public class FXMLDocumentController implements Initializable
 {
-
+    
     @FXML
     private Label headlinelbl;
     @FXML
@@ -43,7 +46,15 @@ public class FXMLDocumentController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        try
+        {
+            MyTunesModel myTunesModel = new MyTunesModel();
+            songsview.setItems(myTunesModel.getSongs());
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML

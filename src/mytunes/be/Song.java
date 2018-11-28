@@ -93,10 +93,10 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song Title: " + title + "\n"
-                + "Artist: " + artist + "\n"
-                + "Song Duration: " + displayTime() + "\n"
-                + "Genre: " + category;
+        return "Title: " + title 
+                + " Artist: " + artist  
+                + " Song Duration: " + displayTime()
+                + " Genre: " + category;
     }
 
     public void playSong() {
