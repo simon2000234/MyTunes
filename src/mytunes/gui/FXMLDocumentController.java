@@ -103,6 +103,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleclose(ActionEvent event)
     {
+        System.exit(0);
     }
 
     @FXML
