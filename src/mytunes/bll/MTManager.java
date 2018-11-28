@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Animation;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import static javafx.scene.media.MediaPlayer.Status.PAUSED;
 import mytunes.be.Song;
 import mytunes.dal.SongDAO;
 
@@ -26,6 +28,8 @@ public class MTManager
     private MediaPlayer mediaPlayer;
     private Song song;
     private SongDAO SongDAO = new SongDAO();
+    private boolean isSongPlaying = false;
+    private String curPlaySong = ""; 
 
     /**
      * creating the given song in the database s stand for song
@@ -97,13 +101,40 @@ public class MTManager
         Media hit = new Media(new File(bip).toURI().toString());
         mediaPlayer = new MediaPlayer(hit);
         mediaPlayer.play();
+        isSongPlaying = true;
+        curPlaySong = bip;
     }
+
+    public String getCurPlaySong()
+    {
+        return curPlaySong;
+    }
+    
     
     public void StopSong()
     {
         if (mediaPlayer != null)
         {
             mediaPlayer.stop();
+        }
+    }
+    
+    public void PausePlaySong()
+    {
+        
+        if (mediaPlayer != null)
+        {
+            if (isSongPlaying)
+            {
+                isSongPlaying = false;
+                mediaPlayer.pause(); 
+            }
+            else
+            {
+                isSongPlaying = true;
+                mediaPlayer.play();  
+            }
+                
         }
     }
 

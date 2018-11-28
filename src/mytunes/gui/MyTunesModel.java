@@ -52,4 +52,14 @@ public class MyTunesModel
     {
         mtm.StopSong();
     }
+    
+    public void PausePlaySong()
+    {
+        mtm.PausePlaySong();
+    }
+    
+    public String getCurPlaySong()
+    {
+        return mtm.getCurPlaySong();
+    }
 }
