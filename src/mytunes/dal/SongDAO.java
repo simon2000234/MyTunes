@@ -28,6 +28,16 @@ public class SongDAO
         dbConnect = new DBConnectionProvider();
     }
 
+    /**
+     * Creates a song with the given parameters in the database.
+     * @param title of song
+     * @param artist of song
+     * @param time of song
+     * @param category of song
+     * @param filePath of song
+     * @return the created song as object
+     * @throws SQLServerException 
+     */
     public Song createSong(String title, String artist, int time, String category, String filePath) throws SQLServerException
     {
         String sql = "INSERT INTO Song(title, artist, time, category, filePath) VALUES(?,?,?,?,?);";
@@ -40,6 +50,7 @@ public class SongDAO
             st.setString(2, artist);
             st.setInt(3, time);
             st.setString(4, category);
+            st.setString(5, filePath);
 
             int rowsAffected = st.executeUpdate();
 

@@ -5,6 +5,13 @@
         <group>
             <file>file:/C:/Users/andre/Documents/NetBeansProjects/MyTunes/src/mytunes/bll/MTManager.java</file>
             <file>file:/C:/Users/andre/Documents/NetBeansProjects/MyTunes/src/mytunes/dal/SongDAO.java</file>
+            <file>file:/C:/Users/Caspe/Documents/GitHub/MyTunes/src/mytunes/dal/FileTester.java</file>
+            <file>file:/C:/Users/Caspe/Documents/GitHub/MyTunes/src/mytunes/gui/CreateMovieWindow.fxml</file>
+            <file>file:/C:/Users/Caspe/Documents/GitHub/MyTunes/src/mytunes/bll/MTManager.java</file>
+            <file>file:/C:/Users/Caspe/Documents/GitHub/MyTunes/src/mytunes/gui/FXMLDocumentController.java</file>
+            <file>file:/C:/Users/Caspe/Documents/GitHub/MyTunes/src/mytunes/be/Song.java</file>
+            <file>file:/C:/Users/Caspe/Documents/GitHub/MyTunes/src/mytunes/dal/mp3toDB.java</file>
+            <file>file:/C:/Users/Caspe/Documents/GitHub/MyTunes/src/mytunes/dal/SongDAO.java</file>
         </group>
     </open-files>
 </project-private>
