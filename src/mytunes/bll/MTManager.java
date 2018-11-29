@@ -141,4 +141,10 @@ public class MTManager
                 
         }
     }
+    
+    public ArrayList<Song> searchSong (String searchWord) throws SQLException{
+    ArrayList<Song> foundedSong = SongDAO.SearchSong(searchWord);
+    return foundedSong;
+    }
 }
+

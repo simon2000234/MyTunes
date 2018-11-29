@@ -58,4 +58,9 @@ public class MyTunesModel {
     public void createSong(String title, String artist, int time, String category, String filePath) {
         mtm.CreateSong(title, artist, time, category, filePath);
     }
+    
+    public void getFoundedSong(String searchWord) throws SQLException{
+       
+    songs.addAll(mtm.searchSong(searchWord));
+    }
 }

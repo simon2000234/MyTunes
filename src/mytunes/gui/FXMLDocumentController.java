@@ -61,6 +61,16 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void filtersearch(ActionEvent event) {
+       String searchWord = filtertxt.getText();
+        try
+        {
+            model.getFoundedSong(searchWord);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        
     }
 
     @FXML

@@ -30,13 +30,14 @@ public class SongDAO
 
     /**
      * Creates a song with the given parameters in the database.
+     *
      * @param title of song
      * @param artist of song
      * @param time of song
      * @param category of song
      * @param filePath of song
      * @return the created song as object
-     * @throws SQLServerException 
+     * @throws SQLServerException
      */
     public Song createSong(String title, String artist, int time, String category, String filePath) throws SQLServerException
     {
@@ -60,7 +61,7 @@ public class SongDAO
             {
                 id = rs.getInt(1);
             }
-            Song song = new Song(id, title, artist, time, category,filePath);
+            Song song = new Song(id, title, artist, time, category, filePath);
             return song;
 
         } catch (SQLException ex)
@@ -149,16 +150,41 @@ public class SongDAO
                 int time = rs.getInt("time");
                 String category = rs.getNString("category");
                 String filePath = rs.getNString("filePath");
-                theSong = new Song(id,title,artist,time,category,filePath);
-                System.out.println(""+theSong.toString());
+                theSong = new Song(id, title, artist, time, category, filePath);
+                System.out.println("" + theSong.toString());
             }
-            
+
         } catch (SQLException ex)
         {
             //nothing
         }
         return theSong;
 
+    }
+
+    public ArrayList<Song> SearchSong(String searchWord) throws SQLServerException, SQLException
+    {
+        String sql = "SELECT * FROM Song WHERE title LIKE '%" + searchWord+"%' OR artist LIKE '%"+ searchWord +"%'" ;
+        ArrayList<Song> allSongsFounded = new ArrayList<>();
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getNString("title");
+                String artist = rs.getNString("artist");
+                int time = rs.getInt("time");
+                String category = rs.getNString("category");
+                String filePath = rs.getNString("filePath");
+                Song SongFounded = new Song(id, title, artist, time, category, filePath);
+                allSongsFounded.add(SongFounded);
+            }
+        }
+        return allSongsFounded;
     }
 
 }
