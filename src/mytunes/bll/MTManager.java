@@ -27,12 +27,13 @@ import mytunes.dal.SongDAO;
  */
 public class MTManager
 {
+
     private MediaPlayer mediaPlayer;
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private boolean isSongPlaying = false;
-    private String curPlaySong = ""; 
-    private PlaylistDAO pldao= new PlaylistDAO(); 
+    private String curPlaySong = "";
+    private PlaylistDAO pldao = new PlaylistDAO();
 
     /**
      * creating the given song in the database s stand for song
@@ -44,7 +45,7 @@ public class MTManager
         try
         {
             Song song;
-            song = SongDAO.createSong(title, artist, time, category,filePath);
+            song = SongDAO.createSong(title, artist, time, category, filePath);
             return song;
         } catch (SQLServerException ex)
         {
@@ -54,8 +55,8 @@ public class MTManager
     }
 
     /**
-     * delete a given songe from the database 
-     * s stand for song
+     * delete a given songe from the database s stand for song
+     *
      * @param song
      */
     public void DeleteSong(Song s)
@@ -64,8 +65,8 @@ public class MTManager
     }
 
     /**
-     * s stand for song
-     * this method update a song
+     * s stand for song this method update a song
+     *
      * @param s
      */
     public void updateSong(Song s)
@@ -75,6 +76,7 @@ public class MTManager
 
     /**
      * get all songs form the database
+     *
      * @param s stand for song
      * @return ArrayList<Song> allsong
      * @throws SQLException
@@ -85,23 +87,26 @@ public class MTManager
         return allSong = SongDAO.getAllSongs();
 
     }
-/**
- * getting the song with the given id 
- * @param id
- * @return Song 
- * @throws SQLException 
- */
+
+    /**
+     * getting the song with the given id
+     *
+     * @param id
+     * @return Song
+     * @throws SQLException
+     */
     public Song getSong(int id) throws SQLException
     {
         Song song;
         song = SongDAO.getSong(id);
         return song;
     }
-     /**
-      * playning the given song 
-      * s stand for song
-      * @param s 
-      */
+
+    /**
+     * playning the given song s stand for song
+     *
+     * @param s
+     */
     public void PlaySong(Song s)
     {
         String bip = s.getFilePath();
@@ -116,8 +121,7 @@ public class MTManager
     {
         return curPlaySong;
     }
-    
-    
+
     public void StopSong()
     {
         if (mediaPlayer != null)
@@ -125,49 +129,53 @@ public class MTManager
             mediaPlayer.stop();
         }
     }
-    
+
     public void PausePlaySong()
     {
-        
+
         if (mediaPlayer != null)
         {
             if (isSongPlaying)
             {
                 isSongPlaying = false;
-                mediaPlayer.pause(); 
-            }
-            else
+                mediaPlayer.pause();
+            } else
             {
                 isSongPlaying = true;
-                mediaPlayer.play();  
+                mediaPlayer.play();
             }
-                
+
         }
     }
-    
+
     public Playlist createPlaylist(String name) throws SQLException
     {
         return pldao.createPlaylist(name);
     }
-    
+
     public void addSongToPlaylist(Song song, Playlist playlist) throws SQLException
     {
         pldao.addSongToPlaylist(song, playlist);
     }
-    
+
     public List<Song> getAllSongsOnPlaylist(Playlist playlist) throws SQLException
     {
         return pldao.getAllSongsOnPlaylist(playlist);
     }
-    
+
     public void removeSong(Playlist playlist, Song song)
     {
         pldao.removeSong(playlist, song);
     }
-    
+
     public List<Playlist> getAllPlaylists() throws SQLException
     {
         return pldao.getAllPlaylists();
     }
 
+    public ArrayList<Song> searchSong(String searchWord) throws SQLException
+    {
+        ArrayList<Song> foundedSong = SongDAO.SearchSong(searchWord);
+        return foundedSong;
+    }
 }
