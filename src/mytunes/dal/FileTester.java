@@ -13,6 +13,8 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import mytunes.be.Playlist;
 import mytunes.be.Song;
 
 /**
@@ -26,7 +28,8 @@ public class FileTester
     {
         SongDAO songDAO = new SongDAO();
         mp3toDB mp3todb = new mp3toDB();
-
+        PlaylistDAO pldao = new PlaylistDAO();
+        
 //        mp3todb.mp3songToDBTable(new File("Data/BenJamin_Banger_-_01_-_Bobby_Drake.mp3"));
 //        songDAO.createSong("TestSong", "TestArtist", 150, "TestType");
 //        songDAO.deleteSong(new Song(2, "", "", 3, ""));

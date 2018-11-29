@@ -57,6 +57,7 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         songsview.setItems(model.getSongs());
+        plview.setItems(model.getAllPlaylists());
     }
 
     @FXML

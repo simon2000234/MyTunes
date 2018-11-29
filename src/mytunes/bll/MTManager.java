@@ -16,7 +16,9 @@ import javafx.animation.Animation;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import static javafx.scene.media.MediaPlayer.Status.PAUSED;
+import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.dal.PlaylistDAO;
 import mytunes.dal.SongDAO;
 
 /**
@@ -30,6 +32,7 @@ public class MTManager
     private SongDAO SongDAO = new SongDAO();
     private boolean isSongPlaying = false;
     private String curPlaySong = ""; 
+    private PlaylistDAO pldao= new PlaylistDAO(); 
 
     /**
      * creating the given song in the database s stand for song
@@ -140,6 +143,31 @@ public class MTManager
             }
                 
         }
+    }
+    
+    public Playlist createPlaylist(String name) throws SQLException
+    {
+        return pldao.createPlaylist(name);
+    }
+    
+    public void addSongToPlaylist(Song song, Playlist playlist) throws SQLException
+    {
+        pldao.addSongToPlaylist(song, playlist);
+    }
+    
+    public List<Song> getAllSongsOnPlaylist(Playlist playlist) throws SQLException
+    {
+        return pldao.getAllSongsOnPlaylist(playlist);
+    }
+    
+    public void removeSong(Playlist playlist, Song song)
+    {
+        pldao.removeSong(playlist, song);
+    }
+    
+    public List<Playlist> getAllPlaylists() throws SQLException
+    {
+        return pldao.getAllPlaylists();
     }
 
 }
