@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
@@ -71,26 +73,42 @@ public class FXMLDocumentController implements Initializable
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         plview.setItems(model.getAllPlaylists());
+        plview.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                model.setSelectedPlaylist(plview.getSelectionModel().getSelectedItem());
+            }
+        });
+        
+        songsview.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+            }
+        });
 
     }
 
     @FXML
 
-    private void filtersearch(ActionEvent event) {
-       String searchWord = filtertxt.getText();
-       
+    private void filtersearch(ActionEvent event)
+    {
+        String searchWord = filtertxt.getText();
+
         try
         {
             songsview.setItems(model.getFoundedSong(searchWord));
-            
+
         } catch (SQLException ex)
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
-    
-    
 
     @FXML
     private void handleplaylistedit(ActionEvent event)
@@ -137,8 +155,8 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlesongsdelete(ActionEvent event)
     {
-     Song ds = songsview.getSelectionModel().getSelectedItem();
-     model.deleteSong(ds);
+        Song ds = songsview.getSelectionModel().getSelectedItem();
+        model.deleteSong(ds);
 
     }
 
@@ -152,9 +170,9 @@ public class FXMLDocumentController implements Initializable
             root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Edit song");
-            stage.setScene(new Scene(root,400,300));
+            stage.setScene(new Scene(root, 400, 300));
             stage.show();
-            
+
             EditSongWindowController editSongWindowController = loader.getController();
             model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             editSongWindowController.setModel(model);
@@ -163,7 +181,6 @@ public class FXMLDocumentController implements Initializable
             //nothing
         }
     }
-
 
     @FXML
     private void handlesongsnew(ActionEvent event)
@@ -187,21 +204,36 @@ public class FXMLDocumentController implements Initializable
         }
     }
 
-
-        @FXML
-        private void handlePlaySong
-        (ActionEvent event) throws SQLException
+    @FXML
+    private void handlePlaySong(ActionEvent event) throws SQLException
+    {
+        if (model.getCurPlaySong().isEmpty()
+                || model.getCurPlaySong() != songsview.getSelectionModel().getSelectedItem().getFilePath())
         {
-            if (model.getCurPlaySong().isEmpty()
-                    || model.getCurPlaySong() != songsview.getSelectionModel().getSelectedItem().getFilePath())
-            {
-                model.StopSong();
-                model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
-                model.PlaySong();
-            } else
-            {
-                model.PausePlaySong();
-            }
+            model.StopSong();
+            model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+            model.PlaySong();
+            headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
+        } else
+        {
+            model.PausePlaySong();
+        }
+    }
+
+    @FXML
+    private void handleFiltertxtSearch(ActionEvent event)
+    {
+        String searchWord = filtertxt.getText();
+
+        try
+        {
+            songsview.setItems(model.getFoundedSong(searchWord));
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+
+}

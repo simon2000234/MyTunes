@@ -23,6 +23,17 @@ public class MyTunesModel
     private MTManager mtm;
     private ObservableList<Song> songs;
     private Song selectedSong;
+    private Playlist selectedPlaylist;
+
+    public Playlist getSelectedPlaylist()
+    {
+        return selectedPlaylist;
+    }
+
+    public void setSelectedPlaylist(Playlist selectedPlaylist)
+    {
+        this.selectedPlaylist = selectedPlaylist;
+    }
     private ObservableList<Playlist> playlists;
 
     public Song getSelectedSong()
