@@ -122,8 +122,8 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlesongsdelete(ActionEvent event)
     {
-     song = songsview.getSelectionModel().getSelectedItem();
-     SongDAO.deleteSong(song);
+     Song ds = songsview.getSelectionModel().getSelectedItem();
+     model.deleteSong(ds);
 
     }
 

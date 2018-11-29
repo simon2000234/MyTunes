@@ -78,4 +78,9 @@ public class MyTunesModel
         songs.add(updatedSong);
         
     }
+    public void deleteSong(Song ds)
+    {
+        songs.remove(ds);
+        mtm.DeleteSong(ds);
+    }
 }
