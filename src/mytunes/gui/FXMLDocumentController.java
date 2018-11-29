@@ -29,7 +29,8 @@ import mytunes.be.Song;
  *
  * @author Richart hansen
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLDocumentController implements Initializable
+{
 
     private MyTunesModel model;
     @FXML
@@ -50,90 +51,137 @@ public class FXMLDocumentController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        try
+        {
             this.model = new MyTunesModel();
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        songsview.setItems(model.getSongs());
+        try
+        {
+            songsview.setItems(model.getSongs());
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
-    private void filtersearch(ActionEvent event) {
+    private void filtersearch(ActionEvent event)
+    {
     }
 
     @FXML
-    private void handleplaylistedit(ActionEvent event) {
+    private void handleplaylistedit(ActionEvent event)
+    {
 
     }
 
     @FXML
-    private void handleplaylistnew(ActionEvent event) {
+    private void handleplaylistnew(ActionEvent event)
+    {
     }
 
     @FXML
-    private void handleaddtoplaylist(ActionEvent event) {
+    private void handleaddtoplaylist(ActionEvent event)
+    {
     }
 
     @FXML
-    private void handleplaylistdelete(ActionEvent event) {
+    private void handleplaylistdelete(ActionEvent event)
+    {
     }
 
     @FXML
-    private void handlesopmoveup(ActionEvent event) {
+    private void handlesopmoveup(ActionEvent event)
+    {
     }
 
     @FXML
-    private void handlesopmovedown(ActionEvent event) {
+    private void handlesopmovedown(ActionEvent event)
+    {
     }
 
     @FXML
-    private void handlesopdelete(ActionEvent event) {
+    private void handlesopdelete(ActionEvent event)
+    {
     }
 
     @FXML
-    private void handleclose(ActionEvent event) {
+    private void handleclose(ActionEvent event)
+    {
         System.exit(0);
     }
 
     @FXML
-    private void handlesongsdelete(ActionEvent event) {
+    private void handlesongsdelete(ActionEvent event)
+    {
     }
 
     @FXML
-    private void handlesongsedit(ActionEvent event) {
-    }
-
-    @FXML
-    private void handlesongsnew(ActionEvent event) {
+    private void handlesongsedit(ActionEvent event)
+    {
         Parent root;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/CreateSongWindow.fxml"));
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/EditSongWindow.fxml"));
             root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Add a new song");
-            stage.setScene(new Scene(root, 400,300));
+            stage.setTitle("Edit song");
+            stage.setScene(new Scene(root,400,300));
             stage.show();
             
-            CreateSongWindowController createSongWindowController = loader.getController();
-            createSongWindowController.setModel(model);
-
-        } catch (IOException ex) {
-        ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handlePlaySong(ActionEvent event) throws SQLException {
-        if (model.getCurPlaySong().isEmpty()
-                || model.getCurPlaySong() != songsview.getSelectionModel().getSelectedItem().getFilePath()) {
-            model.StopSong();
+            EditSongWindowController editSongWindowController = loader.getController();
             model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
-            model.PlaySong();
-        } else {
-            model.PausePlaySong();
+            editSongWindowController.setModel(model);
+        } catch (IOException ex)
+        {
+            //nothing
         }
     }
 
-}
+        @FXML
+        private void handlesongsnew
+        (ActionEvent event
+        
+            )
+    {
+        Parent root;
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/CreateSongWindow.fxml"));
+                root = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Add a new song");
+                stage.setScene(new Scene(root, 400, 300));
+                stage.show();
+
+                CreateSongWindowController createSongWindowController = loader.getController();
+                createSongWindowController.setModel(model);
+
+            } catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+
+        @FXML
+        private void handlePlaySong
+        (ActionEvent event) throws SQLException
+        {
+            if (model.getCurPlaySong().isEmpty()
+                    || model.getCurPlaySong() != songsview.getSelectionModel().getSelectedItem().getFilePath())
+            {
+                model.StopSong();
+                model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+                model.PlaySong();
+            } else
+            {
+                model.PausePlaySong();
+            }
+        }
+
+    }

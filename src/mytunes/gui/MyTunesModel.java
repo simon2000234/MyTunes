@@ -15,47 +15,67 @@ import mytunes.bll.MTManager;
  *
  * @author Melchertsen
  */
-public class MyTunesModel {
+public class MyTunesModel
+{
 
     private MTManager mtm;
     private ObservableList<Song> songs;
     private Song selectedSong;
 
-    public Song getSelectedSong() {
+    public Song getSelectedSong()
+    {
         return selectedSong;
     }
 
-    public void setSelectedSong(Song selectedSong) {
+    public void setSelectedSong(Song selectedSong)
+    {
         this.selectedSong = selectedSong;
     }
 
-    public MyTunesModel() throws SQLException {
+    public MyTunesModel() throws SQLException
+    {
         this.mtm = new MTManager();
         this.songs = FXCollections.observableArrayList();
         songs.addAll(mtm.getAllSong());
     }
 
-    public ObservableList<Song> getSongs() {
+    public ObservableList<Song> getSongs() throws SQLException
+    {
         return songs;
     }
 
-    public void PlaySong() {
+
+    public void PlaySong()
+    {
         mtm.PlaySong(selectedSong);
     }
 
-    public void StopSong() {
+    public void StopSong()
+    {
         mtm.StopSong();
     }
 
-    public void PausePlaySong() {
+    public void PausePlaySong()
+    {
         mtm.PausePlaySong();
     }
 
-    public String getCurPlaySong() {
+    public String getCurPlaySong()
+    {
         return mtm.getCurPlaySong();
     }
 
-    public void createSong(String title, String artist, int time, String category, String filePath) {
-        mtm.CreateSong(title, artist, time, category, filePath);
+    public void createSong(String title, String artist, int time, String category, String filePath)
+    {
+        Song newsong = mtm.CreateSong(title, artist, time, category, filePath);
+        songs.add(newsong);
+    }
+
+    public void updateSong(Song updatedSong,Song oldSong)
+    {
+        mtm.updateSong(updatedSong);
+        songs.remove(oldSong);
+        songs.add(updatedSong);
+        
     }
 }
