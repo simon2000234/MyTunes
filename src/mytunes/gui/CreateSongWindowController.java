@@ -103,6 +103,8 @@ public class CreateSongWindowController implements Initializable {
         ID3v2 readFile = toDB.getId3v2Tag();
         model.createSong(readFile.getTitle(), readFile.getArtist(), Math.toIntExact(toDB.getLengthInSeconds()), readFile.getGenreDescription(), "data/" + fileDest);
         lblWindowTitle.setText(dirTo.getName());
+        Stage stage = (Stage) btnCancelChanges.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
