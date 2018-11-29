@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.dal.SongDAO;
 
 /**
  * FXML Controller class
@@ -32,6 +33,8 @@ import mytunes.be.Song;
 public class FXMLDocumentController implements Initializable
 {
 
+    private Song song;
+    private SongDAO SongDAO = new SongDAO();
     private MyTunesModel model;
     @FXML
     private Label headlinelbl;
@@ -119,6 +122,9 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlesongsdelete(ActionEvent event)
     {
+     song = songsview.getSelectionModel().getSelectedItem();
+     SongDAO.deleteSong(song);
+
     }
 
     @FXML
@@ -143,30 +149,29 @@ public class FXMLDocumentController implements Initializable
         }
     }
 
-        @FXML
-        private void handlesongsnew
-        (ActionEvent event
-        
-            )
+
+    @FXML
+    private void handlesongsnew(ActionEvent event)
     {
         Parent root;
-            try
-            {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/CreateSongWindow.fxml"));
-                root = loader.load();
-                Stage stage = new Stage();
-                stage.setTitle("Add a new song");
-                stage.setScene(new Scene(root, 400, 300));
-                stage.show();
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/CreateSongWindow.fxml"));
+            root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Add a new song");
+            stage.setScene(new Scene(root, 400, 300));
+            stage.show();
 
-                CreateSongWindowController createSongWindowController = loader.getController();
-                createSongWindowController.setModel(model);
+            CreateSongWindowController createSongWindowController = loader.getController();
+            createSongWindowController.setModel(model);
 
-            } catch (IOException ex)
-            {
-                ex.printStackTrace();
-            }
+        } catch (IOException ex)
+        {
+            ex.printStackTrace();
         }
+    }
+
 
         @FXML
         private void handlePlaySong
