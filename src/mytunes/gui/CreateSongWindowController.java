@@ -99,9 +99,9 @@ public class CreateSongWindowController implements Initializable {
         File dirFrom = new File(txtFilepath.getText());
         File dirTo = new File("data/" + fileDest);
         fileCopy(dirFrom, dirTo);
-//        Mp3File toDB = new Mp3File(dirTo);
-//        ID3v2 readFile = toDB.getId3v2Tag();
-//        model.createSong(readFile.getTitle(), readFile.getArtist(), Math.toIntExact(toDB.getLengthInSeconds()), readFile.getGenreDescription(), "data/" + fileDest);
+        Mp3File toDB = new Mp3File(dirTo);
+        ID3v2 readFile = toDB.getId3v2Tag();
+        model.createSong(readFile.getTitle(), readFile.getArtist(), Math.toIntExact(toDB.getLengthInSeconds()), readFile.getGenreDescription(), "data/" + fileDest);
         lblWindowTitle.setText(dirTo.getName());
     }
 

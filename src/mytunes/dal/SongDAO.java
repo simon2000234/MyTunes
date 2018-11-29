@@ -72,13 +72,15 @@ public class SongDAO
 
     public void deleteSong(Song song)
     {
-        String sql = "DELETE FROM Song WHERE id=" + song.getSongID();
+        
+        String sql = "DELETE FROM Song WHERE id=" + song.getSongID()+";";
 
         try (Connection con = dbConnect.getConnection())
         {
             Statement statement = con.createStatement();
+            
             statement.execute(sql);
-
+          
         } catch (SQLException ex)
         {
             //nothing
