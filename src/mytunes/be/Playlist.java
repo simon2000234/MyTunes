@@ -22,7 +22,11 @@ public class Playlist
         this.playlistID = playlistID;
         this.playlistName = playlistName;
     }
-
+    
+    /**
+     * Gets the playlistID variable of the playlist.
+     * @return the playlistID
+     */
     public int getPlaylistID()
     {
         return playlistID;
@@ -33,21 +37,37 @@ public class Playlist
         this.playlistID = playlistID;
     }
 
+    /**
+     * Gets the playlistName variable of the playlist
+     * @return playlistName variable 
+     */
     public String getPlaylistName()
     {
         return playlistName;
     }
 
+    /**
+     * Changes the playlistName to the given parameter.
+     * @param playlistName 
+     */
     public void setPlaylistName(String playlistName)
     {
         this.playlistName = playlistName;
     }
 
+    /**
+     * 
+     * @return how many songs the current playlist contains 
+     */
     public int songCount()
     {
         return -1;
     }
 
+    /**
+     * 
+     * @return a more readable string of the playlist object 
+     */
     @Override
     public String toString()
     {

@@ -179,9 +179,16 @@ public class MTManager
         return foundedSong;
     }
     
+
      public void deletePlayList(int id) throws SQLException{
            pldao.deletePlayList(id);
          
      }
     
+
+    public Playlist getPlaylist(int playlistId) throws SQLException
+    {
+        return pldao.getPlaylist(playlistId);
+    }
+
 }

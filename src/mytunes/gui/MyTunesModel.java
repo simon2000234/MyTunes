@@ -24,7 +24,10 @@ public class MyTunesModel
     private ObservableList<Song> songs;
     private Song selectedSong;
     private Playlist selectedPlaylist;
-    
+
+    private ObservableList<Playlist> playlists;
+
+
     public Playlist getSelectedPlaylist()
     {
         return selectedPlaylist;
@@ -34,8 +37,6 @@ public class MyTunesModel
     {
         this.selectedPlaylist = selectedPlaylist;
     }
-    private ObservableList<Playlist> playlists;
-    
     public Song getSelectedSong()
     {
         return selectedSong;
@@ -53,6 +54,7 @@ public class MyTunesModel
         songs.addAll(mtm.getAllSong());
         this.playlists = FXCollections.observableArrayList();
         playlists.addAll(mtm.getAllPlaylists());
+        
     }
     
     public ObservableList<Song> getSongs() throws SQLException
@@ -132,6 +134,22 @@ public class MyTunesModel
     {
         return playlists;
     }
+
+    
+    public Playlist getPlaylist(int playlistId) throws SQLException
+    {
+        return mtm.getPlaylist(playlistId);
+    }
+
+    public ObservableList<Song> getSongsOnPl(Playlist playlist) throws SQLException
+    {
+        ObservableList<Song> songsOnPl;
+        songsOnPl = FXCollections.observableArrayList();
+        songsOnPl.addAll(mtm.getAllSongsOnPlaylist(playlist));
+        return songsOnPl;
+    }
+    
+
     
     public void deleteplaylist (Playlist playlist) throws SQLException{
         mtm.deletePlayList(selectedPlaylist.getPlaylistID());

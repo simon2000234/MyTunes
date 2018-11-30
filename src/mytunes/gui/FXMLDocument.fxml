@@ -15,7 +15,7 @@
       <Label layoutX="42.0" layoutY="29.0" text="Playlists" />
       <TextField fx:id="filtertxt" layoutX="984.0" layoutY="8.0" onAction="#handleFiltertxtSearch" />
       <Button layoutX="1152.0" layoutY="8.0" mnemonicParsing="false" onAction="#filtersearch" text="search" />
-      <ListView fx:id="plview" layoutX="42.0" layoutY="53.0" prefHeight="546.0" prefWidth="285.0" />
+      <ListView fx:id="plview" layoutX="42.0" layoutY="53.0" onMouseClicked="#handleClickOnPlaylist" prefHeight="546.0" prefWidth="285.0" />
       <ListView fx:id="sopview" layoutX="348.0" layoutY="53.0" prefHeight="546.0" prefWidth="222.0" />
       <ListView fx:id="songsview" layoutX="671.0" layoutY="53.0" prefHeight="546.0" prefWidth="510.0" />
       <Button layoutX="103.0" layoutY="641.0" mnemonicParsing="false" onAction="#handleplaylistedit" text="edit...." />

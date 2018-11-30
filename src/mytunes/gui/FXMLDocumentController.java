@@ -8,9 +8,12 @@ package mytunes.gui;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -73,15 +76,7 @@ public class FXMLDocumentController implements Initializable
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         plview.setItems(model.getAllPlaylists());
-        plview.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                model.setSelectedPlaylist(plview.getSelectionModel().getSelectedItem());
-            }
-        });
-        
+
         songsview.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -231,6 +226,7 @@ public class FXMLDocumentController implements Initializable
             model.StopSong();
             model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             model.PlaySong();
+
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
         } else
         {
@@ -251,7 +247,14 @@ public class FXMLDocumentController implements Initializable
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    @FXML
+    private void handleClickOnPlaylist(MouseEvent event) throws SQLException
+    {
+        Playlist playlist = plview.getSelectionModel().getSelectedItem();
+        sopview.setItems(model.getSongsOnPl(playlist));
+        model.setSelectedPlaylist(playlist);
     }
 
 }

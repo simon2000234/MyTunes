@@ -29,7 +29,8 @@ public class SongDAO
     }
 
     /**
-     * Creates a song with the given parameters in the database.
+     * Creates a song with the given parameters and automatic ID in the database.
+     * Uses PreparedStatement to avoid unwanted SQL insertions
      *
      * @param title of song
      * @param artist of song
@@ -71,6 +72,10 @@ public class SongDAO
         return null;
     }
 
+    /**
+     * Deletes a song from the database with the given parameter's songID.
+     * @param song 
+     */
     public void deleteSong(Song song)
     {
         
@@ -88,6 +93,11 @@ public class SongDAO
         }
     }
 
+    /**
+     * Updates a song already in the playlist, can make changes to the title,
+     * artist and category. The new title/artist/category are given in the parameter
+     * @param song 
+     */
     public void updateSong(Song song)
     {
         String sql = "UPDATE Song SET title = ?, artist = ?, time = ?, category = ?, filePath = ? WHERE id = " + song.getSongID();
@@ -111,6 +121,11 @@ public class SongDAO
         }
     }
 
+    /**
+     * Gets all of the songs in the Song database.
+     * @return an ArrayList of all the songs in the database
+     * @throws SQLException 
+     */
     public ArrayList<Song> getAllSongs() throws SQLException
     {
         ArrayList<Song> allSongs = new ArrayList<>();
@@ -136,6 +151,12 @@ public class SongDAO
         return allSongs;
     }
 
+    /**
+     * Searches the database for a specific song with the given parameter
+     * @param songID
+     * @return a Song with the given parameter if found
+     * @throws SQLException 
+     */
     public Song getSong(int songID) throws SQLException
     {
         Song theSong = new Song(0, "", "", 0, "", "");
@@ -163,7 +184,15 @@ public class SongDAO
         return theSong;
 
     }
-
+    
+    /**
+     * Searches all songs for songs that contain the given parameter in either
+     * the song title or artist.
+     * @param searchWord
+     * @return an ArrayList of the songs containing the parameter
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     public ArrayList<Song> SearchSong(String searchWord) throws SQLServerException, SQLException
     {
         String sql = "SELECT * FROM Song WHERE title LIKE '%" + searchWord+"%' OR artist LIKE '%"+ searchWord +"%'" ;
