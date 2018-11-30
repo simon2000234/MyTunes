@@ -9,11 +9,11 @@
 <AnchorPane id="AnchorPane" prefHeight="709.0" prefWidth="1241.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.FXMLDocumentController">
    <children>
       <Label layoutX="953.0" layoutY="12.0" text="filter" />
-      <Label fx:id="headlinelbl" layoutX="491.0" layoutY="-1.0" text="(none)... is playing" />
+      <Label fx:id="headlinelbl" layoutX="491.0" layoutY="6.0" text="(none)... is playing" />
       <Label layoutX="671.0" layoutY="28.0" text="Songs" />
       <Label layoutX="348.0" layoutY="29.0" text="Songs on playlist" />
       <Label layoutX="42.0" layoutY="29.0" text="Playlists" />
-      <TextField fx:id="filtertxt" layoutX="984.0" layoutY="8.0" />
+      <TextField fx:id="filtertxt" layoutX="984.0" layoutY="8.0" onAction="#handleFiltertxtSearch" />
       <Button layoutX="1152.0" layoutY="8.0" mnemonicParsing="false" onAction="#filtersearch" text="search" />
       <ListView fx:id="plview" layoutX="42.0" layoutY="53.0" onMouseClicked="#handleClickOnPlaylist" prefHeight="546.0" prefWidth="285.0" />
       <ListView fx:id="sopview" layoutX="348.0" layoutY="53.0" prefHeight="546.0" prefWidth="222.0" />

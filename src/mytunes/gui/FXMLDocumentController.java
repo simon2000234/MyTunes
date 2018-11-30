@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -74,6 +75,23 @@ public class FXMLDocumentController implements Initializable
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         plview.setItems(model.getAllPlaylists());
+        plview.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                model.setSelectedPlaylist(plview.getSelectionModel().getSelectedItem());
+            }
+        });
+
+        songsview.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+            }
+        });
 
     }
 
@@ -197,9 +215,26 @@ public class FXMLDocumentController implements Initializable
             model.StopSong();
             model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             model.PlaySong();
+
+            headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
         } else
         {
             model.PausePlaySong();
+        }
+    }
+
+    @FXML
+    private void handleFiltertxtSearch(ActionEvent event)
+    {
+        String searchWord = filtertxt.getText();
+
+        try
+        {
+            songsview.setItems(model.getFoundedSong(searchWord));
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
