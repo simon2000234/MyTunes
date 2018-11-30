@@ -243,8 +243,6 @@ public class FXMLDocumentController implements Initializable
     {
         int plId = plview.getSelectionModel().getSelectedItem().getPlaylistID();
         String plName = plview.getSelectionModel().getSelectedItem().getPlaylistName();
-        model.setSongsOnPl(model.getAllSongsOnPlaylist(new Playlist(plId, plName)));
-        sopview.setItems(model.getSongsOnPl());
     }
 
 }
