@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
@@ -76,21 +79,20 @@ public class FXMLDocumentController implements Initializable
 
     @FXML
 
-    private void filtersearch(ActionEvent event) {
-       String searchWord = filtertxt.getText();
-       
+    private void filtersearch(ActionEvent event)
+    {
+        String searchWord = filtertxt.getText();
+
         try
         {
             songsview.setItems(model.getFoundedSong(searchWord));
-            
+
         } catch (SQLException ex)
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
-    
-    
 
     @FXML
     private void handleplaylistedit(ActionEvent event)
@@ -137,8 +139,8 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlesongsdelete(ActionEvent event)
     {
-     Song ds = songsview.getSelectionModel().getSelectedItem();
-     model.deleteSong(ds);
+        Song ds = songsview.getSelectionModel().getSelectedItem();
+        model.deleteSong(ds);
 
     }
 
@@ -152,9 +154,9 @@ public class FXMLDocumentController implements Initializable
             root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Edit song");
-            stage.setScene(new Scene(root,400,300));
+            stage.setScene(new Scene(root, 400, 300));
             stage.show();
-            
+
             EditSongWindowController editSongWindowController = loader.getController();
             model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             editSongWindowController.setModel(model);
@@ -163,7 +165,6 @@ public class FXMLDocumentController implements Initializable
             //nothing
         }
     }
-
 
     @FXML
     private void handlesongsnew(ActionEvent event)
@@ -187,21 +188,28 @@ public class FXMLDocumentController implements Initializable
         }
     }
 
-
-        @FXML
-        private void handlePlaySong
-        (ActionEvent event) throws SQLException
+    @FXML
+    private void handlePlaySong(ActionEvent event) throws SQLException
+    {
+        if (model.getCurPlaySong().isEmpty()
+                || model.getCurPlaySong() != songsview.getSelectionModel().getSelectedItem().getFilePath())
         {
-            if (model.getCurPlaySong().isEmpty()
-                    || model.getCurPlaySong() != songsview.getSelectionModel().getSelectedItem().getFilePath())
-            {
-                model.StopSong();
-                model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
-                model.PlaySong();
-            } else
-            {
-                model.PausePlaySong();
-            }
+            model.StopSong();
+            model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+            model.PlaySong();
+        } else
+        {
+            model.PausePlaySong();
         }
-
     }
+
+    @FXML
+    private void handleClickOnPlaylist(MouseEvent event) throws SQLException
+    {
+        int plId = plview.getSelectionModel().getSelectedItem().getPlaylistID();
+        String plName = plview.getSelectionModel().getSelectedItem().getPlaylistName();
+        model.setSongsOnPl(model.getAllSongsOnPlaylist(new Playlist(plId, plName)));
+        sopview.setItems(model.getSongsOnPl());
+    }
+
+}

@@ -178,4 +178,9 @@ public class MTManager
         ArrayList<Song> foundedSong = SongDAO.SearchSong(searchWord);
         return foundedSong;
     }
+    
+    public Playlist getPlaylist(int playlistId) throws SQLException
+    {
+        return pldao.getPlaylist(playlistId);
+    }
 }

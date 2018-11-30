@@ -66,14 +66,14 @@ public class PlaylistDAO
             }
         }
         String sql = "INSERT INTO playlistSong(playlistId, songId) VALUES(?,?);";
-        
+
         try (Connection con = dbConnect.getConnection())
         {
             PreparedStatement st = con.prepareStatement(sql);
-            
+
             st.setInt(1, playlist.getPlaylistID());
             st.setInt(2, song.getSongID());
-            
+
             st.executeUpdate();
         }
     }
@@ -104,10 +104,10 @@ public class PlaylistDAO
             return songs;
         }
     }
-    
+
     public void removeSong(Playlist playlist, Song song)
     {
-        String sql = "DELETE FROM PlaylistSong WHERE playlistId = " 
+        String sql = "DELETE FROM PlaylistSong WHERE playlistId = "
                 + playlist.getPlaylistID() + "and songId = " + song.getSongID() + ";";
         try (Connection con = dbConnect.getConnection())
         {
@@ -118,7 +118,7 @@ public class PlaylistDAO
             //nothing
         }
     }
-    
+
     public List<Playlist> getAllPlaylists() throws SQLException
     {
         List<Playlist> allPlaylists = new ArrayList<>();
@@ -135,5 +135,22 @@ public class PlaylistDAO
             }
             return allPlaylists;
         }
+    }
+
+    public Playlist getPlaylist(int playlistId) throws SQLException
+    {
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Song WHERE id=" + playlistId + ";");
+            while (rs.next())
+            {
+                int id = playlistId;
+                String name = rs.getString("name");
+                Playlist playlist = new Playlist(playlistId, name);
+                return playlist;
+            }
+        }
+        return null;
     }
 }
