@@ -138,7 +138,13 @@ public class MyTunesModel
         return mtm.getPlaylist(playlistId);
     }
 
-    
+    public ObservableList<Song> getSongsOnPl(Playlist playlist) throws SQLException
+    {
+        ObservableList<Song> songsOnPl;
+        songsOnPl = FXCollections.observableArrayList();
+        songsOnPl.addAll(mtm.getAllSongsOnPlaylist(playlist));
+        return songsOnPl;
+    }
     
     
     
