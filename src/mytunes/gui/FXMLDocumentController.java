@@ -138,10 +138,16 @@ public class FXMLDocumentController implements Initializable
     }
 
     @FXML
-    private void handleplaylistdelete(ActionEvent event) throws SQLException
+    private void handleplaylistdelete(ActionEvent event) 
     {
         Playlist pl =plview.getSelectionModel().getSelectedItem();
-       model.deleteplaylist(pl);
+        try
+        {
+            model.deleteplaylist(pl);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
