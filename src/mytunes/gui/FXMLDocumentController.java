@@ -41,6 +41,7 @@ public class FXMLDocumentController implements Initializable
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private MyTunesModel model;
+    private boolean isPaused;
     @FXML
     private Label headlinelbl;
     @FXML
@@ -208,11 +209,20 @@ public class FXMLDocumentController implements Initializable
             model.StopSong();
             model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             model.PlaySong();
-
+            isPaused = true;
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
         } else
         {
             model.PausePlaySong();
+            if (isPaused)
+            {
+                headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle() + "(Paused)");
+                isPaused = false;
+            } else
+            {
+                headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
+                isPaused = true;
+            }
         }
     }
 
