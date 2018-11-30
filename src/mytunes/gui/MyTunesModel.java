@@ -22,6 +22,7 @@ public class MyTunesModel
     
     private MTManager mtm;
     private ObservableList<Song> songs;
+    private ObservableList<Song> songsOnPlayList;
     private Song selectedSong;
     private Playlist selectedPlaylist;
 
@@ -54,6 +55,7 @@ public class MyTunesModel
         songs.addAll(mtm.getAllSong());
         this.playlists = FXCollections.observableArrayList();
         playlists.addAll(mtm.getAllPlaylists());
+        this.songsOnPlayList = FXCollections.observableArrayList();
         
     }
     

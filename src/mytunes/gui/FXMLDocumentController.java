@@ -146,6 +146,13 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleaddtoplaylist(ActionEvent event)
     {
+        try{
+        model.addSongToPlaylist(model.getSelectedSong(), model.getSelectedPlaylist());
+        sopview.refresh();
+        } catch (SQLException ex)
+        {
+            //nothing
+        }
     }
 
     @FXML
