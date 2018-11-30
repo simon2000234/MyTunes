@@ -178,4 +178,10 @@ public class MTManager
         ArrayList<Song> foundedSong = SongDAO.SearchSong(searchWord);
         return foundedSong;
     }
+    
+     public void deletePlayList(int id) throws SQLException{
+           pldao.deletePlayList(id);
+         
+     }
+    
 }

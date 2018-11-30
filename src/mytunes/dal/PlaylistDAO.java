@@ -22,7 +22,7 @@ import mytunes.be.Song;
  */
 public class PlaylistDAO
 {
-
+     
     private DBConnectionProvider dbConnect;
 
     public PlaylistDAO()
@@ -135,5 +135,17 @@ public class PlaylistDAO
             }
             return allPlaylists;
         }
+    }
+    public void deletePlayList(int id) throws SQLException{
+    try (Connection con = dbConnect.getConnection())
+        {
+         String sql = "DELETE FROM Playlist WHERE id=" +id +";";
+
+            Statement statement = con.createStatement();
+            
+            statement.execute(sql);
+        
+        }
+    
     }
 }
