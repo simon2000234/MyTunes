@@ -14,16 +14,18 @@ import javafx.scene.media.MediaPlayer;
  *
  * @author Melchertsen
  */
-public class Song {
+public class Song
+{
 
-    private int songID;
-    private String title;
-    private String artist;
-    private int time;
-    private String category;
-    private String filePath;
+    private int songID;         // songID for the database
+    private String title;       // title of the song
+    private String artist;      //the song's artist
+    private int time;           //song's duration
+    private String category;    //song's catergory
+    private String filePath;    //the mp3 file's current filepath
 
-    public Song(int songID, String title, String artist, int time, String category, String filePath) {
+    public Song(int songID, String title, String artist, int time, String category, String filePath)
+    {
         this.songID = songID;
         this.title = title;
         this.artist = artist;
@@ -33,68 +35,140 @@ public class Song {
 
     }
 
-    public int getSongID() {
+    /**
+     * gets the songID of current song
+     *
+     * @return the songID variable
+     */
+    public int getSongID()
+    {
         return songID;
     }
 
-    public String getTitle() {
+    /**
+     * Gets the song title
+     *
+     * @return title of song
+     */
+    public String getTitle()
+    {
         return title;
     }
 
-    public void setTitle(String title) {
+    /**
+     * set song title to given parameter
+     *
+     * @param title
+     */
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
-    public String getArtist() {
+    /**
+     * @return artist of song
+     */
+    public String getArtist()
+    {
         return artist;
     }
 
-    public void setArtist(String artist) {
+    /**
+     * sets the artist of the song to the given parameter
+     *
+     * @param artist
+     */
+    public void setArtist(String artist)
+    {
         this.artist = artist;
     }
 
-    public int getTime() {
+    /**
+     *
+     * @return the time/duration of the song
+     */
+    public int getTime()
+    {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(int time)
+    {
         this.time = time;
     }
 
-    public String getCategory() {
+    /**
+     *
+     * @return category of the song
+     */
+    public String getCategory()
+    {
         return category;
     }
 
-    public void setCategory(String category) {
+    /**
+     * sets the category of the song to the given parameter
+     *
+     * @param category
+     */
+    public void setCategory(String category)
+    {
         this.category = category;
     }
 
-    public String getFilePath() {
+    /**
+     *
+     * @return the filepath of the song
+     */
+    public String getFilePath()
+    {
         return filePath;
     }
 
-    public void setFilePath(String filePath) {
+    /**
+     * sets the filepath of the song to the given parameter
+     *
+     * @param filePath
+     */
+    public void setFilePath(String filePath)
+    {
         this.filePath = filePath;
     }
 
-    public String displayTime() {
+    /**
+     * Uses the time variable which is in seconds and changes it into a more
+     * readable and display-friendly format for the user.(minutes:seconds)
+     *
+     * @return string that looks like: "mintues"+":"+"seconds"
+     */
+    public String displayTime()
+    {
         int tempTime = 0;
         int tempMinutes = 0;
+        String temp = "";
         tempTime = time;
-        while (tempTime >= 60) {
-                tempTime = tempTime - 60;
-                tempMinutes++;
- 
+        while (tempTime >= 60)
+        {
+            tempTime = tempTime - 60;
+            tempMinutes++;
         }
-        String displayTime = tempMinutes+":"+tempTime;
+        if (tempTime < 10)
+        {
+            temp = "0" + tempTime;
+        } else
+        {
+            temp = ""+tempTime;
+        }
+        String displayTime = tempMinutes + ":" + temp;
         return displayTime;
 
     }
 
     @Override
-    public String toString() {
-        return "Title: " + title 
-                + " Artist: " + artist  
+    public String toString()
+    {
+        return "Title: " + title
+                + " Artist: " + artist
                 + " Song Duration: " + displayTime()
                 + " Genre: " + category;
     }

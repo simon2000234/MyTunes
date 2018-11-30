@@ -30,6 +30,12 @@ public class PlaylistDAO
         dbConnect = new DBConnectionProvider();
     }
 
+    /**
+     * 
+     * @param name
+     * @return
+     * @throws SQLException 
+     */
     public Playlist createPlaylist(String name) throws SQLException
     {
         String sql = "INSERT INTO Playlist(name) VALUES(?);";
