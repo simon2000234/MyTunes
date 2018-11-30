@@ -16,14 +16,11 @@ public class Playlist
 
     private int playlistID;
     private String playlistName;
-    private ArrayList<Song> PLSongs;
 
     public Playlist(int playlistID, String playlistName)
     {
         this.playlistID = playlistID;
         this.playlistName = playlistName;
-        PLSongs = new ArrayList<>();
-
     }
 
     public int getPlaylistID()
@@ -46,21 +43,9 @@ public class Playlist
         this.playlistName = playlistName;
     }
 
-    public ArrayList<Song> getPLSongs()
-    {
-        return PLSongs;
-    }
-
-    public void addSongtoPL(Song song)
-    {
-        PLSongs.add(song);
-        
-    }
-
     public int songCount()
     {
-        int songCount = PLSongs.size();
-        return songCount;
+        return -1;
     }
 
     @Override

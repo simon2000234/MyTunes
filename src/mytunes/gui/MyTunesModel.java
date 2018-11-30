@@ -6,8 +6,10 @@
 package mytunes.gui;
 
 import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import mytunes.be.Playlist;
 import mytunes.be.Song;
 import mytunes.bll.MTManager;
 
@@ -21,6 +23,18 @@ public class MyTunesModel
     private MTManager mtm;
     private ObservableList<Song> songs;
     private Song selectedSong;
+    private Playlist selectedPlaylist;
+
+    public Playlist getSelectedPlaylist()
+    {
+        return selectedPlaylist;
+    }
+
+    public void setSelectedPlaylist(Playlist selectedPlaylist)
+    {
+        this.selectedPlaylist = selectedPlaylist;
+    }
+    private ObservableList<Playlist> playlists;
 
     public Song getSelectedSong()
     {
@@ -37,6 +51,8 @@ public class MyTunesModel
         this.mtm = new MTManager();
         this.songs = FXCollections.observableArrayList();
         songs.addAll(mtm.getAllSong());
+        this.playlists = FXCollections.observableArrayList();
+        playlists.addAll(mtm.getAllPlaylists());
     }
 
     public ObservableList<Song> getSongs() throws SQLException
@@ -90,4 +106,35 @@ public class MyTunesModel
         searchSong.addAll(mtm.searchSong(searchWord));
         return searchSong;
     }
+    
+    public Playlist createPlaylist(String name) throws SQLException
+    {
+        return mtm.createPlaylist(name);
+    }
+    
+    public void addSongToPlaylist(Song song, Playlist playlist) throws SQLException
+    {
+        mtm.addSongToPlaylist(song, playlist);
+    }
+    
+    public List<Song> getAllSongsOnPlaylist(Playlist playlist) throws SQLException
+    {
+        return mtm.getAllSongsOnPlaylist(playlist);
+    }
+    
+    public void removeSong(Playlist playlist, Song song)
+    {
+        mtm.removeSong(playlist, song);
+    }
+    
+    public ObservableList<Playlist> getAllPlaylists()
+    {
+        return playlists;
+    }
+
+
+
+
+    
+    
 }
