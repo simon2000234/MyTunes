@@ -85,6 +85,16 @@ public class FXMLDocumentController implements Initializable
                 model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             }
         });
+        sopview.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
+            }
+        });
+        
+        
 
     }
 
@@ -203,10 +213,10 @@ public class FXMLDocumentController implements Initializable
     private void handlePlaySong(ActionEvent event) throws SQLException
     {
         if (model.getCurPlaySong().isEmpty()
-                || model.getCurPlaySong() != songsview.getSelectionModel().getSelectedItem().getFilePath())
+                || model.getCurPlaySong() != model.getSelectedSong().getFilePath())
         {
             model.StopSong();
-            model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+//            model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             model.PlaySong();
 
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
@@ -232,11 +242,17 @@ public class FXMLDocumentController implements Initializable
     }
 
     @FXML
-    private void handleClickOnPlaylist(MouseEvent event) throws SQLException
+    private void handleClickOnPlaylist(MouseEvent event)
     {
-        Playlist playlist = plview.getSelectionModel().getSelectedItem();
-        sopview.setItems(model.getSongsOnPl(playlist));
-        model.setSelectedPlaylist(playlist);
+        try
+        {
+            Playlist playlist = plview.getSelectionModel().getSelectedItem();
+            sopview.setItems(model.getSongsOnPl(playlist));
+            model.setSelectedPlaylist(playlist);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
