@@ -115,6 +115,22 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistnew(ActionEvent event)
     {
+       Parent root;
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/createPlayList.fxml"));
+            root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Create Playlist");
+            stage.setScene(new Scene(root, 400, 300));
+            stage.show();
+
+            CreatePlayListController CreatePlayListController = loader.getController();
+            CreatePlayListController.setModel(model);
+        } catch (IOException ex)
+        {
+            //nothing
+        }   
     }
 
     @FXML
@@ -123,8 +139,16 @@ public class FXMLDocumentController implements Initializable
     }
 
     @FXML
-    private void handleplaylistdelete(ActionEvent event)
+    private void handleplaylistdelete(ActionEvent event) 
     {
+        Playlist pl =plview.getSelectionModel().getSelectedItem();
+        try
+        {
+            model.deleteplaylist(pl);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
