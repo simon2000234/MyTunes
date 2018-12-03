@@ -180,7 +180,9 @@ public class MyTunesModel
      */
     public Playlist createPlaylist(String name) throws SQLException
     {
-        return mtm.createPlaylist(name);
+       Playlist playlist = mtm.createPlaylist(name);
+       playlists.add(playlist);
+        return playlist;
     }
 
     /**
@@ -260,6 +262,7 @@ public class MyTunesModel
      */
     public void deleteplaylist(Playlist playlist) throws SQLException
     {
+        playlists.remove(playlist);
         mtm.deletePlayList(selectedPlaylist.getPlaylistID());
     }
 
