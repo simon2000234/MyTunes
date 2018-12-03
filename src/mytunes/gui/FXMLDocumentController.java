@@ -148,7 +148,7 @@ public class FXMLDocumentController implements Initializable
     {
         try{
         model.addSongToPlaylist(model.getSelectedSong(), model.getSelectedPlaylist());
-        sopview.refresh();
+        sopview.setItems(model.updateSopview());
         } catch (SQLException ex)
         {
             //nothing
@@ -181,6 +181,14 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlesopdelete(ActionEvent event)
     {
+        model.removeSong(model.getSelectedPlaylist(), model.getSelectedSong());
+        try
+        {
+            sopview.setItems(model.updateSopview());
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
