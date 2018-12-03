@@ -19,7 +19,7 @@ import mytunes.bll.MTManager;
  */
 public class MyTunesModel
 {
-    
+
     private MTManager mtm;
     private ObservableList<Song> songs;
     private ObservableList<Song> songsOnPlayList;
@@ -28,26 +28,26 @@ public class MyTunesModel
 
     private ObservableList<Playlist> playlists;
 
-
     public Playlist getSelectedPlaylist()
     {
         return selectedPlaylist;
     }
-    
+
     public void setSelectedPlaylist(Playlist selectedPlaylist)
     {
         this.selectedPlaylist = selectedPlaylist;
     }
+
     public Song getSelectedSong()
     {
         return selectedSong;
     }
-    
+
     public void setSelectedSong(Song selectedSong)
     {
         this.selectedSong = selectedSong;
     }
-    
+
     public MyTunesModel() throws SQLException
     {
         this.mtm = new MTManager();
@@ -56,46 +56,46 @@ public class MyTunesModel
         this.playlists = FXCollections.observableArrayList();
         playlists.addAll(mtm.getAllPlaylists());
         this.songsOnPlayList = FXCollections.observableArrayList();
-        
+
     }
-    
+
     public ObservableList<Song> getSongs() throws SQLException
     {
         return songs;
     }
-    
+
     public void PlaySong()
     {
         mtm.PlaySong(selectedSong);
     }
-    
+
     public void StopSong()
     {
         mtm.StopSong();
     }
-    
+
     public void PausePlaySong()
     {
         mtm.PausePlaySong();
     }
-    
+
     public String getCurPlaySong()
     {
         return mtm.getCurPlaySong();
     }
-    
+
     public void createSong(String title, String artist, int time, String category, String filePath)
     {
         Song newsong = mtm.CreateSong(title, artist, time, category, filePath);
         songs.add(newsong);
     }
-    
+
     public void updateSong(Song updatedSong, Song oldSong)
     {
         mtm.updateSong(updatedSong);
         songs.remove(oldSong);
         songs.add(updatedSong);
-        
+
     }
 
     public void deleteSong(Song ds)
@@ -103,7 +103,7 @@ public class MyTunesModel
         songs.remove(ds);
         mtm.DeleteSong(ds);
     }
-    
+
     public ObservableList<Song> getFoundedSong(String searchWord) throws SQLException
     {
         ObservableList<Song> searchSong;
@@ -111,33 +111,33 @@ public class MyTunesModel
         searchSong.addAll(mtm.searchSong(searchWord));
         return searchSong;
     }
-    
+
     public Playlist createPlaylist(String name) throws SQLException
     {
         return mtm.createPlaylist(name);
     }
-    
+
     public void addSongToPlaylist(Song song, Playlist playlist) throws SQLException
     {
         mtm.addSongToPlaylist(song, playlist);
     }
-    
+
     public List<Song> getAllSongsOnPlaylist(Playlist playlist) throws SQLException
     {
         return mtm.getAllSongsOnPlaylist(playlist);
     }
-    
+
     public void removeSong(Playlist playlist, Song song)
     {
         mtm.removeSong(playlist, song);
+        
     }
-    
+
     public ObservableList<Playlist> getAllPlaylists()
     {
         return playlists;
     }
 
-    
     public Playlist getPlaylist(int playlistId) throws SQLException
     {
         return mtm.getPlaylist(playlistId);
@@ -150,11 +150,18 @@ public class MyTunesModel
         songsOnPl.addAll(mtm.getAllSongsOnPlaylist(playlist));
         return songsOnPl;
     }
-    
 
-    
-    public void deleteplaylist (Playlist playlist) throws SQLException{
+    public void deleteplaylist(Playlist playlist) throws SQLException
+    {
         mtm.deletePlayList(selectedPlaylist.getPlaylistID());
     }
-    
+
+    public ObservableList<Song> updateSopview() throws SQLException
+    {
+        ObservableList<Song> updatedsopview;
+        updatedsopview = FXCollections.observableArrayList();
+        updatedsopview.addAll(getAllSongsOnPlaylist(selectedPlaylist));
+        
+        return updatedsopview;
+    }
 }
