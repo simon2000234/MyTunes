@@ -8,13 +8,9 @@ package mytunes.gui;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,11 +20,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.bll.MTManager;
 import mytunes.dal.SongDAO;
 
 /**
@@ -42,6 +40,7 @@ public class FXMLDocumentController implements Initializable
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private MyTunesModel model;
+
     private boolean isPaused;
     @FXML
     private Label headlinelbl;
@@ -54,6 +53,17 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private ListView<Song> songsview;
 
+    @FXML
+    private Label volumeprocent;
+    @FXML
+    private Slider volumeSlider;
+    
+        @FXML
+        private void slider()
+    {
+        model.volumeSlider();  
+    }
+
     /**
      * Initializes the controller class.
      *
@@ -63,6 +73,7 @@ public class FXMLDocumentController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+
         try
         {
             this.model = new MyTunesModel();
@@ -100,11 +111,13 @@ public class FXMLDocumentController implements Initializable
             {
                 model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
             }
-        });
-        
-        
+
+        }
+        );
 
     }
+
+
 
     @FXML
 
@@ -132,7 +145,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistnew(ActionEvent event)
     {
-       Parent root;
+        Parent root;
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/createPlayList.fxml"));
@@ -147,15 +160,16 @@ public class FXMLDocumentController implements Initializable
         } catch (IOException ex)
         {
             //nothing
-        }   
+        }
     }
 
     @FXML
     private void handleaddtoplaylist(ActionEvent event)
     {
-        try{
-        model.addSongToPlaylist(model.getSelectedSong(), model.getSelectedPlaylist());
-        sopview.setItems(model.updateSopview());
+        try
+        {
+            model.addSongToPlaylist(model.getSelectedSong(), model.getSelectedPlaylist());
+            sopview.setItems(model.updateSopview());
         } catch (SQLException ex)
         {
             //nothing
@@ -163,9 +177,9 @@ public class FXMLDocumentController implements Initializable
     }
 
     @FXML
-    private void handleplaylistdelete(ActionEvent event) 
+    private void handleplaylistdelete(ActionEvent event)
     {
-        Playlist pl =plview.getSelectionModel().getSelectedItem();
+        Playlist pl = plview.getSelectionModel().getSelectedItem();
         try
         {
             model.deleteplaylist(pl);
