@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 
-
 /**
  * FXML Controller class
  *
@@ -26,7 +25,7 @@ import mytunes.be.Playlist;
  */
 public class CreatePlayListController implements Initializable
 {
-    
+
     private MyTunesModel model;
 
     @FXML
@@ -41,7 +40,7 @@ public class CreatePlayListController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
+    }
 
     @FXML
     private void CreatPlayList(ActionEvent event)
@@ -50,17 +49,19 @@ public class CreatePlayListController implements Initializable
         try
         {
             model.createPlaylist(playlistname);
-           
-       
+            Stage stage = (Stage) BTNCreatPlay.getScene().getWindow();
+            stage.close();
+
         } catch (SQLException ex)
         {
             Logger.getLogger(CreatePlayListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    void setModel(MyTunesModel model) {
+
+    void setModel(MyTunesModel model)
+    {
         this.model = model;
     }
-    
+
 }
