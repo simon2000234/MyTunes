@@ -133,8 +133,10 @@ public class MyTunesModel
         
     }
 
-    public ObservableList<Playlist> getAllPlaylists()
+    public ObservableList<Playlist> getAllPlaylists() throws SQLException
     {
+        playlists.removeAll(playlists);
+        playlists.addAll(mtm.getAllPlaylists());
         return playlists;
     }
 
@@ -163,5 +165,13 @@ public class MyTunesModel
         updatedsopview.addAll(getAllSongsOnPlaylist(selectedPlaylist));
         
         return updatedsopview;
+    }
+    
+    public ObservableList<Playlist> updatePlaylistView() throws SQLException
+    {
+        ObservableList<Playlist> newPlaylistView;
+        newPlaylistView = FXCollections.observableArrayList();
+        newPlaylistView.addAll(getAllPlaylists());
+        return newPlaylistView;
     }
 }
