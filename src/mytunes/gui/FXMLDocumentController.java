@@ -294,10 +294,10 @@ public class FXMLDocumentController implements Initializable
                 || model.getCurPlaySong() != model.getSelectedSong().getFilePath())
         {
             model.StopSong();
-//            model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             model.PlaySong();
             isPaused = true;
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
+            model.playNextSong(new Song(1, "Booby Drake", "some dude", 163, "sdas", "Data/BenJamin_Banger_-_01_-_Bobby_Drake.mp3"));
         } else
         {
             model.PausePlaySong();

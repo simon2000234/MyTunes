@@ -279,4 +279,9 @@ public class MyTunesModel
         
         return updatedsopview;
     }
+    
+    public void playNextSong(Song song)
+    {
+        mtm.playNextSong(song);
+    }
 }
