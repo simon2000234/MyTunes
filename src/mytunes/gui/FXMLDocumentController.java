@@ -22,6 +22,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -101,8 +104,6 @@ public class FXMLDocumentController implements Initializable
                 model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
             }
         });
-        
-        
 
     }
 
@@ -132,7 +133,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistnew(ActionEvent event)
     {
-       Parent root;
+        Parent root;
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/createPlayList.fxml"));
@@ -147,15 +148,16 @@ public class FXMLDocumentController implements Initializable
         } catch (IOException ex)
         {
             //nothing
-        }   
+        }
     }
 
     @FXML
     private void handleaddtoplaylist(ActionEvent event)
     {
-        try{
-        model.addSongToPlaylist(model.getSelectedSong(), model.getSelectedPlaylist());
-        sopview.setItems(model.updateSopview());
+        try
+        {
+            model.addSongToPlaylist(model.getSelectedSong(), model.getSelectedPlaylist());
+            sopview.setItems(model.updateSopview());
         } catch (SQLException ex)
         {
             //nothing
@@ -163,15 +165,26 @@ public class FXMLDocumentController implements Initializable
     }
 
     @FXML
-    private void handleplaylistdelete(ActionEvent event) 
+    private void handleplaylistdelete(ActionEvent event)
     {
-        Playlist pl =plview.getSelectionModel().getSelectedItem();
-        try
-        {
-            model.deleteplaylist(pl);
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        Alert confirmPLDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
+                + model.getSelectedPlaylist().getPlaylistName() + "?",
+                ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        confirmPLDelete.setTitle("Delete playlist");
+        confirmPLDelete.setHeaderText("Are you sure?");
+        confirmPLDelete.showAndWait();
+
+        Playlist pl = plview.getSelectionModel().getSelectedItem();
+        if (confirmPLDelete.getResult() == ButtonType.YES)
+        {        
+            try
+            {
+                model.deleteplaylist(pl);
+                plview.setItems(model.updatePlaylistView());
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -188,13 +201,24 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlesopdelete(ActionEvent event)
     {
-        model.removeSong(model.getSelectedPlaylist(), model.getSelectedSong());
-        try
+        Alert confirmSOPDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
+                + model.getSelectedSong().getTitle() + "\n"
+                + "From: " + model.getSelectedPlaylist().getPlaylistName() + "?",
+                ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        confirmSOPDelete.setHeaderText("Are you sure?");
+        confirmSOPDelete.setTitle("Delete song from playlist");
+        confirmSOPDelete.showAndWait();
+        if (confirmSOPDelete.getResult() == ButtonType.YES)
         {
-            sopview.setItems(model.updateSopview());
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+
+            model.removeSong(model.getSelectedPlaylist(), model.getSelectedSong());
+            try
+            {
+                sopview.setItems(model.updateSopview());
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -207,9 +231,17 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlesongsdelete(ActionEvent event)
     {
-        Song ds = songsview.getSelectionModel().getSelectedItem();
-        model.deleteSong(ds);
+        Alert confirmDelete = new Alert(AlertType.CONFIRMATION, "Delete: " + model.getSelectedSong().getTitle() + "?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        confirmDelete.setTitle("Delete Song");
+        confirmDelete.setHeaderText("Are you sure?");
+        confirmDelete.showAndWait();
 
+        if (confirmDelete.getResult() == ButtonType.YES)
+        {
+            Song ds = songsview.getSelectionModel().getSelectedItem();
+            model.deleteSong(ds);
+
+        }
     }
 
     @FXML
