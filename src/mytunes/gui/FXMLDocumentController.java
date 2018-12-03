@@ -180,7 +180,6 @@ public class FXMLDocumentController implements Initializable
             try
             {
                 model.deleteplaylist(pl);
-                plview.setItems(model.updatePlaylistView());
             } catch (SQLException ex)
             {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
