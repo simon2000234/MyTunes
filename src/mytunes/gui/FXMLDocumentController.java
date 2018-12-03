@@ -8,6 +8,7 @@ package mytunes.gui;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -76,7 +77,13 @@ public class FXMLDocumentController implements Initializable
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        plview.setItems(model.getAllPlaylists());
+        try
+        {
+            plview.setItems(model.getAllPlaylists());
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         songsview.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -162,6 +169,7 @@ public class FXMLDocumentController implements Initializable
         try
         {
             model.deleteplaylist(pl);
+            plview.setItems(model.updatePlaylistView());
         } catch (SQLException ex)
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);

@@ -146,11 +146,13 @@ public class PlaylistDAO
     public void deletePlayList(int id) throws SQLException{
     try (Connection con = dbConnect.getConnection())
         {
-         String sql = "DELETE FROM Playlist WHERE id=" +id +";";
+            String sql1 = "DELETE FROM PlaylistSong WHERE playlistId=" + id + ";";
+            String sql2 = "DELETE FROM Playlist WHERE id=" +id +";";
 
             Statement statement = con.createStatement();
             
-            statement.execute(sql);
+            statement.execute(sql1);
+            statement.execute(sql2);
         
         }
     }
