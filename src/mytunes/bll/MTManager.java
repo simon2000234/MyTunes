@@ -33,7 +33,7 @@ public class MTManager
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private boolean isSongPlaying = false;
-    private String curPlaySong = "";
+    private Song curPlaySong;
     private PlaylistDAO pldao = new PlaylistDAO();
 
     /**
@@ -115,10 +115,10 @@ public class MTManager
         mediaPlayer = new MediaPlayer(hit);
         mediaPlayer.play();
         isSongPlaying = true;
-        curPlaySong = bip;
+        curPlaySong = s;
     }
 
-    public String getCurPlaySong()
+    public Song getCurPlaySong()
     {
         return curPlaySong;
     }
@@ -190,18 +190,31 @@ public class MTManager
     {
         return pldao.getPlaylist(playlistId);
     }
-    
-    public void playNextSong(Song song)
+
+    public void playNextSong(Playlist curPlaylist, Song curSong)
     {
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-        @Override public void run() {
-        String bip = song.getFilePath();
-        Media hit = new Media(new File(bip).toURI().toString());
-        mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.play();
-        curPlaySong = bip;
-        }
-      });
+        mediaPlayer.setOnEndOfMedia(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Song nextSong;
+                try
+                {
+                    nextSong = pldao.getNextSongOnPlaylist(curPlaylist, curSong);
+                    String bip = nextSong.getFilePath();
+                    Media hit = new Media(new File(bip).toURI().toString());
+                    mediaPlayer = new MediaPlayer(hit);
+                    mediaPlayer.play();
+                    curPlaySong = nextSong;
+                    playNextSong(curPlaylist, curPlaySong);
+                } catch (SQLException ex)
+                {
+                    Logger.getLogger(MTManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        });
     }
 
     public void volumeSlider()
@@ -221,4 +234,3 @@ public class MTManager
     }
 
 }
-

@@ -303,14 +303,14 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlePlaySong(ActionEvent event) throws SQLException
     {
-        if (model.getCurPlaySong().isEmpty()
-                || model.getCurPlaySong() != model.getSelectedSong().getFilePath())
+        if (model.getCurPlaySong() == null
+                || model.getCurPlaySong().getFilePath() != model.getSelectedSong().getFilePath())
         {
             model.StopSong();
             model.PlaySong();
             isPaused = true;
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
-            model.playNextSong(new Song(1, "Booby Drake", "some dude", 163, "sdas", "Data/BenJamin_Banger_-_01_-_Bobby_Drake.mp3"));
+            model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
         } else
         {
             model.PausePlaySong();

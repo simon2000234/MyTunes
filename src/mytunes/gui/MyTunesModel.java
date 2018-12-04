@@ -116,7 +116,7 @@ public class MyTunesModel
      *
      * @return the song that is currently playing
      */
-    public String getCurPlaySong()
+    public Song getCurPlaySong()
     {
         return mtm.getCurPlaySong();
     }
@@ -299,9 +299,10 @@ public class MyTunesModel
         return updatedsopview;
     }
 
-    public void playNextSong(Song song)
+    
+    public void playNextSong(Song curSong, Playlist curPlaylist)
     {
-        mtm.playNextSong(song);
+        mtm.playNextSong(curPlaylist, curSong);
     }
 
     public String getListviewtest()

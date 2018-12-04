@@ -213,4 +213,41 @@ public class PlaylistDAO
         }
         return curNextTN;
     }
+
+    public Song getNextSongOnPlaylist(Playlist playlist, Song curSong) throws SQLException
+    {
+        String sql1 = "SELECT * FROM PlaylistSong WHERE songId = " + curSong.getSongID() + ";";
+        int trackNumber = -1;
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql1);
+            while (rs.next())
+            {
+                trackNumber = rs.getInt("trackNumber");
+                if (trackNumber >= getTackNumbers(playlist).size())
+                {
+                    trackNumber = 0;
+                }
+            }
+
+            String sql2 = "SELECT * FROM PlaylistSong LEFT JOIN Song ON "
+                    + "PlaylistSong.songId=Song.id WHERE playlistId = " + playlist.getPlaylistID()
+                    + " and trackNumber = " + (trackNumber + 1) + ";";
+
+            rs = statement.executeQuery(sql2);
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String artist = rs.getString("artist");
+                int time = rs.getInt("time");
+                String category = rs.getString("category");
+                String filePath = rs.getString("filePath");
+                Song song = new Song(id, title, artist, time, category, filePath);
+                return song;
+            }
+        }
+        return null;
+    }
 }
