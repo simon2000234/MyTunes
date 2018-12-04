@@ -164,7 +164,7 @@ public class MTManager
         return pldao.getAllSongsOnPlaylist(playlist);
     }
 
-    public void removeSong(Playlist playlist, Song song)
+    public void removeSong(Playlist playlist, Song song) throws SQLException
     {
         pldao.removeSong(playlist, song);
     }

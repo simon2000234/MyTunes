@@ -211,7 +211,7 @@ public class FXMLDocumentController implements Initializable
     }
 
     @FXML
-    private void handlesopdelete(ActionEvent event)
+    private void handlesopdelete(ActionEvent event) throws SQLException
     {
         Alert confirmSOPDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
                 + model.getSelectedSong().getTitle() + "\n"

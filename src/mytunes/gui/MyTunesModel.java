@@ -224,7 +224,7 @@ public class MyTunesModel
      * @param playlist
      * @param song
      */
-    public void removeSong(Playlist playlist, Song song)
+    public void removeSong(Playlist playlist, Song song) throws SQLException
     {
         mtm.removeSong(playlist, song);
 
