@@ -3,19 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
-            <file>file:/C:/Users/andre/Documents/NetBeansProjects/MyTunes/src/mytunes/gui/MyTunesModel.java</file>
-            <file>file:/C:/Users/andre/Documents/NetBeansProjects/MyTunes/src/mytunes/dal/DBConnectionProvider.java</file>
-            <file>file:/C:/Users/andre/Documents/NetBeansProjects/MyTunes/src/mytunes/gui/FXMLDocumentController.java</file>
-            <file>file:/C:/Users/andre/Documents/NetBeansProjects/MyTunes/src/mytunes/bll/MTManager.java</file>
-            <file>file:/C:/Users/andre/Documents/NetBeansProjects/MyTunes/src/mytunes/dal/SongDAO.java</file>
-
+            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/dal/SongDAO.java</file>
             <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/bll/MTManager.java</file>
             <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/FXMLDocumentController.java</file>
             <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/dal/PlaylistDAO.java</file>
             <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/MyTunesModel.java</file>
             <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/CreatePlayListController.java</file>
-
         </group>
     </open-files>
 </project-private>
