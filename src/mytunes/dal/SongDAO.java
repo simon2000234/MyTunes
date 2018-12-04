@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import mytunes.be.Playlist;
 import mytunes.be.Song;
 
 /**
@@ -29,8 +30,8 @@ public class SongDAO
     }
 
     /**
-     * Creates a song with the given parameters and automatic ID in the database.
-     * Uses PreparedStatement to avoid unwanted SQL insertions
+     * Creates a song with the given parameters and automatic ID in the
+     * database. Uses PreparedStatement to avoid unwanted SQL insertions
      *
      * @param title of song
      * @param artist of song
@@ -74,19 +75,20 @@ public class SongDAO
 
     /**
      * Deletes a song from the database with the given parameter's songID.
-     * @param song 
+     *
+     * @param song
      */
     public void deleteSong(Song song)
     {
-        
-        String sql = "DELETE FROM Song WHERE id=" + song.getSongID()+";";
+
+        String sql = "DELETE FROM Song WHERE id=" + song.getSongID() + ";";
 
         try (Connection con = dbConnect.getConnection())
         {
             Statement statement = con.createStatement();
-            
+
             statement.execute(sql);
-          
+
         } catch (SQLException ex)
         {
             //nothing
@@ -95,8 +97,10 @@ public class SongDAO
 
     /**
      * Updates a song already in the playlist, can make changes to the title,
-     * artist and category. The new title/artist/category are given in the parameter
-     * @param song 
+     * artist and category. The new title/artist/category are given in the
+     * parameter
+     *
+     * @param song
      */
     public void updateSong(Song song)
     {
@@ -123,8 +127,9 @@ public class SongDAO
 
     /**
      * Gets all of the songs in the Song database.
+     *
      * @return an ArrayList of all the songs in the database
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ArrayList<Song> getAllSongs() throws SQLException
     {
@@ -153,9 +158,10 @@ public class SongDAO
 
     /**
      * Searches the database for a specific song with the given parameter
+     *
      * @param songID
      * @return a Song with the given parameter if found
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Song getSong(int songID) throws SQLException
     {
@@ -184,18 +190,19 @@ public class SongDAO
         return theSong;
 
     }
-    
+
     /**
      * Searches all songs for songs that contain the given parameter in either
      * the song title or artist.
+     *
      * @param searchWord
      * @return an ArrayList of the songs containing the parameter
      * @throws SQLServerException
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ArrayList<Song> SearchSong(String searchWord) throws SQLServerException, SQLException
     {
-        String sql = "SELECT * FROM Song WHERE title LIKE '%" + searchWord+"%' OR artist LIKE '%"+ searchWord +"%'" ;
+        String sql = "SELECT * FROM Song WHERE title LIKE '%" + searchWord + "%' OR artist LIKE '%" + searchWord + "%'";
         ArrayList<Song> allSongsFounded = new ArrayList<>();
 
         try (Connection con = dbConnect.getConnection())
@@ -218,4 +225,23 @@ public class SongDAO
         return allSongsFounded;
     }
 
+    public ArrayList<Integer> getTackNumbers(Playlist playlist) throws SQLException
+    {
+        String sql = "SELECT * FROM PlaylistSong WHERE playlistId = " + playlist.getPlaylistID() + ";";
+        ArrayList<Integer> trackNumbers = new ArrayList<>();
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next())
+            {
+                int tn = rs.getInt("trackNumber");
+                trackNumbers.add(tn);
+            }
+
+            return trackNumbers;
+        }
+    }
 }
