@@ -233,7 +233,7 @@ public class PlaylistDAO
 
             String sql2 = "SELECT * FROM PlaylistSong LEFT JOIN Song ON "
                     + "PlaylistSong.songId=Song.id WHERE playlistId = " + playlist.getPlaylistID()
-                    + " and trackNumber = " + (trackNumber + 2) + ";";
+                    + " and trackNumber = " + (trackNumber + 1) + ";";
 
             rs = statement.executeQuery(sql2);
             while (rs.next())

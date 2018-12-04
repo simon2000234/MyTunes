@@ -309,7 +309,6 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlePlaySong(ActionEvent event) throws SQLException
     {
-        int infi = 1;
         if (model.getCurPlaySong() == null
                 || model.getCurPlaySong().getFilePath() != model.getSelectedSong().getFilePath())
         {
@@ -317,10 +316,7 @@ public class FXMLDocumentController implements Initializable
             model.PlaySong();
             isPaused = true;
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
-            while (infi == 1)
-            {
-                model.playNextSong(model.getCurPlaySong(), new Playlist(1, "Funky Music"));
-            }
+            model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
         } else
         {
             model.PausePlaySong();
