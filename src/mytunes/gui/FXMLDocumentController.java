@@ -105,6 +105,8 @@ public class FXMLDocumentController implements Initializable
             public void handle(MouseEvent event)
             {
                 model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+                model.setListviewtest("songsview");
+                System.out.println("" + model.getListviewtest());
             }
         });
         sopview.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -113,19 +115,11 @@ public class FXMLDocumentController implements Initializable
             public void handle(MouseEvent event)
             {
                 model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
+                model.setListviewtest("sopview");
+                System.out.println("" + model.getListviewtest());
             }
-
-        }
-        );
-
+        });
     }
-
-    ;
-
-
-    
-
-
 
     @FXML
 
@@ -187,22 +181,22 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistdelete(ActionEvent event)
     {
+        Alert confirmPLDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
+                + model.getSelectedPlaylist().getPlaylistName() + "?",
+                ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        confirmPLDelete.setTitle("Delete playlist");
+        confirmPLDelete.setHeaderText("Are you sure?");
+        confirmPLDelete.showAndWait();
 
-        Playlist pl = plview.getSelectionModel().getSelectedItem();
-        try
+        if (confirmPLDelete.getResult() == ButtonType.YES)
         {
-            model.deleteplaylist(pl);
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-
-            Alert confirmPLDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
-                    + model.getSelectedPlaylist().getPlaylistName() + "?",
-                    ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-            confirmPLDelete.setTitle("Delete playlist");
-            confirmPLDelete.setHeaderText("Are you sure?");
-            confirmPLDelete.showAndWait();
-
+            try
+            {
+                model.deleteplaylist(model.getSelectedPlaylist());
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
