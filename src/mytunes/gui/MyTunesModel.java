@@ -284,8 +284,11 @@ public class MyTunesModel
         return updatedsopview;
     }
     
-    public void playNextSong(Song song)
+    public ObservableList<Playlist> updatePlaylistView() throws SQLException
     {
-        mtm.playNextSong(song);
+        ObservableList<Playlist> newPlaylistView;
+        newPlaylistView = FXCollections.observableArrayList();
+        newPlaylistView.addAll(getAllPlaylists());
+        return newPlaylistView;
     }
 }

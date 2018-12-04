@@ -104,9 +104,9 @@ public class MTManager
     }
 
     /**
-     * playning the given song.
+     * playning the given song s stand for song
      *
-     * @param s is the song
+     * @param s
      */
     public void PlaySong(Song s)
     {
@@ -189,19 +189,6 @@ public class MTManager
     public Playlist getPlaylist(int playlistId) throws SQLException
     {
         return pldao.getPlaylist(playlistId);
-    }
-    
-    public void playNextSong(Song song)
-    {
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-        @Override public void run() {
-        String bip = song.getFilePath();
-        Media hit = new Media(new File(bip).toURI().toString());
-        mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.play();
-        curPlaySong = bip;
-        }
-      });
     }
 
     public void volumeSlider()
