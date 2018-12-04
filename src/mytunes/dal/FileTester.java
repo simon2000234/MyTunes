@@ -29,8 +29,7 @@ public class FileTester
     {
         SongDAO songDAO = new SongDAO();
         mp3toDB mp3todb = new mp3toDB();
-        PlaylistDAO pldao = new PlaylistDAO();
-        
+        PlaylistDAO pldao = new PlaylistDAO();        
         
         
 

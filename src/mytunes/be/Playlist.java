@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class Playlist
 {
 
-    private int playlistID;
-    private String playlistName;
+    private int playlistID; // the playlist's unique id
+    private String playlistName; // the name of the playlist
 
     public Playlist(int playlistID, String playlistName)
     {
