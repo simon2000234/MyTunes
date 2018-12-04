@@ -250,4 +250,21 @@ public class PlaylistDAO
         }
         return null;
     }
+    
+    public Integer getSongOnPlaylistTackNumber(Playlist playlist, Song song) throws SQLException
+    {
+        String sql = "SELECT * FROM PlaylistSong WHERE playlistId = "
+                + playlist.getPlaylistID()+" and songId = "+ song.getSongID() +";";
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next())
+            {
+                int trackNumber = rs.getInt("trackNumber");
+                return trackNumber;
+            }
+        }
+        return null;
+    }
 }
