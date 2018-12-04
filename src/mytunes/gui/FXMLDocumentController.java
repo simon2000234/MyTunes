@@ -60,11 +60,11 @@ public class FXMLDocumentController implements Initializable
     private Label volumeprocent;
     @FXML
     private Slider volumeSlider;
-    
-        @FXML
-        private void slider()
+
+    @FXML
+    private void slider()
     {
-        model.volumeSlider();  
+        model.volumeSlider();
     }
 
     /**
@@ -115,11 +115,12 @@ public class FXMLDocumentController implements Initializable
                 model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
             }
 
-
         }
         );
 
-        };
+    }
+
+    ;
 
 
     
@@ -195,15 +196,14 @@ public class FXMLDocumentController implements Initializable
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
 
-        Alert confirmPLDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
-                + model.getSelectedPlaylist().getPlaylistName() + "?",
-                ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-        confirmPLDelete.setTitle("Delete playlist");
-        confirmPLDelete.setHeaderText("Are you sure?");
-        confirmPLDelete.showAndWait();
+            Alert confirmPLDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
+                    + model.getSelectedPlaylist().getPlaylistName() + "?",
+                    ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            confirmPLDelete.setTitle("Delete playlist");
+            confirmPLDelete.setHeaderText("Are you sure?");
+            confirmPLDelete.showAndWait();
 
-        
-    }
+        }
     }
 
     @FXML
@@ -309,14 +309,18 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlePlaySong(ActionEvent event) throws SQLException
     {
-        if (model.getCurPlaySong().isEmpty()
-                || model.getCurPlaySong() != model.getSelectedSong().getFilePath())
+        int infi = 1;
+        if (model.getCurPlaySong() == null
+                || model.getCurPlaySong().getFilePath() != model.getSelectedSong().getFilePath())
         {
             model.StopSong();
             model.PlaySong();
             isPaused = true;
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
-            model.playNextSong(new Song(1, "Booby Drake", "some dude", 163, "sdas", "Data/BenJamin_Banger_-_01_-_Bobby_Drake.mp3"));
+            while (infi == 1)
+            {
+                model.playNextSong(model.getCurPlaySong(), new Playlist(1, "Funky Music"));
+            }
         } else
         {
             model.PausePlaySong();
@@ -361,5 +365,4 @@ public class FXMLDocumentController implements Initializable
         }
     }
 
-
-    }
+}
