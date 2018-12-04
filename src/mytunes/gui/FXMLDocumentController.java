@@ -119,10 +119,10 @@ public class FXMLDocumentController implements Initializable
         }
         );
 
-        });
+        };
 
 
-    }
+    
 
 
 
@@ -202,18 +202,8 @@ public class FXMLDocumentController implements Initializable
         confirmPLDelete.setHeaderText("Are you sure?");
         confirmPLDelete.showAndWait();
 
-        Playlist pl = plview.getSelectionModel().getSelectedItem();
-        if (confirmPLDelete.getResult() == ButtonType.YES)
-        {        
-            try
-            {
-                model.deleteplaylist(pl);
-            } catch (SQLException ex)
-            {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
+        
+    }
     }
 
     @FXML
@@ -371,4 +361,5 @@ public class FXMLDocumentController implements Initializable
         }
     }
 
-}
+
+    }
