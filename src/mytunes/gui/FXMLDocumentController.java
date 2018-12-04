@@ -60,11 +60,11 @@ public class FXMLDocumentController implements Initializable
     private Label volumeprocent;
     @FXML
     private Slider volumeSlider;
-    
-        @FXML
-        private void slider()
+
+    @FXML
+    private void slider()
     {
-        model.volumeSlider();  
+        model.volumeSlider();
     }
 
     /**
@@ -106,7 +106,7 @@ public class FXMLDocumentController implements Initializable
             {
                 model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
                 model.setListviewtest("songsview");
-                System.out.println(""+model.getListviewtest());
+                System.out.println("" + model.getListviewtest());
             }
         });
         sopview.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -116,12 +116,10 @@ public class FXMLDocumentController implements Initializable
             {
                 model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
                 model.setListviewtest("sopview");
-                System.out.println(""+model.getListviewtest());
+                System.out.println("" + model.getListviewtest());
             }
         });
     }
-
-
 
     @FXML
 
@@ -190,17 +188,15 @@ public class FXMLDocumentController implements Initializable
         confirmPLDelete.setHeaderText("Are you sure?");
         confirmPLDelete.showAndWait();
 
-        Playlist pl = plview.getSelectionModel().getSelectedItem();
         if (confirmPLDelete.getResult() == ButtonType.YES)
-        {        
+        {
             try
             {
-                model.deleteplaylist(pl);
+                model.deleteplaylist(model.getSelectedPlaylist());
             } catch (SQLException ex)
             {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
     }
 
