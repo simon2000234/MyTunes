@@ -118,14 +118,7 @@ public class FXMLDocumentController implements Initializable
                 model.setListviewtest("sopview");
                 System.out.println(""+model.getListviewtest());
             }
-
-
-        }
-        );
-
         });
-
-
     }
 
 
@@ -190,15 +183,6 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistdelete(ActionEvent event)
     {
-
-        Playlist pl = plview.getSelectionModel().getSelectedItem();
-        try
-        {
-            model.deleteplaylist(pl);
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-
         Alert confirmPLDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
                 + model.getSelectedPlaylist().getPlaylistName() + "?",
                 ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
