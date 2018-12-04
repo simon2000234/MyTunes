@@ -8,13 +8,9 @@ package mytunes.gui;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,11 +23,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.bll.MTManager;
 import mytunes.dal.SongDAO;
 
 /**
@@ -45,6 +43,7 @@ public class FXMLDocumentController implements Initializable
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private MyTunesModel model;
+
     private boolean isPaused;
     @FXML
     private Label headlinelbl;
@@ -57,6 +56,17 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private ListView<Song> songsview;
 
+    @FXML
+    private Label volumeprocent;
+    @FXML
+    private Slider volumeSlider;
+    
+        @FXML
+        private void slider()
+    {
+        model.volumeSlider();  
+    }
+
     /**
      * Initializes the controller class.
      *
@@ -66,6 +76,7 @@ public class FXMLDocumentController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+
         try
         {
             this.model = new MyTunesModel();
@@ -107,9 +118,17 @@ public class FXMLDocumentController implements Initializable
                 model.setListviewtest("sopview");
                 System.out.println(""+model.getListviewtest());
             }
+
+
+        }
+        );
+
         });
 
+
     }
+
+
 
     @FXML
 
@@ -171,6 +190,15 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistdelete(ActionEvent event)
     {
+
+        Playlist pl = plview.getSelectionModel().getSelectedItem();
+        try
+        {
+            model.deleteplaylist(pl);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+
         Alert confirmPLDelete = new Alert(AlertType.CONFIRMATION, "Delete: "
                 + model.getSelectedPlaylist().getPlaylistName() + "?",
                 ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
@@ -188,6 +216,7 @@ public class FXMLDocumentController implements Initializable
             {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }
 
