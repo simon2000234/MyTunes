@@ -20,17 +20,18 @@ import mytunes.bll.MTManager;
 public class MyTunesModel
 {
 
-    private MTManager mtm; 
+    private MTManager mtm;
     private ObservableList<Song> songs; // List of songs for the main song view
     private ObservableList<Song> songsOnPlayList;
     private Song selectedSong; //Contains the last selected song
     private Playlist selectedPlaylist; //Contains the last selected playlist
+    private String listviewtest;
 
     private ObservableList<Playlist> playlists;
 
     /**
-     * 
-     * @return the last selected playlist 
+     *
+     * @return the last selected playlist
      */
     public Playlist getSelectedPlaylist()
     {
@@ -39,7 +40,8 @@ public class MyTunesModel
 
     /**
      * Set the last selected playlist to the given parameter
-     * @param selectedPlaylist 
+     *
+     * @param selectedPlaylist
      */
     public void setSelectedPlaylist(Playlist selectedPlaylist)
     {
@@ -47,8 +49,8 @@ public class MyTunesModel
     }
 
     /**
-     * 
-     * @return last selected song 
+     *
+     * @return last selected song
      */
     public Song getSelectedSong()
     {
@@ -57,7 +59,8 @@ public class MyTunesModel
 
     /**
      * Sets the last selected song to the given parameter.
-     * @param selectedSong 
+     *
+     * @param selectedSong
      */
     public void setSelectedSong(Song selectedSong)
     {
@@ -76,9 +79,9 @@ public class MyTunesModel
     }
 
     /**
-     * 
+     *
      * @return an ObservableList of all songs in the database
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ObservableList<Song> getSongs() throws SQLException
     {
@@ -110,8 +113,8 @@ public class MyTunesModel
     }
 
     /**
-     * 
-     * @return the song that is currently playing 
+     *
+     * @return the song that is currently playing
      */
     public String getCurPlaySong()
     {
@@ -119,13 +122,14 @@ public class MyTunesModel
     }
 
     /**
-     * Creates a song with the given parameters and adds it to the playlist, then
-     * adds the newly created song to the main songview.
+     * Creates a song with the given parameters and adds it to the playlist,
+     * then adds the newly created song to the main songview.
+     *
      * @param title
      * @param artist
      * @param time
      * @param category
-     * @param filePath 
+     * @param filePath
      */
     public void createSong(String title, String artist, int time, String category, String filePath)
     {
@@ -134,10 +138,11 @@ public class MyTunesModel
     }
 
     /**
-     * Updates a song in the database and updates the view by removing the outdated
-     * song and adding the updated song.
+     * Updates a song in the database and updates the view by removing the
+     * outdated song and adding the updated song.
+     *
      * @param updatedSong
-     * @param oldSong 
+     * @param oldSong
      */
     public void updateSong(Song updatedSong, Song oldSong)
     {
@@ -148,8 +153,10 @@ public class MyTunesModel
     }
 
     /**
-     * Removes a song from the main songview and removes the same song in the database
-     * @param ds 
+     * Removes a song from the main songview and removes the same song in the
+     * database
+     *
+     * @param ds
      */
     public void deleteSong(Song ds)
     {
@@ -160,9 +167,10 @@ public class MyTunesModel
     /**
      * Searches the song database for a song/songs with a title or artist that
      * contains the given parameter.
+     *
      * @param searchWord
      * @return an ObservableList of the matching songs
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ObservableList<Song> getFoundedSong(String searchWord) throws SQLException
     {
@@ -174,33 +182,36 @@ public class MyTunesModel
 
     /**
      * Creates a playlist with the given parameters as its name
+     *
      * @param name
      * @return the created playlist
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Playlist createPlaylist(String name) throws SQLException
     {
-       Playlist playlist = mtm.createPlaylist(name);
-       playlists.add(playlist);
+        Playlist playlist = mtm.createPlaylist(name);
+        playlists.add(playlist);
         return playlist;
     }
 
     /**
      * Adds the given song to the given playlist
+     *
      * @param song
      * @param playlist
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void addSongToPlaylist(Song song, Playlist playlist) throws SQLException
     {
         mtm.addSongToPlaylist(song, playlist);
+        System.out.println("" + song + "," + playlist);
     }
 
     /**
-     * 
+     *
      * @param playlist
      * @return a list with all the songs on the given playlist
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Song> getAllSongsOnPlaylist(Playlist playlist) throws SQLException
     {
@@ -209,18 +220,18 @@ public class MyTunesModel
 
     /**
      * removes the given song from the given playlist
+     *
      * @param playlist
-     * @param song 
+     * @param song
      */
     public void removeSong(Playlist playlist, Song song)
     {
         mtm.removeSong(playlist, song);
-        
+
     }
 
-
     /**
-     * 
+     *
      * @return an ObservableList of all playlists
      */
     public ObservableList<Playlist> getAllPlaylists() throws SQLException
@@ -232,9 +243,10 @@ public class MyTunesModel
 
     /**
      * Returns the playlist with the given playlistId
+     *
      * @param playlistId
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Playlist getPlaylist(int playlistId) throws SQLException
     {
@@ -243,9 +255,10 @@ public class MyTunesModel
 
     /**
      * Gets the songs on the given playlist
+     *
      * @param playlist
      * @return an ObservableList of the songs on the given playlist
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ObservableList<Song> getSongsOnPl(Playlist playlist) throws SQLException
     {
@@ -257,8 +270,9 @@ public class MyTunesModel
 
     /**
      * deletes the given playlist
+     *
      * @param playlist
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void deleteplaylist(Playlist playlist) throws SQLException
     {
@@ -268,20 +282,31 @@ public class MyTunesModel
 
     /**
      * Updates the ListView Songs On Playlist
+     *
      * @return a new observable list that can be set to the listview.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ObservableList<Song> updateSopview() throws SQLException
     {
         ObservableList<Song> updatedsopview;
         updatedsopview = FXCollections.observableArrayList();
         updatedsopview.addAll(getAllSongsOnPlaylist(selectedPlaylist));
-        
+
         return updatedsopview;
     }
-    
+
     public void playNextSong(Song song)
     {
         mtm.playNextSong(song);
+    }
+
+    public String getListviewtest()
+    {
+        return listviewtest;
+    }
+
+    public void setListviewtest(String teststring)
+    {
+        this.listviewtest = teststring;
     }
 }

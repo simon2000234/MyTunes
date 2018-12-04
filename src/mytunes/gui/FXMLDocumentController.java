@@ -94,6 +94,8 @@ public class FXMLDocumentController implements Initializable
             public void handle(MouseEvent event)
             {
                 model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
+                model.setListviewtest("songsview");
+                System.out.println(""+model.getListviewtest());
             }
         });
         sopview.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -102,6 +104,8 @@ public class FXMLDocumentController implements Initializable
             public void handle(MouseEvent event)
             {
                 model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
+                model.setListviewtest("sopview");
+                System.out.println(""+model.getListviewtest());
             }
         });
 
