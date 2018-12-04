@@ -22,7 +22,7 @@ import mytunes.be.Song;
  */
 public class PlaylistDAO
 {
-     
+
     private DBConnectionProvider dbConnect;
 
     public PlaylistDAO()
@@ -31,10 +31,10 @@ public class PlaylistDAO
     }
 
     /**
-     * 
+     *
      * @param name
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Playlist createPlaylist(String name) throws SQLException
     {
@@ -71,7 +71,7 @@ public class PlaylistDAO
                 return;
             }
         }
-        String sql = "INSERT INTO playlistSong(playlistId, songId) VALUES(?,?);";
+        String sql = "INSERT INTO playlistSong(playlistId, songId, trackNumber) VALUES(?,?,?);";
 
         try (Connection con = dbConnect.getConnection())
         {
@@ -79,6 +79,7 @@ public class PlaylistDAO
 
             st.setInt(1, playlist.getPlaylistID());
             st.setInt(2, song.getSongID());
+            st.setInt(3, getNextTackNumber(playlist));
 
             st.executeUpdate();
         }
@@ -143,21 +144,20 @@ public class PlaylistDAO
         }
     }
 
-    public void deletePlayList(int id) throws SQLException{
-    try (Connection con = dbConnect.getConnection())
+    public void deletePlayList(int id) throws SQLException
+    {
+        try (Connection con = dbConnect.getConnection())
         {
             String sql1 = "DELETE FROM PlaylistSong WHERE playlistId=" + id + ";";
-            String sql2 = "DELETE FROM Playlist WHERE id=" +id +";";
+            String sql2 = "DELETE FROM Playlist WHERE id=" + id + ";";
 
             Statement statement = con.createStatement();
-            
+
             statement.execute(sql1);
             statement.execute(sql2);
-        
+
         }
     }
-    
-
 
     public Playlist getPlaylist(int playlistId) throws SQLException
     {
@@ -175,5 +175,42 @@ public class PlaylistDAO
         }
         return null;
 
+    }
+
+    public ArrayList<Integer> getTackNumbers(Playlist playlist) throws SQLException
+    {
+        String sql = "SELECT * FROM PlaylistSong WHERE playlistId = " + playlist.getPlaylistID() + ";";
+        ArrayList<Integer> trackNumbers = new ArrayList<>();
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next())
+            {
+                int tn = rs.getInt("trackNumber");
+                trackNumbers.add(tn);
+            }
+
+            return trackNumbers;
+        }
+    }
+
+    public Integer getNextTackNumber(Playlist playlist) throws SQLException
+    {
+        List<Integer> trackNumbers = getTackNumbers(playlist);
+        int curNextTN = 1;
+        for (int i = 0; i < trackNumbers.size(); i++)
+        {
+            if (curNextTN != trackNumbers.get(i))
+            {
+                return curNextTN;
+            } else
+            {
+                curNextTN++;
+            }
+        }
+        return curNextTN;
     }
 }

@@ -241,6 +241,10 @@ public class MyTunesModel
         return mtm.getPlaylist(playlistId);
     }
 
+    public void volumeSlider ()
+    {
+        mtm.volumeSlider();
+    }
     /**
      * Gets the songs on the given playlist
      * @param playlist

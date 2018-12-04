@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 
@@ -223,25 +224,5 @@ public class SongDAO
             }
         }
         return allSongsFounded;
-    }
-
-    public ArrayList<Integer> getTackNumbers(Playlist playlist) throws SQLException
-    {
-        String sql = "SELECT * FROM PlaylistSong WHERE playlistId = " + playlist.getPlaylistID() + ";";
-        ArrayList<Integer> trackNumbers = new ArrayList<>();
-
-        try (Connection con = dbConnect.getConnection())
-        {
-            Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next())
-            {
-                int tn = rs.getInt("trackNumber");
-                trackNumbers.add(tn);
-            }
-
-            return trackNumbers;
-        }
     }
 }

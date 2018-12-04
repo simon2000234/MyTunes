@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.Animation;
+import javafx.beans.InvalidationListener;
+import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import static javafx.scene.media.MediaPlayer.Status.PAUSED;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 import mytunes.dal.PlaylistDAO;
@@ -29,6 +29,7 @@ public class MTManager
 {
 
     private MediaPlayer mediaPlayer;
+    private Slider volumeslider;
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private boolean isSongPlaying = false;
@@ -178,13 +179,12 @@ public class MTManager
         ArrayList<Song> foundedSong = SongDAO.SearchSong(searchWord);
         return foundedSong;
     }
-    
 
-     public void deletePlayList(int id) throws SQLException{
-           pldao.deletePlayList(id);
-         
-     }
-    
+    public void deletePlayList(int id) throws SQLException
+    {
+        pldao.deletePlayList(id);
+
+    }
 
     public Playlist getPlaylist(int playlistId) throws SQLException
     {
@@ -204,4 +204,21 @@ public class MTManager
       });
     }
 
+    public void volumeSlider()
+    {
+
+        volumeslider.setValue(mediaPlayer.getVolume() * 100);
+        volumeslider.valueProperty().addListener(new InvalidationListener()
+        {
+
+            @Override
+            public void invalidated(javafx.beans.Observable observable)
+            {
+                mediaPlayer.setVolume(volumeslider.getValue() / 100);
+            }
+        });
+
+    }
+
 }
+
