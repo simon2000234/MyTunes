@@ -29,7 +29,7 @@ import mytunes.dal.SongDAO;
 public class MTManager
 {
     
-    private  double curVol = 50;
+    private  double curVol = 0.5;
     private MediaPlayer mediaPlayer;
     private Slider volumeSlider;
     private Song song;
@@ -236,12 +236,13 @@ public class MTManager
    public void volumeSlider()
    {
       
-       volumeSlider.setValue(curVol);
-         volumeSlider.setValue(mediaPlayer.getVolume() * 100);
-         curVol = mediaPlayer.getVolume();
+        mediaPlayer.setVolume(curVol);
+        volumeSlider.setValue(mediaPlayer.getVolume() * 100);
         volumeSlider.valueProperty().addListener((Observable observable) ->
         {
             mediaPlayer.setVolume(volumeSlider.getValue() / 100);
+                     curVol = mediaPlayer.getVolume();
+
         });
    }
 
