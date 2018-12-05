@@ -299,8 +299,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlePlaySong(ActionEvent event) throws SQLException
     {
-        if (model.getCurPlaySong() == null
-                || model.getCurPlaySong().getFilePath() != model.getSelectedSong().getFilePath())
+        if (model.getCurPlaySong() == null || (model.getSelectedSong().getSongID() != -1 && model.getCurPlaySong() != model.getSelectedSong()))
         {
             model.setVolumeSlider(volumeSlider);
             model.StopSong();
@@ -308,16 +307,18 @@ public class FXMLDocumentController implements Initializable
             isPaused = true;
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
             model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
+            model.setSelectedSong(new Song(-1, "empty", null, 0, null, null));
+            
         } else
         {
             model.PausePlaySong();
             if (isPaused)
             {
-                headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle() + "(Paused)");
+                headlinelbl.setText("Currently playing: " + model.getCurPlaySong().getTitle() + "(Paused)");
                 isPaused = false;
             } else
             {
-                headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
+                headlinelbl.setText("Currently playing: " + model.getCurPlaySong().getTitle());
                 isPaused = true;
             }
         }
