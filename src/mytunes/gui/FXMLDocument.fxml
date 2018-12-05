@@ -12,7 +12,7 @@
       <Label layoutX="953.0" layoutY="12.0" text="filter" />
       <Label fx:id="headlinelbl" layoutX="491.0" layoutY="6.0" text="(none)... is playing" />
       <Label layoutX="671.0" layoutY="28.0" text="Songs" />
-      <Label fx:id="volumeslider" layoutX="348.0" layoutY="29.0" text="Songs on playlist" />
+      <Label layoutX="348.0" layoutY="29.0" text="Songs on playlist" />
       <Label layoutX="42.0" layoutY="29.0" text="Playlists" />
       <TextField fx:id="filtertxt" layoutX="984.0" layoutY="8.0" onAction="#handleFiltertxtSearch" />
       <Button layoutX="1152.0" layoutY="8.0" mnemonicParsing="false" onAction="#filtersearch" text="search" />
@@ -32,6 +32,5 @@
       <Button layoutX="678.0" layoutY="640.0" mnemonicParsing="false" onAction="#handlesongsnew" text="new..." />
       <Button layoutX="584.0" layoutY="195.0" mnemonicParsing="false" onAction="#handlePlaySong" text="Play/Pause" />
       <Slider fx:id="volumeSlider" layoutX="185.0" layoutY="16.0" showTickLabels="true" />
-      <Label fx:id="volumeprocent" layoutX="130.0" layoutY="15.0" text="Volume" />
    </children>
 </AnchorPane>
