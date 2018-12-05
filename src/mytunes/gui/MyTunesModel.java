@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Slider;
+import javafx.scene.media.MediaPlayer;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 import mytunes.bll.MTManager;
@@ -36,6 +38,15 @@ public class MyTunesModel
     public Playlist getSelectedPlaylist()
     {
         return selectedPlaylist;
+    }
+    public Slider getVolumeSlider()
+    {
+        return mtm.getVolumeSlider();
+    }
+
+    public void setVolumeSlider(Slider volumeSlider)
+    {
+        mtm.setVolumeSlider(volumeSlider);
     }
 
     /**
@@ -253,9 +264,8 @@ public class MyTunesModel
         return mtm.getPlaylist(playlistId);
     }
 
-    public void volumeSlider ()
+     
     {
-        mtm.volumeSlider();
     }
     /**
      * Gets the songs on the given playlist
@@ -314,4 +324,5 @@ public class MyTunesModel
     {
         this.listviewtest = teststring;
     }
+  
 }
