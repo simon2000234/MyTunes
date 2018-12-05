@@ -242,7 +242,6 @@ public class MTManager
         {
             mediaPlayer.setVolume(volumeSlider.getValue() / 100);
                      curVol = mediaPlayer.getVolume();
-
         });
    }
 
