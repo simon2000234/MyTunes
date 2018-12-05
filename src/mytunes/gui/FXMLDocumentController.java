@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,6 +28,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
@@ -55,17 +59,8 @@ public class FXMLDocumentController implements Initializable
     private ListView<Song> sopview;
     @FXML
     private ListView<Song> songsview;
-
-    @FXML
-    private Label volumeprocent;
     @FXML
     private Slider volumeSlider;
-
-    @FXML
-    private void slider()
-    {
-        model.volumeSlider();
-    }
 
     /**
      * Initializes the controller class.
@@ -119,6 +114,7 @@ public class FXMLDocumentController implements Initializable
                 System.out.println("" + model.getListviewtest());
             }
         });
+
     }
 
     @FXML
@@ -303,24 +299,26 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handlePlaySong(ActionEvent event) throws SQLException
     {
-        if (model.getCurPlaySong() == null
-                || model.getCurPlaySong().getFilePath() != model.getSelectedSong().getFilePath())
+        if (model.getCurPlaySong() == null || (model.getSelectedSong().getSongID() != -1 && model.getCurPlaySong() != model.getSelectedSong()))
         {
+            model.setVolumeSlider(volumeSlider);
             model.StopSong();
             model.PlaySong();
             isPaused = true;
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
             model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
+            model.setSelectedSong(new Song(-1, "empty", null, 0, null, null));
+            
         } else
         {
             model.PausePlaySong();
             if (isPaused)
             {
-                headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle() + "(Paused)");
+                headlinelbl.setText("Currently playing: " + model.getCurPlaySong().getTitle() + "(Paused)");
                 isPaused = false;
             } else
             {
-                headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
+                headlinelbl.setText("Currently playing: " + model.getCurPlaySong().getTitle());
                 isPaused = true;
             }
         }

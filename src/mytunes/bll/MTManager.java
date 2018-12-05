@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -27,14 +28,25 @@ import mytunes.dal.SongDAO;
  */
 public class MTManager
 {
-
+    
+    private  double curVol = 0.5;
     private MediaPlayer mediaPlayer;
-    private Slider volumeslider;
+    private Slider volumeSlider;
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private boolean isSongPlaying = false;
     private Song curPlaySong;
     private PlaylistDAO pldao = new PlaylistDAO();
+
+    public Slider getVolumeSlider()
+    {
+        return volumeSlider;
+    }
+
+    public void setVolumeSlider(Slider volumeSlider)
+    {
+        this.volumeSlider = volumeSlider;
+    }
 
     /**
      * creating the given song in the database s stand for song
@@ -110,12 +122,15 @@ public class MTManager
      */
     public void PlaySong(Song s)
     {
+        
         String bip = s.getFilePath();
         Media hit = new Media(new File(bip).toURI().toString());
         mediaPlayer = new MediaPlayer(hit);
         mediaPlayer.play();
         isSongPlaying = true;
         curPlaySong = s;
+        volumeSlider();
+        
     }
 
     public Song getCurPlaySong()
@@ -205,9 +220,10 @@ public class MTManager
                     String bip = nextSong.getFilePath();
                     Media hit = new Media(new File(bip).toURI().toString());
                     mediaPlayer = new MediaPlayer(hit);
+                    volumeSlider();
                     mediaPlayer.play();
                     curPlaySong = nextSong;
-                    playNextSong(curPlaylist, curPlaySong);
+                    playNextSong(curPlaylist, nextSong);
                 } catch (SQLException ex)
                 {
                     Logger.getLogger(MTManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -217,20 +233,17 @@ public class MTManager
         });
     }
 
-    public void volumeSlider()
-    {
-
-        volumeslider.setValue(mediaPlayer.getVolume() * 100);
-        volumeslider.valueProperty().addListener(new InvalidationListener()
+   public void volumeSlider()
+   {
+      
+        mediaPlayer.setVolume(curVol);
+        volumeSlider.setValue(mediaPlayer.getVolume() * 100);
+        volumeSlider.valueProperty().addListener((Observable observable) ->
         {
+            mediaPlayer.setVolume(volumeSlider.getValue() / 100);
+                     curVol = mediaPlayer.getVolume();
 
-            @Override
-            public void invalidated(javafx.beans.Observable observable)
-            {
-                mediaPlayer.setVolume(volumeslider.getValue() / 100);
-            }
         });
-
-    }
+   }
 
 }
