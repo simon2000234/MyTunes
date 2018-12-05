@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/dal/SongDAO.java</file>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/bll/MTManager.java</file>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/FXMLDocumentController.java</file>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/dal/PlaylistDAO.java</file>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/MyTunesModel.java</file>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/dal/FileTester.java</file>
+            <file>file:/C:/Users/Richart%20hansen/Documents/MRS/MyTunes/src/mytunes/gui/FXMLDocumentController.java</file>
+            <file>file:/C:/Users/Richart%20hansen/Documents/MRS/MyTunes/src/mytunes/gui/EditPlayListController.java</file>
+            <file>file:/C:/Users/Richart%20hansen/Documents/MRS/MyTunes/src/mytunes/bll/MTManager.java</file>
+            <file>file:/C:/Users/Richart%20hansen/Documents/MRS/MyTunes/src/mytunes/gui/MyTunesModel.java</file>
+            <file>file:/C:/Users/Richart%20hansen/Documents/MRS/MyTunes/src/mytunes/dal/PlaylistDAO.java</file>
+            <file>file:/C:/Users/Richart%20hansen/Documents/MRS/MyTunes/src/mytunes/gui/EditSongWindowController.java</file>
+            <file>file:/C:/Users/Richart%20hansen/Documents/MRS/MyTunes/src/mytunes/gui/CreatePlayListController.java</file>
+            <file>file:/C:/Users/Richart%20hansen/Documents/MRS/MyTunes/src/mytunes/dal/SongDAO.java</file>
         </group>
     </open-files>
 </project-private>

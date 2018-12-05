@@ -11,7 +11,7 @@ import java.sql.Connection;
 
 /**
  *
- * @author ich haben nicht
+ * @author kim jong un
  */
 public class DBConnectionProvider
 {
