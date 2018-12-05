@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 
@@ -93,20 +95,18 @@ public class PlaylistDAO
         {
             Statement Statement = con.createStatement();
             ResultSet rs = Statement.executeQuery("SELECT * FROM PlaylistSong "
-                    + "LEFT JOIN Song ON PlaylistSong.songId=Song.id;");
+                    + "LEFT JOIN Song ON PlaylistSong.songId=Song.id "
+                    + "WHERE playlistId = " + playlist.getPlaylistID() + " ORDER BY trackNumber");
             while (rs.next())
             {
-                if (rs.getInt("playlistId") == playlist.getPlaylistID())
-                {
-                    int id = rs.getInt("id");
-                    String title = rs.getString("title");
-                    String artist = rs.getString("artist");
-                    int time = rs.getInt("time");
-                    String category = rs.getString("category");
-                    String filePath = rs.getString("filePath");
-                    Song song = new Song(id, title, artist, time, category, filePath);
-                    songs.add(song);
-                }
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String artist = rs.getString("artist");
+                int time = rs.getInt("time");
+                String category = rs.getString("category");
+                String filePath = rs.getString("filePath");
+                Song song = new Song(id, title, artist, time, category, filePath);
+                songs.add(song);
             }
             return songs;
         }
@@ -115,15 +115,15 @@ public class PlaylistDAO
     public void removeSong(Playlist playlist, Song song) throws SQLException
     {
         int trackNumber = getSongOnPlaylistTackNumber(playlist, song);
-        String sql2 = "UPDATE PlaylistSong SET trackNumber = trackNumber - 1 WHERE trackNumber>"+trackNumber
-                +"AND playlistId="+playlist.getPlaylistID()+";";
+        String sql2 = "UPDATE PlaylistSong SET trackNumber = trackNumber - 1 WHERE trackNumber>" + trackNumber
+                + "AND playlistId=" + playlist.getPlaylistID() + ";";
         String sql = "DELETE FROM PlaylistSong WHERE playlistId = "
                 + playlist.getPlaylistID() + "and songId = " + song.getSongID() + ";";
         try (Connection con = dbConnect.getConnection())
         {
             Statement Statement = con.createStatement();
-            
-            Statement.executeQuery(sql+sql2);
+
+            Statement.executeQuery(sql + sql2);
 
         } catch (SQLException ex)
         {
@@ -221,7 +221,7 @@ public class PlaylistDAO
 
     public Song getNextSongOnPlaylist(Playlist playlist, Song curSong) throws SQLException
     {
-        String sql1 = "SELECT * FROM PlaylistSong WHERE songId = " 
+        String sql1 = "SELECT * FROM PlaylistSong WHERE songId = "
                 + curSong.getSongID() + " and playlistId = " + playlist.getPlaylistID() + ";";
         int trackNumber = -1;
         try (Connection con = dbConnect.getConnection())
@@ -256,11 +256,11 @@ public class PlaylistDAO
         }
         return null;
     }
-    
+
     public Integer getSongOnPlaylistTackNumber(Playlist playlist, Song song) throws SQLException
     {
         String sql = "SELECT * FROM PlaylistSong WHERE playlistId = "
-                + playlist.getPlaylistID()+" and songId = "+ song.getSongID() +";";
+                + playlist.getPlaylistID() + " and songId = " + song.getSongID() + ";";
         try (Connection con = dbConnect.getConnection())
         {
             Statement statement = con.createStatement();
@@ -272,5 +272,36 @@ public class PlaylistDAO
             }
         }
         return null;
+    }
+
+    /**
+     *
+     * @param spotsOfMomvement how much the song should move up or down the
+     * playlist should only move up or down by one spot at a time
+     * @param playlist
+     * @param song
+     */
+    public void ChangePlaylistOrder(Integer spotsOfMomvement, Playlist playlist, Song song) throws SQLException
+    {
+        int trackNumber = getSongOnPlaylistTackNumber(playlist, song);
+        String sql = "UPDATE PlaylistSong SET trackNumber = trackNumber "
+                + spotsOfMomvement + "WHERE songId =" + song.getSongID() + ";";
+        String sqlDown = "UPDATE PlaylistSong SET trackNumber = trackNumber +1 WHERE track";
+    }
+
+    public void editPlaylist(String newName, Playlist playlist) throws SQLServerException
+    {
+        String sql = "UPDATE Playlist SET [name] = '" + newName + "' WHERE id=" + playlist.getPlaylistID() + ";";
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            statement.execute(sql);
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

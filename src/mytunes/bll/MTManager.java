@@ -163,6 +163,11 @@ public class MTManager
 
         }
     }
+    
+    public void editPlaylist (String name, Playlist playlist) throws SQLException
+    {
+         pldao.editPlaylist(name, playlist);
+    }
 
     public Playlist createPlaylist(String name) throws SQLException
     {
@@ -242,7 +247,6 @@ public class MTManager
         {
             mediaPlayer.setVolume(volumeSlider.getValue() / 100);
                      curVol = mediaPlayer.getVolume();
-
         });
    }
 

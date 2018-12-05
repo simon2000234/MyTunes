@@ -204,6 +204,7 @@ public class MyTunesModel
         playlists.add(playlist);
         return playlist;
     }
+  
 
     /**
      * Adds the given song to the given playlist
@@ -324,5 +325,8 @@ public class MyTunesModel
     {
         this.listviewtest = teststring;
     }
-  
+  public void editPlaylist (String name, Playlist playlist ) throws SQLException
+  {
+      mtm.editPlaylist(name, playlist);
+  }
 }
