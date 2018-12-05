@@ -112,14 +112,19 @@ public class PlaylistDAO
         }
     }
 
-    public void removeSong(Playlist playlist, Song song)
+    public void removeSong(Playlist playlist, Song song) throws SQLException
     {
+        int trackNumber = getSongOnPlaylistTackNumber(playlist, song);
+        String sql2 = "UPDATE PlaylistSong SET trackNumber = trackNumber - 1 WHERE trackNumber>"+trackNumber
+                +"AND playlistId="+playlist.getPlaylistID()+";";
         String sql = "DELETE FROM PlaylistSong WHERE playlistId = "
                 + playlist.getPlaylistID() + "and songId = " + song.getSongID() + ";";
         try (Connection con = dbConnect.getConnection())
         {
             Statement Statement = con.createStatement();
-            Statement.executeQuery(sql);
+            
+            Statement.executeQuery(sql+sql2);
+
         } catch (SQLException ex)
         {
             //nothing
