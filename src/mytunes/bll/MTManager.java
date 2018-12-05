@@ -207,7 +207,7 @@ public class MTManager
                     mediaPlayer = new MediaPlayer(hit);
                     mediaPlayer.play();
                     curPlaySong = nextSong;
-                    playNextSong(curPlaylist, curPlaySong);
+                    playNextSong(curPlaylist, nextSong);
                 } catch (SQLException ex)
                 {
                     Logger.getLogger(MTManager.class.getName()).log(Level.SEVERE, null, ex);

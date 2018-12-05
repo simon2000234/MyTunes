@@ -221,7 +221,8 @@ public class PlaylistDAO
 
     public Song getNextSongOnPlaylist(Playlist playlist, Song curSong) throws SQLException
     {
-        String sql1 = "SELECT * FROM PlaylistSong WHERE songId = " + curSong.getSongID() + ";";
+        String sql1 = "SELECT * FROM PlaylistSong WHERE songId = " 
+                + curSong.getSongID() + " and playlistId = " + playlist.getPlaylistID() + ";";
         int trackNumber = -1;
         try (Connection con = dbConnect.getConnection())
         {
