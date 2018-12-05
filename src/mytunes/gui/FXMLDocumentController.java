@@ -137,7 +137,22 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistedit(ActionEvent event)
     {
+Parent root;
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/EditPlayList.fxml"));
+            root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Edit Playlist");
+            stage.setScene(new Scene(root, 400, 300));
+            stage.show();
 
+            EditPlayListController editPlayListController = loader.getController();
+            editPlayListController.setModel(model);
+        } catch (IOException ex)
+        {
+            //nothing
+        }
     }
 
     @FXML

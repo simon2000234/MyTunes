@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 
@@ -115,15 +117,15 @@ public class PlaylistDAO
     public void removeSong(Playlist playlist, Song song) throws SQLException
     {
         int trackNumber = getSongOnPlaylistTackNumber(playlist, song);
-        String sql2 = "UPDATE PlaylistSong SET trackNumber = trackNumber - 1 WHERE trackNumber>"+trackNumber
-                +"AND playlistId="+playlist.getPlaylistID()+";";
+        String sql2 = "UPDATE PlaylistSong SET trackNumber = trackNumber - 1 WHERE trackNumber>" + trackNumber
+                + "AND playlistId=" + playlist.getPlaylistID() + ";";
         String sql = "DELETE FROM PlaylistSong WHERE playlistId = "
                 + playlist.getPlaylistID() + "and songId = " + song.getSongID() + ";";
         try (Connection con = dbConnect.getConnection())
         {
             Statement Statement = con.createStatement();
-            
-            Statement.executeQuery(sql+sql2);
+
+            Statement.executeQuery(sql + sql2);
 
         } catch (SQLException ex)
         {
@@ -221,7 +223,7 @@ public class PlaylistDAO
 
     public Song getNextSongOnPlaylist(Playlist playlist, Song curSong) throws SQLException
     {
-        String sql1 = "SELECT * FROM PlaylistSong WHERE songId = " 
+        String sql1 = "SELECT * FROM PlaylistSong WHERE songId = "
                 + curSong.getSongID() + " and playlistId = " + playlist.getPlaylistID() + ";";
         int trackNumber = -1;
         try (Connection con = dbConnect.getConnection())
@@ -256,11 +258,11 @@ public class PlaylistDAO
         }
         return null;
     }
-    
+
     public Integer getSongOnPlaylistTackNumber(Playlist playlist, Song song) throws SQLException
     {
         String sql = "SELECT * FROM PlaylistSong WHERE playlistId = "
-                + playlist.getPlaylistID()+" and songId = "+ song.getSongID() +";";
+                + playlist.getPlaylistID() + " and songId = " + song.getSongID() + ";";
         try (Connection con = dbConnect.getConnection())
         {
             Statement statement = con.createStatement();
@@ -272,5 +274,21 @@ public class PlaylistDAO
             }
         }
         return null;
+    }
+
+    public void editPlaylist(String newName, Playlist playlist) throws SQLServerException
+    {
+        String sql = "UPDATE Playlist SET [name] = '" + newName + "' WHERE id=" + playlist.getPlaylistID() + ";";
+
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            statement.execute(sql);
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

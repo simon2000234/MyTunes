@@ -6,11 +6,16 @@
 package mytunes.gui;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -19,9 +24,11 @@ import javafx.scene.control.TextField;
  */
 public class EditPlayListController implements Initializable
 {
-
+ private MyTunesModel model;
     @FXML
     private TextField txtchangeplaylistname;
+    @FXML
+    private Button BTNcn;
 
     /**
      * Initializes the controller class.
@@ -32,9 +39,16 @@ public class EditPlayListController implements Initializable
         // TODO
     }    
 
-    @FXML
-    private void handlechangeplaylistname(ActionEvent event)
+     @FXML
+    private void btncn(ActionEvent event) throws SQLException
     {
+     model.editPlaylist(txtchangeplaylistname.getText(), model.getSelectedPlaylist());
+
     }
+    void setModel(MyTunesModel model)
+    {
+        this.model = model;
+    }
+
     
 }
