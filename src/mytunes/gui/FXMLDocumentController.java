@@ -137,7 +137,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleplaylistedit(ActionEvent event)
     {
-Parent root;
+        Parent root;
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mytunes/gui/EditPlayList.fxml"));
@@ -214,11 +214,27 @@ Parent root;
     @FXML
     private void handlesopmoveup(ActionEvent event)
     {
+        try
+        {
+            model.ChangePlaylistOrder(-1, plview.getSelectionModel().getSelectedItem(), model.getSelectedSong());
+            sopview.setItems(model.updateSopview());
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void handlesopmovedown(ActionEvent event)
     {
+        try
+        {
+            model.ChangePlaylistOrder(+1, plview.getSelectionModel().getSelectedItem(), model.getSelectedSong());
+            sopview.setItems(model.updateSopview());
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -323,7 +339,7 @@ Parent root;
             headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
             model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
             model.setSelectedSong(new Song(-1, "empty", null, 0, null, null));
-            
+
         } else
         {
             model.PausePlaySong();

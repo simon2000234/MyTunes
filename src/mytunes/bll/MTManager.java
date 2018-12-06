@@ -249,5 +249,11 @@ public class MTManager
                      curVol = mediaPlayer.getVolume();
         });
    }
+   
+    public void ChangePlaylistOrder(Integer spotsOfMomvement, Playlist playlist, Song song) throws SQLException
+    {
+        pldao.ChangePlaylistOrder(spotsOfMomvement, playlist, song);
+    }
+
 
 }
