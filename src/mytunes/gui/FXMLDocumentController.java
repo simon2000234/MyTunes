@@ -5,6 +5,7 @@
  */
 package mytunes.gui;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -43,11 +44,11 @@ import mytunes.dal.SongDAO;
  */
 public class FXMLDocumentController implements Initializable
 {
-
+    
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private MyTunesModel model;
-
+    
     private boolean isPaused;
     @FXML
     private Label headlinelbl;
@@ -71,7 +72,7 @@ public class FXMLDocumentController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-
+        
         try
         {
             this.model = new MyTunesModel();
@@ -93,7 +94,7 @@ public class FXMLDocumentController implements Initializable
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         songsview.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -114,26 +115,27 @@ public class FXMLDocumentController implements Initializable
                 System.out.println("" + model.getListviewtest());
             }
         });
-
+        headlinelbl.textProperty().bind(model.getCurPlaySongString());        
+        
     }
-
+    
     @FXML
-
+    
     private void filtersearch(ActionEvent event)
     {
         String searchWord = filtertxt.getText();
-
+        
         try
         {
             songsview.setItems(model.getFoundedSong(searchWord));
-
+            
         } catch (SQLException ex)
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     @FXML
     private void handleplaylistedit(ActionEvent event)
     {
@@ -146,7 +148,7 @@ public class FXMLDocumentController implements Initializable
             stage.setTitle("Edit Playlist");
             stage.setScene(new Scene(root, 400, 300));
             stage.show();
-
+            
             EditPlayListController editPlayListController = loader.getController();
             editPlayListController.setModel(model);
         } catch (IOException ex)
@@ -154,7 +156,7 @@ public class FXMLDocumentController implements Initializable
             //nothing
         }
     }
-
+    
     @FXML
     private void handleplaylistnew(ActionEvent event)
     {
@@ -167,7 +169,7 @@ public class FXMLDocumentController implements Initializable
             stage.setTitle("Create Playlist");
             stage.setScene(new Scene(root, 400, 300));
             stage.show();
-
+            
             CreatePlayListController CreatePlayListController = loader.getController();
             CreatePlayListController.setModel(model);
         } catch (IOException ex)
@@ -175,7 +177,7 @@ public class FXMLDocumentController implements Initializable
             //nothing
         }
     }
-
+    
     @FXML
     private void handleaddtoplaylist(ActionEvent event)
     {
@@ -188,6 +190,21 @@ public class FXMLDocumentController implements Initializable
             //nothing
         }
     }
+    
+    public void WhenSongDone(Song curSong, Playlist curPlaylist)
+    {
+        model.getMediaPlayer().setOnEndOfMedia(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                model.playNextSong(curSong, curPlaylist);
+                WhenSongDone(model.getCurPlaySong(), model.getSelectedPlaylist());
+                model.getCurPlaySongString().setValue(model.getCurPlaySong().getTitle());
+                
+            }
+        });
+    }
 
     @FXML
     private void handleplaylistdelete(ActionEvent event)
@@ -198,7 +215,7 @@ public class FXMLDocumentController implements Initializable
         confirmPLDelete.setTitle("Delete playlist");
         confirmPLDelete.setHeaderText("Are you sure?");
         confirmPLDelete.showAndWait();
-
+        
         if (confirmPLDelete.getResult() == ButtonType.YES)
         {
             try
@@ -210,7 +227,7 @@ public class FXMLDocumentController implements Initializable
             }
         }
     }
-
+    
     @FXML
     private void handlesopmoveup(ActionEvent event)
     {
@@ -223,7 +240,7 @@ public class FXMLDocumentController implements Initializable
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @FXML
     private void handlesopmovedown(ActionEvent event)
     {
@@ -236,7 +253,7 @@ public class FXMLDocumentController implements Initializable
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @FXML
     private void handlesopdelete(ActionEvent event) throws SQLException
     {
@@ -249,7 +266,7 @@ public class FXMLDocumentController implements Initializable
         confirmSOPDelete.showAndWait();
         if (confirmSOPDelete.getResult() == ButtonType.YES)
         {
-
+            
             model.removeSong(model.getSelectedPlaylist(), model.getSelectedSong());
             try
             {
@@ -260,13 +277,13 @@ public class FXMLDocumentController implements Initializable
             }
         }
     }
-
+    
     @FXML
     private void handleclose(ActionEvent event)
     {
         System.exit(0);
     }
-
+    
     @FXML
     private void handlesongsdelete(ActionEvent event)
     {
@@ -274,15 +291,15 @@ public class FXMLDocumentController implements Initializable
         confirmDelete.setTitle("Delete Song");
         confirmDelete.setHeaderText("Are you sure?");
         confirmDelete.showAndWait();
-
+        
         if (confirmDelete.getResult() == ButtonType.YES)
         {
             Song ds = songsview.getSelectionModel().getSelectedItem();
             model.deleteSong(ds);
-
+            
         }
     }
-
+    
     @FXML
     private void handlesongsedit(ActionEvent event)
     {
@@ -295,7 +312,7 @@ public class FXMLDocumentController implements Initializable
             stage.setTitle("Edit song");
             stage.setScene(new Scene(root, 400, 300));
             stage.show();
-
+            
             EditSongWindowController editSongWindowController = loader.getController();
             model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
             editSongWindowController.setModel(model);
@@ -304,7 +321,7 @@ public class FXMLDocumentController implements Initializable
             //nothing
         }
     }
-
+    
     @FXML
     private void handlesongsnew(ActionEvent event)
     {
@@ -317,16 +334,16 @@ public class FXMLDocumentController implements Initializable
             stage.setTitle("Add a new song");
             stage.setScene(new Scene(root, 400, 300));
             stage.show();
-
+            
             CreateSongWindowController createSongWindowController = loader.getController();
             createSongWindowController.setModel(model);
-
+            
         } catch (IOException ex)
         {
             ex.printStackTrace();
         }
     }
-
+    
     @FXML
     private void handlePlaySong(ActionEvent event) throws SQLException
     {
@@ -336,40 +353,41 @@ public class FXMLDocumentController implements Initializable
             model.StopSong();
             model.PlaySong();
             isPaused = true;
-            headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
-            model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
+            //headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
+            //model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
+            WhenSongDone(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
             model.setSelectedSong(new Song(-1, "empty", null, 0, null, null));
-
+            
         } else
         {
             model.PausePlaySong();
             if (isPaused)
             {
-                headlinelbl.setText("Currently playing: " + model.getCurPlaySong().getTitle() + "(Paused)");
+                //headlinelbl.setText("Currently playing: " + model.getCurPlaySong().getTitle() + "(Paused)");
                 isPaused = false;
             } else
             {
-                headlinelbl.setText("Currently playing: " + model.getCurPlaySong().getTitle());
+                //headlinelbl.setText("Currently playing: " + model.getCurPlaySong().getTitle());
                 isPaused = true;
             }
         }
     }
-
+    
     @FXML
     private void handleFiltertxtSearch(ActionEvent event)
     {
         String searchWord = filtertxt.getText();
-
+        
         try
         {
             songsview.setItems(model.getFoundedSong(searchWord));
-
+            
         } catch (SQLException ex)
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @FXML
     private void handleClickOnPlaylist(MouseEvent event)
     {
@@ -383,5 +401,5 @@ public class FXMLDocumentController implements Initializable
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 }

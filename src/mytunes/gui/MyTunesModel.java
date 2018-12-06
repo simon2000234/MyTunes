@@ -7,6 +7,9 @@ package mytunes.gui;
 
 import java.sql.SQLException;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.StringPropertyBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Slider;
@@ -28,7 +31,7 @@ public class MyTunesModel
     private Song selectedSong; //Contains the last selected song
     private Playlist selectedPlaylist; //Contains the last selected playlist
     private String listviewtest;
-    
+    private SimpleStringProperty curPlaySongString;
     private ObservableList<Playlist> playlists;
 
     /**
@@ -43,6 +46,11 @@ public class MyTunesModel
     public Slider getVolumeSlider()
     {
         return mtm.getVolumeSlider();
+    }
+
+    public SimpleStringProperty getCurPlaySongString()
+    {
+        return curPlaySongString;
     }
     
     public void setVolumeSlider(Slider volumeSlider)
@@ -87,6 +95,8 @@ public class MyTunesModel
         this.playlists = FXCollections.observableArrayList();
         playlists.addAll(mtm.getAllPlaylists());
         this.songsOnPlayList = FXCollections.observableArrayList();
+        curPlaySongString = new SimpleStringProperty();
+        curPlaySongString.set("");
         
     }
 
@@ -106,6 +116,7 @@ public class MyTunesModel
     public void PlaySong()
     {
         mtm.PlaySong(selectedSong);
+        curPlaySongString.setValue(selectedSong.getTitle());
     }
 
     /**
@@ -314,6 +325,12 @@ public class MyTunesModel
     public void playNextSong(Song curSong, Playlist curPlaylist)
     {
         mtm.playNextSong(curPlaylist, curSong);
+        curPlaySongString.setValue(curSong.getTitle());
+    }
+    
+    public MediaPlayer getMediaPlayer()
+    {
+        return mtm.getMediaPlayer();
     }
     
     public String getListviewtest()
