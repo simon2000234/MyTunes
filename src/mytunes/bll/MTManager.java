@@ -28,8 +28,8 @@ import mytunes.dal.SongDAO;
  */
 public class MTManager
 {
-    
-    private  double curVol = 0.5;
+
+    private double curVol = 0.5;
     private MediaPlayer mediaPlayer;
     private Slider volumeSlider;
     private Song song;
@@ -122,7 +122,7 @@ public class MTManager
      */
     public void PlaySong(Song s)
     {
-        
+
         String bip = s.getFilePath();
         Media hit = new Media(new File(bip).toURI().toString());
         mediaPlayer = new MediaPlayer(hit);
@@ -130,7 +130,7 @@ public class MTManager
         isSongPlaying = true;
         curPlaySong = s;
         volumeSlider();
-        
+
     }
 
     public Song getCurPlaySong()
@@ -163,10 +163,10 @@ public class MTManager
 
         }
     }
-    
-    public void editPlaylist (String name, Playlist playlist) throws SQLException
+
+    public void editPlaylist(String name, Playlist playlist) throws SQLException
     {
-         pldao.editPlaylist(name, playlist);
+        pldao.editPlaylist(name, playlist);
     }
 
     public Playlist createPlaylist(String name) throws SQLException
@@ -213,41 +213,45 @@ public class MTManager
 
     public void playNextSong(Playlist curPlaylist, Song curSong)
     {
-        mediaPlayer.setOnEndOfMedia(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Song nextSong;
-                try
-                {
-                    nextSong = pldao.getNextSongOnPlaylist(curPlaylist, curSong);
-                    String bip = nextSong.getFilePath();
-                    Media hit = new Media(new File(bip).toURI().toString());
-                    mediaPlayer = new MediaPlayer(hit);
-                    volumeSlider();
-                    mediaPlayer.play();
-                    curPlaySong = nextSong;
-                    playNextSong(curPlaylist, nextSong);
-                } catch (SQLException ex)
-                {
-                    Logger.getLogger(MTManager.class.getName()).log(Level.SEVERE, null, ex);
-                }
 
-            }
-        });
+        Song nextSong;
+        try
+        {
+            nextSong = pldao.getNextSongOnPlaylist(curPlaylist, curSong);
+            String bip = nextSong.getFilePath();
+            Media hit = new Media(new File(bip).toURI().toString());
+            mediaPlayer = new MediaPlayer(hit);
+            volumeSlider();
+            mediaPlayer.play();
+            curPlaySong = nextSong;
+
+           // playNextSong(curPlaylist, nextSong);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MTManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-   public void volumeSlider()
-   {
-      
+    public void volumeSlider()
+    {
+
         mediaPlayer.setVolume(curVol);
         volumeSlider.setValue(mediaPlayer.getVolume() * 100);
         volumeSlider.valueProperty().addListener((Observable observable) ->
         {
             mediaPlayer.setVolume(volumeSlider.getValue() / 100);
-                     curVol = mediaPlayer.getVolume();
+            curVol = mediaPlayer.getVolume();
         });
-   }
+    }
+
+    public void ChangePlaylistOrder(Integer spotsOfMomvement, Playlist playlist, Song song) throws SQLException
+    {
+        pldao.ChangePlaylistOrder(spotsOfMomvement, playlist, song);
+    }
+
+    public MediaPlayer getMediaPlayer()
+    {
+        return mediaPlayer;
+    }
 
 }

@@ -284,9 +284,42 @@ public class PlaylistDAO
     public void ChangePlaylistOrder(Integer spotsOfMomvement, Playlist playlist, Song song) throws SQLException
     {
         int trackNumber = getSongOnPlaylistTackNumber(playlist, song);
-        String sql = "UPDATE PlaylistSong SET trackNumber = trackNumber "
-                + spotsOfMomvement + "WHERE songId =" + song.getSongID() + ";";
-        String sqlDown = "UPDATE PlaylistSong SET trackNumber = trackNumber +1 WHERE track";
+        String sql = "UPDATE PlaylistSong SET trackNumber = trackNumber +"
+                + spotsOfMomvement + " WHERE songId =" + song.getSongID()
+                + " AND playlistId =" + playlist.getPlaylistID() + ";";
+        String sqlDown = "UPDATE PlaylistSong SET trackNumber = trackNumber -1 "
+                + "WHERE trackNumber =" + (trackNumber +1) + " AND playlistId = " + playlist.getPlaylistID() + ";";
+        String sqlUp = "UPDATE PlaylistSong SET trackNumber = trackNumber +1 "
+                + "WHERE trackNumber =" + (trackNumber -1) + " AND playlistId = " + playlist.getPlaylistID() + ";";
+        try (Connection con = dbConnect.getConnection())
+        {
+            Statement statement = con.createStatement();
+            if (spotsOfMomvement == -1)
+            {
+                if (trackNumber -1 == 0)
+                {
+                    System.out.println("fuck off");
+                }
+                else
+                {
+                statement.execute(sqlUp + sql);
+                }
+            } else if (spotsOfMomvement == +1)
+            {
+                if(trackNumber + 1 > getAllSongsOnPlaylist(playlist).size())
+                {
+                    System.out.println("fuck off");
+                }
+                else
+                {
+                    statement.execute(sqlDown + sql);
+                }
+            } else
+            {
+                System.out.println("fuck off");
+            }
+
+        }
     }
 
     public void editPlaylist(String newName, Playlist playlist) throws SQLServerException

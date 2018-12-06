@@ -7,6 +7,9 @@ package mytunes.gui;
 
 import java.sql.SQLException;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.StringPropertyBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Slider;
@@ -21,14 +24,14 @@ import mytunes.bll.MTManager;
  */
 public class MyTunesModel
 {
-
+    
     private MTManager mtm;
     private ObservableList<Song> songs; // List of songs for the main song view
     private ObservableList<Song> songsOnPlayList;
     private Song selectedSong; //Contains the last selected song
     private Playlist selectedPlaylist; //Contains the last selected playlist
     private String listviewtest;
-
+    private SimpleStringProperty curPlaySongString;
     private ObservableList<Playlist> playlists;
 
     /**
@@ -39,11 +42,17 @@ public class MyTunesModel
     {
         return selectedPlaylist;
     }
+
     public Slider getVolumeSlider()
     {
         return mtm.getVolumeSlider();
     }
 
+    public SimpleStringProperty getCurPlaySongString()
+    {
+        return curPlaySongString;
+    }
+    
     public void setVolumeSlider(Slider volumeSlider)
     {
         mtm.setVolumeSlider(volumeSlider);
@@ -77,7 +86,7 @@ public class MyTunesModel
     {
         this.selectedSong = selectedSong;
     }
-
+    
     public MyTunesModel() throws SQLException
     {
         this.mtm = new MTManager();
@@ -86,7 +95,9 @@ public class MyTunesModel
         this.playlists = FXCollections.observableArrayList();
         playlists.addAll(mtm.getAllPlaylists());
         this.songsOnPlayList = FXCollections.observableArrayList();
-
+        curPlaySongString = new SimpleStringProperty();
+        curPlaySongString.set("");
+        
     }
 
     /**
@@ -105,6 +116,7 @@ public class MyTunesModel
     public void PlaySong()
     {
         mtm.PlaySong(selectedSong);
+        curPlaySongString.setValue(selectedSong.getTitle());
     }
 
     /**
@@ -160,7 +172,7 @@ public class MyTunesModel
         mtm.updateSong(updatedSong);
         songs.remove(oldSong);
         songs.add(updatedSong);
-
+        
     }
 
     /**
@@ -204,7 +216,6 @@ public class MyTunesModel
         playlists.add(playlist);
         return playlist;
     }
-  
 
     /**
      * Adds the given song to the given playlist
@@ -239,7 +250,7 @@ public class MyTunesModel
     public void removeSong(Playlist playlist, Song song) throws SQLException
     {
         mtm.removeSong(playlist, song);
-
+        
     }
 
     /**
@@ -264,10 +275,11 @@ public class MyTunesModel
     {
         return mtm.getPlaylist(playlistId);
     }
-
-     
+    
+    
     {
     }
+
     /**
      * Gets the songs on the given playlist
      *
@@ -306,27 +318,38 @@ public class MyTunesModel
         ObservableList<Song> updatedsopview;
         updatedsopview = FXCollections.observableArrayList();
         updatedsopview.addAll(getAllSongsOnPlaylist(selectedPlaylist));
-
+        
         return updatedsopview;
     }
-
     
     public void playNextSong(Song curSong, Playlist curPlaylist)
     {
         mtm.playNextSong(curPlaylist, curSong);
+        curPlaySongString.setValue(curSong.getTitle());
     }
-
+    
+    public MediaPlayer getMediaPlayer()
+    {
+        return mtm.getMediaPlayer();
+    }
+    
     public String getListviewtest()
     {
         return listviewtest;
     }
-
+    
     public void setListviewtest(String teststring)
     {
         this.listviewtest = teststring;
     }
-  public void editPlaylist (String name, Playlist playlist ) throws SQLException
-  {
-      mtm.editPlaylist(name, playlist);
-  }
+
+    public void editPlaylist(String name, Playlist playlist) throws SQLException
+    {
+        mtm.editPlaylist(name, playlist);
+    }
+    
+    public void ChangePlaylistOrder(Integer spotsOfMomvement, Playlist playlist, Song song) throws SQLException
+    {
+        mtm.ChangePlaylistOrder(spotsOfMomvement, playlist, song);
+    }
 }

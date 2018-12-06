@@ -24,7 +24,8 @@ import javafx.stage.Stage;
  */
 public class EditPlayListController implements Initializable
 {
- private MyTunesModel model;
+
+    private MyTunesModel model;
     @FXML
     private TextField txtchangeplaylistname;
     @FXML
@@ -37,18 +38,21 @@ public class EditPlayListController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
+    }
 
-     @FXML
+    @FXML
     private void btncn(ActionEvent event) throws SQLException
     {
-     model.editPlaylist(txtchangeplaylistname.getText(), model.getSelectedPlaylist());
+        model.editPlaylist(txtchangeplaylistname.getText(), model.getSelectedPlaylist());
+        Stage stage = (Stage) BTNcn.getScene().getWindow();
+        model.getAllPlaylists();
+        stage.close();
 
     }
+
     void setModel(MyTunesModel model)
     {
         this.model = model;
     }
 
-    
 }
