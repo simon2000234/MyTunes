@@ -7,6 +7,8 @@ package mytunes.gui;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.StringPropertyBase;
@@ -156,8 +158,15 @@ public class MyTunesModel
      */
     public void createSong(String title, String artist, int time, String category, String filePath)
     {
-        Song newsong = mtm.CreateSong(title, artist, time, category, filePath);
-        songs.add(newsong);
+        try
+        {
+            Song newsong = mtm.CreateSong(title, artist, time, category, filePath);
+            songs.add(newsong);
+            addSongToPlaylist(newsong, new Playlist(41, "hiddenPL"));
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MyTunesModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -172,7 +181,7 @@ public class MyTunesModel
         mtm.updateSong(updatedSong);
         songs.remove(oldSong);
         songs.add(updatedSong);
-        
+                
     }
 
     /**
@@ -184,6 +193,13 @@ public class MyTunesModel
     {
         songs.remove(ds);
         mtm.DeleteSong(ds);
+        try
+        {
+            removeSong(new Playlist(41, "hiddenPL"), ds);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MyTunesModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

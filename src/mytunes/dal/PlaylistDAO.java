@@ -34,6 +34,7 @@ public class PlaylistDAO
 
     /**
      * creates a playlist
+     *
      * @param name the name of the playlist
      * @return the created playlist
      * @throws SQLException
@@ -62,12 +63,12 @@ public class PlaylistDAO
         }
     }
 
-    
     /**
      * adds a song to the playlist
+     *
      * @param song the song that you wish to add
      * @param playlist the playlist that you wish to add the specified song to
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void addSongToPlaylist(Song song, Playlist playlist) throws SQLException
     {
@@ -95,10 +96,11 @@ public class PlaylistDAO
     }
 
     /**
-     * Gets all the songs on a specified playlist 
+     * Gets all the songs on a specified playlist
+     *
      * @param playlist the playlist that you wish to get all the songs on
      * @return an Arraylist of all the songs on the specified playlist
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Song> getAllSongsOnPlaylist(Playlist playlist) throws SQLException
     {
@@ -127,9 +129,10 @@ public class PlaylistDAO
 
     /**
      * Removes a song from a playlist
+     *
      * @param playlist the playlist from where you wish to remove the song
      * @param song the song that you wish to remove from the specified playlist
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void removeSong(Playlist playlist, Song song) throws SQLException
     {
@@ -152,6 +155,7 @@ public class PlaylistDAO
 
     /**
      * Gets all playlists
+     *
      * @return an Arraylist of all the playlists that have been created
      * @throws SQLException
      */
@@ -167,16 +171,21 @@ public class PlaylistDAO
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 Playlist playlist = new Playlist(id, name);
+                if (id != 41)
+                {
                 allPlaylists.add(playlist);
+                }
             }
             return allPlaylists;
         }
     }
-/**
- * Deletes the songs from a playlist and the playlist from the database
- * @param id the id of the playlist that you want to delete
- * @throws SQLException 
- */
+
+    /**
+     * Deletes the songs from a playlist and the playlist from the database
+     *
+     * @param id the id of the playlist that you want to delete
+     * @throws SQLException
+     */
     public void deletePlayList(int id) throws SQLException
     {
         try (Connection con = dbConnect.getConnection())
@@ -194,9 +203,10 @@ public class PlaylistDAO
 
     /**
      * Finds a playlist
+     *
      * @param playlistId the id needed to find the playlist
      * @return a playlist if a valid one can be found
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Playlist getPlaylist(int playlistId) throws SQLException
     {
@@ -218,10 +228,11 @@ public class PlaylistDAO
 
     /**
      * Gets all the track numbers of songs on a specified playlist
-     * @param playlist the playlist from where you wish to get 
-     * all the tracknumbers
-     * @return an Arraylist of all the track numbers 
-     * on the songs of the playlist
+     *
+     * @param playlist the playlist from where you wish to get all the
+     * tracknumbers
+     * @return an Arraylist of all the track numbers on the songs of the
+     * playlist
      * @throws SQLException
      */
     public ArrayList<Integer> getTrackNumbers(Playlist playlist) throws SQLException
@@ -245,10 +256,11 @@ public class PlaylistDAO
     }
 
     /**
-     * Generates a track number so that no two songs on a playlist 
-     * have the same track number
-     * @param playlist the playlist from where you wish to get 
-     * a new track number for a new song
+     * Generates a track number so that no two songs on a playlist have the same
+     * track number
+     *
+     * @param playlist the playlist from where you wish to get a new track
+     * number for a new song
      * @return the new and unique track number
      * @throws SQLException
      */
@@ -270,12 +282,13 @@ public class PlaylistDAO
     }
 
     /**
-     * Gets the next song that is going the play when 
-     * the current song has ended on the playlist
+     * Gets the next song that is going the play when the current song has ended
+     * on the playlist
+     *
      * @param playlist the playlist that you are currently listening to
      * @param curSong the song that is currently playing on the playlist
-     * @return the next song that is going to be played,
-     * if a valid one can be found
+     * @return the next song that is going to be played, if a valid one can be
+     * found
      * @throws SQLException
      */
     public Song getNextSongOnPlaylist(Playlist playlist, Song curSong) throws SQLException
@@ -318,9 +331,10 @@ public class PlaylistDAO
 
     /**
      * Gets the track number of a song on a playlist
+     *
      * @param playlist the playlist that the song is on
-     * @param song the song on the playlist 
-     * that you wish to get the track number of
+     * @param song the song on the playlist that you wish to get the track
+     * number of
      * @return the track number if the song exists on the playlist
      * @throws SQLException
      */
@@ -342,8 +356,9 @@ public class PlaylistDAO
     }
 
     /**
-     * Changes the order in which the playlist plays its songs,
-     * it does this by changing the track numbers
+     * Changes the order in which the playlist plays its songs, it does this by
+     * changing the track numbers
+     *
      * @param spotsOfMomvement how much the song should move up or down the
      * playlist, should only move up or down by one spot at a time
      * @param playlist the playlist on which you wish to change the order
@@ -356,29 +371,27 @@ public class PlaylistDAO
                 + spotsOfMomvement + " WHERE songId =" + song.getSongID()
                 + " AND playlistId =" + playlist.getPlaylistID() + ";";
         String sqlDown = "UPDATE PlaylistSong SET trackNumber = trackNumber -1 "
-                + "WHERE trackNumber =" + (trackNumber +1) + " AND playlistId = " + playlist.getPlaylistID() + ";";
+                + "WHERE trackNumber =" + (trackNumber + 1) + " AND playlistId = " + playlist.getPlaylistID() + ";";
         String sqlUp = "UPDATE PlaylistSong SET trackNumber = trackNumber +1 "
-                + "WHERE trackNumber =" + (trackNumber -1) + " AND playlistId = " + playlist.getPlaylistID() + ";";
+                + "WHERE trackNumber =" + (trackNumber - 1) + " AND playlistId = " + playlist.getPlaylistID() + ";";
         try (Connection con = dbConnect.getConnection())
         {
             Statement statement = con.createStatement();
             if (spotsOfMomvement == -1)
             {
-                if (trackNumber -1 == 0)
+                if (trackNumber - 1 == 0)
                 {
                     System.out.println("cant go op more");
-                }
-                else
+                } else
                 {
-                statement.execute(sqlUp + sql);
+                    statement.execute(sqlUp + sql);
                 }
             } else if (spotsOfMomvement == +1)
             {
-                if(trackNumber + 1 > getAllSongsOnPlaylist(playlist).size())
+                if (trackNumber + 1 > getAllSongsOnPlaylist(playlist).size())
                 {
                     System.out.println("cant go down more");
-                }
-                else
+                } else
                 {
                     statement.execute(sqlDown + sql);
                 }
@@ -392,6 +405,7 @@ public class PlaylistDAO
 
     /**
      * Lets you change the name of a playlist
+     *
      * @param newName the new name of the playlist
      * @param playlist the playlist the that you wish to change the name of
      * @throws SQLServerException
