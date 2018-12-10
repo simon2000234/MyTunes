@@ -41,7 +41,10 @@ public class CreatePlayListController implements Initializable
     {
         // TODO
     }
-
+/**
+ * creates a playlist
+ * @param event 
+ */
     @FXML
     private void CreatPlayList(ActionEvent event)
     {
