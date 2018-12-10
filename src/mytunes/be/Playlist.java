@@ -33,7 +33,7 @@ public class Playlist
     }
 
     /**
-     * Laver en ID for mig når jeg siger det
+     * Sets the id of the playlist
      * @param playlistID 
      */
     public void setPlaylistID(int playlistID)

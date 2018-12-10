@@ -176,10 +176,9 @@ public class MyTunesModel
     }
 
     /**
-     * Removes a song from the main songview and removes the same song in the
-     * database
-     *
-     * @param ds
+     * Deletes a song from the database with the given parameter's songID
+     * and removes it from the observable list
+     * @param ds the song that you want to delete
      */
     public void deleteSong(Song ds)
     {

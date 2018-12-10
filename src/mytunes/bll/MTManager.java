@@ -40,16 +40,19 @@ public class MTManager
 
     /**
      * Gets the volume value for the volumeSlider
-     * @return 
+     *
+     * @return
      */
     public Slider getVolumeSlider()
     {
         return volumeSlider;
     }
-/**
- * Sets the volumevalue for the volume slider
- * @param volumeSlider 
- */
+
+    /**
+     * Sets the volumevalue for the volume slider
+     *
+     * @param volumeSlider
+     */
     public void setVolumeSlider(Slider volumeSlider)
     {
         this.volumeSlider = volumeSlider;
@@ -75,9 +78,7 @@ public class MTManager
     }
 
     /**
-     * delete a given songe from the database s stand for song
-     *
-     * @param song
+     * Uses the method from the dal layer
      */
     public void DeleteSong(Song s)
     {
@@ -85,9 +86,7 @@ public class MTManager
     }
 
     /**
-     * s stand for song this method update a song
-     *Updates the songs
-     * @param s
+     * Uses the method from the dal layer
      */
     public void updateSong(Song s)
     {
@@ -171,31 +170,49 @@ public class MTManager
         }
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public void editPlaylist(String name, Playlist playlist) throws SQLException
     {
         pldao.editPlaylist(name, playlist);
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public Playlist createPlaylist(String name) throws SQLException
     {
         return pldao.createPlaylist(name);
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public void addSongToPlaylist(Song song, Playlist playlist) throws SQLException
     {
         pldao.addSongToPlaylist(song, playlist);
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public List<Song> getAllSongsOnPlaylist(Playlist playlist) throws SQLException
     {
         return pldao.getAllSongsOnPlaylist(playlist);
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public void removeSong(Playlist playlist, Song song) throws SQLException
     {
         pldao.removeSong(playlist, song);
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public List<Playlist> getAllPlaylists() throws SQLException
     {
         return pldao.getAllPlaylists();
@@ -207,17 +224,28 @@ public class MTManager
         return foundedSong;
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public void deletePlayList(int id) throws SQLException
     {
         pldao.deletePlayList(id);
 
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public Playlist getPlaylist(int playlistId) throws SQLException
     {
         return pldao.getPlaylist(playlistId);
     }
 
+    /**
+     * Plays a song when the current song ends
+     * @param curPlaylist the playlist that you are useing
+     * @param curSong the song that is currently playing
+     */
     public void playNextSong(Playlist curPlaylist, Song curSong)
     {
 
@@ -232,15 +260,17 @@ public class MTManager
             mediaPlayer.play();
             curPlaySong = nextSong;
 
-           // playNextSong(curPlaylist, nextSong);
+            // playNextSong(curPlaylist, nextSong);
         } catch (SQLException ex)
         {
             Logger.getLogger(MTManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-/**
- * sets the value for the volume and makes the volumeslider able to turn up and down the volume
- */
+
+    /**
+     * sets the value for the volume and makes the volumeslider able to turn up
+     * and down the volume
+     */
     public void volumeSlider()
     {
 
@@ -253,6 +283,9 @@ public class MTManager
         });
     }
 
+    /**
+     * Uses the method from the dal layer
+     */
     public void ChangePlaylistOrder(Integer spotsOfMomvement, Playlist playlist, Song song) throws SQLException
     {
         pldao.ChangePlaylistOrder(spotsOfMomvement, playlist, song);
