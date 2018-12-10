@@ -32,8 +32,8 @@ public class mp3toDB {
 
     /**
      * pushes the information from the mp3 song to the table in our database
-     * @param file
-     * @return
+     * @param file the mp3 file you wish to add
+     * @return the song added if done successfully
      * @throws IOException
      * @throws UnsupportedTagException
      * @throws InvalidDataException 
