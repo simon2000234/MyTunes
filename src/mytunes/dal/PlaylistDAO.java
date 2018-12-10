@@ -33,7 +33,7 @@ public class PlaylistDAO
     }
 
     /**
-     *
+     * creates a playlist
      * @param name
      * @return
      * @throws SQLException
@@ -62,6 +62,13 @@ public class PlaylistDAO
         }
     }
 
+    
+    /**
+     * adds a song to the playlist
+     * @param song
+     * @param playlist
+     * @throws SQLException 
+     */
     public void addSongToPlaylist(Song song, Playlist playlist) throws SQLException
     {
         List<Song> songs = getAllSongsOnPlaylist(playlist);
@@ -87,6 +94,12 @@ public class PlaylistDAO
         }
     }
 
+    /**
+     * Gets the songs from the database to a playlist
+     * @param playlist
+     * @return
+     * @throws SQLException 
+     */
     public List<Song> getAllSongsOnPlaylist(Playlist playlist) throws SQLException
     {
         List<Song> songs = new ArrayList<>();
@@ -112,6 +125,12 @@ public class PlaylistDAO
         }
     }
 
+    /**
+     * Removes a song
+     * @param playlist
+     * @param song
+     * @throws SQLException 
+     */
     public void removeSong(Playlist playlist, Song song) throws SQLException
     {
         int trackNumber = getSongOnPlaylistTackNumber(playlist, song);
@@ -130,7 +149,11 @@ public class PlaylistDAO
             //nothing
         }
     }
-
+/**
+ * Gets all playlist from the database
+ * @return
+ * @throws SQLException 
+ */
     public List<Playlist> getAllPlaylists() throws SQLException
     {
         List<Playlist> allPlaylists = new ArrayList<>();
@@ -148,7 +171,11 @@ public class PlaylistDAO
             return allPlaylists;
         }
     }
-
+/**
+ * Deletes the songs from a playlist and the playlist from the database
+ * @param id
+ * @throws SQLException 
+ */
     public void deletePlayList(int id) throws SQLException
     {
         try (Connection con = dbConnect.getConnection())
@@ -164,6 +191,12 @@ public class PlaylistDAO
         }
     }
 
+    /**
+     * Gets a playlist
+     * @param playlistId
+     * @return
+     * @throws SQLException 
+     */
     public Playlist getPlaylist(int playlistId) throws SQLException
     {
         try (Connection con = dbConnect.getConnection())
@@ -182,7 +215,7 @@ public class PlaylistDAO
 
     }
 
-    public ArrayList<Integer> getTackNumbers(Playlist playlist) throws SQLException
+    public ArrayList<Integer> getTrackNumbers(Playlist playlist) throws SQLException
     {
         String sql = "SELECT * FROM PlaylistSong WHERE playlistId = " + playlist.getPlaylistID() + ";";
         ArrayList<Integer> trackNumbers = new ArrayList<>();
@@ -204,7 +237,7 @@ public class PlaylistDAO
 
     public Integer getNextTackNumber(Playlist playlist) throws SQLException
     {
-        List<Integer> trackNumbers = getTackNumbers(playlist);
+        List<Integer> trackNumbers = getTrackNumbers(playlist);
         int curNextTN = 1;
         for (int i = 0; i < trackNumbers.size(); i++)
         {
@@ -231,7 +264,7 @@ public class PlaylistDAO
             while (rs.next())
             {
                 trackNumber = rs.getInt("trackNumber");
-                if (trackNumber >= getTackNumbers(playlist).size())
+                if (trackNumber >= getTrackNumbers(playlist).size())
                 {
                     trackNumber = 0;
                 }

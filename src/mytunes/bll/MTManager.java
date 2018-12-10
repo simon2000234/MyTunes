@@ -29,7 +29,7 @@ import mytunes.dal.SongDAO;
 public class MTManager
 {
 
-    private double curVol = 0.5;
+    private double curVol = 0.5; // Giver starts volumen i programmet.
     private MediaPlayer mediaPlayer;
     private Slider volumeSlider;
     private Song song;
@@ -38,11 +38,18 @@ public class MTManager
     private Song curPlaySong;
     private PlaylistDAO pldao = new PlaylistDAO();
 
+    /**
+     * Gets the volume value for the volumeSlider
+     * @return 
+     */
     public Slider getVolumeSlider()
     {
         return volumeSlider;
     }
-
+/**
+ * Sets the volumevalue for the volume slider
+ * @param volumeSlider 
+ */
     public void setVolumeSlider(Slider volumeSlider)
     {
         this.volumeSlider = volumeSlider;
@@ -79,7 +86,7 @@ public class MTManager
 
     /**
      * s stand for song this method update a song
-     *
+     *Updates the songs
      * @param s
      */
     public void updateSong(Song s)
@@ -231,7 +238,9 @@ public class MTManager
             Logger.getLogger(MTManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/**
+ * sets the value for the volume and makes the volumeslider able to turn up and down the volume
+ */
     public void volumeSlider()
     {
 
