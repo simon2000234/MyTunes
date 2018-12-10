@@ -32,6 +32,10 @@ public class Playlist
         return playlistID;
     }
 
+    /**
+     * Laver en ID for mig når jeg siger det
+     * @param playlistID 
+     */
     public void setPlaylistID(int playlistID)
     {
         this.playlistID = playlistID;
