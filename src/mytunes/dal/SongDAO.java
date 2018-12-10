@@ -39,7 +39,7 @@ public class SongDAO
      * @param time of song
      * @param category of song
      * @param filePath of song
-     * @return the created song as object
+     * @return the created song as an object
      * @throws SQLServerException
      */
     public Song createSong(String title, String artist, int time, String category, String filePath) throws SQLServerException
@@ -77,7 +77,7 @@ public class SongDAO
     /**
      * Deletes a song from the database with the given parameter's songID.
      *
-     * @param song
+     * @param song the song that you want to delete
      */
     public void deleteSong(Song song)
     {
@@ -101,7 +101,8 @@ public class SongDAO
      * artist and category. The new title/artist/category are given in the
      * parameter
      *
-     * @param song
+     * @param song the info about the song comes from here,
+     * make sure you give it the same id as the old
      */
     public void updateSong(Song song)
     {
@@ -160,7 +161,7 @@ public class SongDAO
     /**
      * Searches the database for a specific song with the given parameter
      *
-     * @param songID
+     * @param songID the id of the song that you wish to find
      * @return a Song with the given parameter if found
      * @throws SQLException
      */
@@ -198,10 +199,9 @@ public class SongDAO
      *
      * @param searchWord
      * @return an ArrayList of the songs containing the parameter
-     * @throws SQLServerException
      * @throws SQLException
      */
-    public ArrayList<Song> SearchSong(String searchWord) throws SQLServerException, SQLException
+    public ArrayList<Song> SearchSong(String searchWord) throws SQLException
     {
         String sql = "SELECT * FROM Song WHERE title LIKE '%" + searchWord + "%' OR artist LIKE '%" + searchWord + "%'";
         ArrayList<Song> allSongsFounded = new ArrayList<>();
