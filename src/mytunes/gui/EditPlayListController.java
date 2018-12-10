@@ -39,7 +39,11 @@ public class EditPlayListController implements Initializable
     {
         // TODO
     }
-
+/**
+ * this is where we can change the name of a playlist
+ * @param event
+ * @throws SQLException 
+ */
     @FXML
     private void btncn(ActionEvent event) throws SQLException
     {

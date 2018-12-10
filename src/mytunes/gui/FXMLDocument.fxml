@@ -6,31 +6,35 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="709.0" prefWidth="1241.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="674.0" prefWidth="1222.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.FXMLDocumentController">
    <children>
-      <Label layoutX="953.0" layoutY="12.0" text="filter" />
-      <Label fx:id="headlinelbl" layoutX="491.0" layoutY="6.0" text="(none)... is playing" />
-      <Label layoutX="671.0" layoutY="28.0" text="Songs" />
-      <Label layoutX="348.0" layoutY="29.0" text="Songs on playlist" />
-      <Label layoutX="42.0" layoutY="29.0" text="Playlists" />
-      <TextField fx:id="filtertxt" layoutX="984.0" layoutY="8.0" onAction="#handleFiltertxtSearch" />
-      <Button layoutX="1152.0" layoutY="8.0" mnemonicParsing="false" onAction="#filtersearch" text="search" />
-      <ListView fx:id="plview" layoutX="42.0" layoutY="53.0" onMouseClicked="#handleClickOnPlaylist" prefHeight="546.0" prefWidth="285.0" />
-      <ListView fx:id="sopview" layoutX="348.0" layoutY="53.0" prefHeight="546.0" prefWidth="222.0" />
-      <ListView fx:id="songsview" layoutX="671.0" layoutY="53.0" prefHeight="546.0" prefWidth="510.0" />
-      <Button layoutX="103.0" layoutY="641.0" mnemonicParsing="false" onAction="#handleplaylistedit" text="edit...." />
-      <Button layoutX="50.0" layoutY="640.0" mnemonicParsing="false" onAction="#handleplaylistnew" text="new" />
-      <Button layoutX="610.0" layoutY="62.0" mnemonicParsing="false" onAction="#handleaddtoplaylist" text="add" />
-      <Button layoutX="175.0" layoutY="641.0" mnemonicParsing="false" onAction="#handleplaylistdelete" text="Delete" />
-      <Button layoutX="365.0" layoutY="641.0" mnemonicParsing="false" onAction="#handlesopmoveup" text="move up" />
-      <Button layoutX="433.0" layoutY="641.0" mnemonicParsing="false" onAction="#handlesopmovedown" text="move down" />
-      <Button layoutX="515.0" layoutY="641.0" mnemonicParsing="false" onAction="#handlesopdelete" text="delete" />
-      <Button layoutX="1107.0" layoutY="641.0" mnemonicParsing="false" onAction="#handleclose" text="close" />
-      <Button layoutX="834.0" layoutY="640.0" mnemonicParsing="false" onAction="#handlesongsdelete" text="delete" />
-      <Button layoutX="755.0" layoutY="641.0" mnemonicParsing="false" onAction="#handlesongsedit" text="edit" />
-      <Button layoutX="678.0" layoutY="640.0" mnemonicParsing="false" onAction="#handlesongsnew" text="new..." />
-      <Button layoutX="584.0" layoutY="195.0" mnemonicParsing="false" onAction="#handlePlaySong" text="Play/Pause" />
-      <Slider fx:id="volumeSlider" layoutX="185.0" layoutY="16.0" showTickLabels="true" />
+      <Label layoutX="957.0" layoutY="25.0" text="Filter" />
+      <Label fx:id="headlinelbl" layoutX="532.0" layoutY="38.0" text="(none)... is playing">
+         <font>
+            <Font size="27.0" />
+         </font></Label>
+      <Label layoutX="671.0" layoutY="87.0" text="Songs" />
+      <Label layoutX="352.0" layoutY="87.0" text="Songs on playlist" />
+      <Label layoutX="42.0" layoutY="87.0" text="Playlists" />
+      <TextField fx:id="filtertxt" layoutX="992.0" layoutY="21.0" onAction="#handleFiltertxtSearch" />
+      <Button layoutX="1156.0" layoutY="21.0" mnemonicParsing="false" onAction="#filtersearch" text="search" />
+      <ListView fx:id="plview" layoutX="42.0" layoutY="109.0" onMouseClicked="#handleClickOnPlaylist" prefHeight="490.0" prefWidth="285.0" />
+      <ListView fx:id="sopview" layoutX="348.0" layoutY="109.0" prefHeight="490.0" prefWidth="222.0" />
+      <ListView fx:id="songsview" layoutX="671.0" layoutY="109.0" prefHeight="490.0" prefWidth="510.0" />
+      <Button layoutX="141.0" layoutY="620.0" mnemonicParsing="false" onAction="#handleplaylistedit" prefHeight="25.0" prefWidth="63.0" text="edit...." />
+      <Button layoutX="46.0" layoutY="620.0" mnemonicParsing="false" onAction="#handleplaylistnew" prefHeight="25.0" prefWidth="63.0" text="new" />
+      <Button layoutX="602.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleaddtoplaylist" text="add" />
+      <Button layoutX="238.0" layoutY="620.0" mnemonicParsing="false" onAction="#handleplaylistdelete" prefHeight="25.0" prefWidth="63.0" text="Delete" />
+      <Button layoutX="352.0" layoutY="620.0" mnemonicParsing="false" onAction="#handlesopmoveup" text="move up" />
+      <Button layoutX="420.0" layoutY="620.0" mnemonicParsing="false" onAction="#handlesopmovedown" text="move down" />
+      <Button layoutX="508.0" layoutY="620.0" mnemonicParsing="false" onAction="#handlesopdelete" text="delete" />
+      <Button layoutX="1115.0" layoutY="620.0" mnemonicParsing="false" onAction="#handleclose" prefHeight="25.0" prefWidth="63.0" text="close" />
+      <Button layoutX="778.0" layoutY="620.0" mnemonicParsing="false" onAction="#handlesongsdelete" prefHeight="25.0" prefWidth="63.0" text="delete" />
+      <Button layoutX="724.0" layoutY="620.0" mnemonicParsing="false" onAction="#handlesongsedit" prefHeight="25.0" prefWidth="46.0" text="edit" />
+      <Button layoutX="671.0" layoutY="620.0" mnemonicParsing="false" onAction="#handlesongsnew" text="new..." />
+      <Button layoutX="164.0" layoutY="9.0" mnemonicParsing="false" onAction="#handlePlaySong" text="Play/Pause" />
+      <Slider fx:id="volumeSlider" layoutX="131.0" layoutY="46.0" showTickLabels="true" />
    </children>
 </AnchorPane>

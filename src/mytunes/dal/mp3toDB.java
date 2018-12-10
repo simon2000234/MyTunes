@@ -30,6 +30,14 @@ public class mp3toDB {
         dbConnect = new DBConnectionProvider();
     }
 
+    /**
+     * pushes the information from the mp3 song to the table in our database
+     * @param file
+     * @return
+     * @throws IOException
+     * @throws UnsupportedTagException
+     * @throws InvalidDataException 
+     */
     public Song mp3songToDBTable(File file) throws IOException, UnsupportedTagException, InvalidDataException {
 
         String sql = "INSERT INTO Song(title, artist, time, category, filePath) VALUES(?,?,?,?,?);";
