@@ -5,10 +5,7 @@
         <group>
             <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/bll/MTManager.java</file>
             <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/FXMLDocumentController.java</file>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/dal/PlaylistDAO.java</file>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/EditPlayListController.java</file>
             <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/MyTunesModel.java</file>
-            <file>file:/C:/Users/Melchertsen/Documents/GitHub/MyTunes/src/mytunes/gui/CreatePlayListController.java</file>
         </group>
     </open-files>
 </project-private>
