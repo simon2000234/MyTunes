@@ -116,7 +116,7 @@ public class MyTunesModel
     public void PlaySong()
     {
         mtm.PlaySong(selectedSong);
-        curPlaySongString.setValue(selectedSong.getTitle());
+        curPlaySongString.setValue("Currently playing: " + selectedSong.getTitle());
     }
 
     /**
@@ -325,7 +325,7 @@ public class MyTunesModel
     public void playNextSong(Song curSong, Playlist curPlaylist)
     {
         mtm.playNextSong(curPlaylist, curSong);
-        curPlaySongString.setValue(curSong.getTitle());
+        curPlaySongString.setValue("Currently playing: " + curSong.getTitle());
     }
     
     public MediaPlayer getMediaPlayer()
