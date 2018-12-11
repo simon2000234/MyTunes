@@ -291,6 +291,10 @@ public class MTManager
         pldao.ChangePlaylistOrder(spotsOfMomvement, playlist, song);
     }
 
+    /**
+     * Gets the media player
+     * @return the media player
+     */
     public MediaPlayer getMediaPlayer()
     {
         return mediaPlayer;

@@ -32,7 +32,6 @@ public class MyTunesModel
     private ObservableList<Song> songsOnPlayList;
     private Song selectedSong; //Contains the last selected song
     private Playlist selectedPlaylist; //Contains the last selected playlist
-    private String listviewtest;
     private SimpleStringProperty curPlaySongString;
     private ObservableList<Playlist> playlists;
 
@@ -45,16 +44,28 @@ public class MyTunesModel
         return selectedPlaylist;
     }
 
+    /**
+     * Gets the volume slider
+     * @return the volume slider
+     */
     public Slider getVolumeSlider()
     {
         return mtm.getVolumeSlider();
     }
 
+    /**
+     * Gets the currently playing song as a string (its title)
+     * @return the currently playing song as a string (its title)
+     */
     public SimpleStringProperty getCurPlaySongString()
     {
         return curPlaySongString;
     }
     
+    /**
+     * Allows you to set the volume slider
+     * @param volumeSlider the volume slider that you wish to set
+     */
     public void setVolumeSlider(Slider volumeSlider)
     {
         mtm.setVolumeSlider(volumeSlider);
@@ -283,7 +294,7 @@ public class MyTunesModel
      * Returns the playlist with the given playlistId
      *
      * @param playlistId
-     * @return
+     * @return a playis with the id given
      * @throws SQLException
      */
     public Playlist getPlaylist(int playlistId) throws SQLException
@@ -337,32 +348,46 @@ public class MyTunesModel
         return updatedsopview;
     }
     
+    /**
+     * Plays a song when the current song ends
+     * @param curPlaylist the playlist that you are useing
+     * @param curSong the song that is currently playing
+     */
     public void playNextSong(Song curSong, Playlist curPlaylist)
     {
         mtm.playNextSong(curPlaylist, curSong);
         curPlaySongString.setValue("Currently playing: " + curSong.getTitle());
     }
     
+    /**
+     * gets the media player
+     * @return the media player
+     */
     public MediaPlayer getMediaPlayer()
     {
         return mtm.getMediaPlayer();
     }
-    
-    public String getListviewtest()
-    {
-        return listviewtest;
-    }
-    
-    public void setListviewtest(String teststring)
-    {
-        this.listviewtest = teststring;
-    }
 
+    /**
+     * Allows you to edit the name of a playlist
+     * @param name the new name that you want for the playlist
+     * @param playlist the playlist that you wish to edit
+     * @throws SQLException
+     */
     public void editPlaylist(String name, Playlist playlist) throws SQLException
     {
         mtm.editPlaylist(name, playlist);
     }
     
+    /**
+     * Changes the order in which the playlist plays its songs, it does this by
+     * changing the track numbers
+     *
+     * @param spotsOfMomvement how much the song should move up or down the
+     * playlist, should only move up or down by one spot at a time
+     * @param playlist the playlist on which you wish to change the order
+     * @param song the song that you wish to move op or down
+     */
     public void ChangePlaylistOrder(Integer spotsOfMomvement, Playlist playlist, Song song) throws SQLException
     {
         mtm.ChangePlaylistOrder(spotsOfMomvement, playlist, song);

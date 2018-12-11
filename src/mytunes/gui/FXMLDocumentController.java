@@ -102,9 +102,7 @@ public class FXMLDocumentController implements Initializable
             public void handle(MouseEvent event)
             {
                 model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
-                model.setListviewtest("songsview");
                 isLastClickedSongview = true;
-                System.out.println("" + model.getListviewtest());
             }
         });
         sopview.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -113,9 +111,7 @@ public class FXMLDocumentController implements Initializable
             public void handle(MouseEvent event)
             {
                 model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
-                model.setListviewtest("sopview");
                 isLastClickedSongview = false;
-                System.out.println("" + model.getListviewtest());
             }
         });
 
@@ -124,7 +120,6 @@ public class FXMLDocumentController implements Initializable
     }
 
     @FXML
-
     private void filtersearch(ActionEvent event)
     {
         String searchWord = filtertxt.getText();
@@ -357,8 +352,6 @@ public class FXMLDocumentController implements Initializable
             model.StopSong();
             model.PlaySong();
             isPaused = true;
-            //headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
-            //model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
             if (isLastClickedSongview == false)
             {
                 WhenSongDone(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
@@ -412,5 +405,4 @@ public class FXMLDocumentController implements Initializable
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
