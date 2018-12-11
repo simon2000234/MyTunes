@@ -48,6 +48,7 @@ public class FXMLDocumentController implements Initializable
     private Song song;
     private SongDAO SongDAO = new SongDAO();
     private MyTunesModel model;
+    private boolean isLastClickedSongview;
 
     private boolean isPaused;
     @FXML
@@ -101,8 +102,7 @@ public class FXMLDocumentController implements Initializable
             public void handle(MouseEvent event)
             {
                 model.setSelectedSong(songsview.getSelectionModel().getSelectedItem());
-                model.setListviewtest("songsview");
-                System.out.println("" + model.getListviewtest());
+                isLastClickedSongview = true;
             }
         });
         sopview.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -111,16 +111,15 @@ public class FXMLDocumentController implements Initializable
             public void handle(MouseEvent event)
             {
                 model.setSelectedSong(sopview.getSelectionModel().getSelectedItem());
-                model.setListviewtest("sopview");
-                System.out.println("" + model.getListviewtest());
+                isLastClickedSongview = false;
             }
         });
+
         headlinelbl.textProperty().bind(model.getCurPlaySongString());
 
     }
 
     @FXML
-
     private void filtersearch(ActionEvent event)
     {
         String searchWord = filtertxt.getText();
@@ -353,9 +352,13 @@ public class FXMLDocumentController implements Initializable
             model.StopSong();
             model.PlaySong();
             isPaused = true;
-            //headlinelbl.setText("Currently playing: " + model.getSelectedSong().getTitle());
-            //model.playNextSong(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
-            WhenSongDone(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
+            if (isLastClickedSongview == false)
+            {
+                WhenSongDone(model.getCurPlaySong(), plview.getSelectionModel().getSelectedItem());
+            } else if (isLastClickedSongview == true)
+            {
+                WhenSongDone(model.getCurPlaySong(), new Playlist(41, "hiddenPL"));
+            }
             model.setSelectedSong(new Song(-1, "empty", null, 0, null, null));
 
         } else
@@ -396,10 +399,10 @@ public class FXMLDocumentController implements Initializable
             Playlist playlist = plview.getSelectionModel().getSelectedItem();
             sopview.setItems(model.getSongsOnPl(playlist));
             model.setSelectedPlaylist(playlist);
+            isLastClickedSongview = false;
         } catch (SQLException ex)
         {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
