@@ -171,7 +171,7 @@ public class PlaylistDAO
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 Playlist playlist = new Playlist(id, name);
-                if (id != 41)
+                if (id != 41) // 41 is the id of the hidden playlist in the songview
                 {
                 allPlaylists.add(playlist);
                 }

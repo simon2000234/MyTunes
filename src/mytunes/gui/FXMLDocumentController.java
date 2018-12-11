@@ -5,15 +5,12 @@
  */
 package mytunes.gui;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,13 +26,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
-import mytunes.bll.MTManager;
-import mytunes.dal.SongDAO;
 
 /**
  * FXML Controller class
@@ -46,7 +39,6 @@ public class FXMLDocumentController implements Initializable
 {
 
     private Song song;
-    private SongDAO SongDAO = new SongDAO();
     private MyTunesModel model;
     private boolean isLastClickedSongview;
 

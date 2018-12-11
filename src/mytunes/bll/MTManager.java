@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
